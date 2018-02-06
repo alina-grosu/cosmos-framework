@@ -2,7 +2,7 @@ pipeline {
     agent { docker 
     {
 		image 'maven:3.3.3'
-		customWorkspace 'C:/devtools/foq'          
+		customWorkspace 'c:/devtools/foq'          
       }
  }
     stages {
