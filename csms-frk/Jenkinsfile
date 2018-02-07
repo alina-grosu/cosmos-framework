@@ -12,13 +12,14 @@ pipeline {
     }
     post {
         always {
-            allure 	results: [[path: 'csms-frk/allure-results']]            
+            allure 	results: [[path: 'csms-frk/allure-results']]
+            junit 	'csms-frk/target/surefire-reports/*.xml'
             deleteDir()
             
-            mail    subject : "${currentBuild.displayName} - Build # ${currentBuild.number} - ${currentBuild.result}!",
-                	body : "Please see ${currentBuild.absoluteUrl}",
+            mail    subject : "${JOB_NAME} - Build # ${BUILD_NUMBER} - ${currentBuild.result}!",
+                	body : "Please see ${JOB_URL}",
                 	from : 'psavi@projects.softservecom.com',
-                	to : 'psavi@softserveinc.com'                
+                	to : 'psavi@softserveinc.com'
 
         }        
     }
