@@ -6,14 +6,20 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                bat 'mvn -f csms-frk/pom.xml -Dcom.cosmos.grid.hub.url=http://localhost:4444/grid -Dcom.cosmos.driver.browser=chrome -Dcom.cosmos.execution.type=local -Dcom.cosmos.configuration.strategy=env -Dcom.cosmos.driver.executable.location=C:\\devtools\\drivers\\chrome\\2.34\\chromedriver_win32\\chromedriver.exe -Dcom.cosmos.steps.context.scope=feature -Dcom.cosmos.logs.location=C:\\eclipse_workspaces\\cosmos\\csms-frk\\logs clean test'
+                bat 'mvn -f csms-frk/pom.xml -Dcom.cosmos.grid.hub.url=http://localhost:4444/grid -Dcom.cosmos.driver.browser=chrome -Dcom.cosmos.execution.type=local -Dcom.cosmos.configuration.strategy=env -Dcom.cosmos.driver.executable.location=C:\\devtools\\drivers\\chrome\\2.34\\chromedriver_win32\\chromedriver.exe -Dcom.cosmos.steps.context.scope=feature -Dcom.cosmos.logs.location=csms-frk/logs clean test'
             }
         }        
     }
     post {
         always {
-            allure results: [[path: 'csms-frk/allure-results']]
+            allure 	results: [[path: 'csms-frk/allure-results']]            
             deleteDir()
+            
+            mail    subject : "${currentBuild.displayName} - Build # ${currentBuild.number} - ${currentBuild.result}!",
+                	body : "Please see ${currentBuild.absoluteUrl}",
+                	from : 'psavi@projects.softservecom.com',
+                	to : 'psavi@softserveinc.com'                
+
         }        
     }
 }
