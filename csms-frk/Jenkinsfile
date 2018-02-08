@@ -3,6 +3,10 @@ pipeline {
     options { 
     			buildDiscarder(logRotator(numToKeepStr: '10')) 
     		}
+    parameters
+   			{
+    			string(name: 'mailingList', defaultValue: 'psavi@softserveinc.com', description: 'Mailing list')    
+			}
     stages {
         stage('build') {
             steps {
@@ -13,13 +17,12 @@ pipeline {
     post {
         always {
             allure 	results: [[path: 'csms-frk/allure-results']]
-            junit 	'csms-frk/target/surefire-reports/*.xml'
             deleteDir()
-            
+            echo "${params.mailingList}"
             mail    subject : "${JOB_NAME} - Build # ${BUILD_NUMBER} - ${currentBuild.result}!",
                 	body : "Please see ${JOB_URL}",
-                	from : 'psavi@projects.softservecom.com',
-                	to : 'psavi@softserveinc.com'
+                	from : 'medispend_ci@projects.softservecom.com',
+                	to : "${params.mailingList}"
 
         }        
     }
