@@ -20,7 +20,7 @@ pipeline {
             deleteDir()
             echo "Sending notifications to: ${params.mailingList} ..."
             mail    subject : "${JOB_NAME} - Build # ${BUILD_NUMBER} - ${currentBuild.result}!",
-                	body : "Please see ${JOB_URL}",
+                	body : "Please see ${BUILD_URL}",
                 	from : 'medispend_ci@projects.softservecom.com',
                 	to : "${params.mailingList}"
 
