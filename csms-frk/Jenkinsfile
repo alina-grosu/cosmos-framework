@@ -18,7 +18,7 @@ pipeline {
         always {
             allure 	results: [[path: 'csms-frk/allure-results']]
             deleteDir()
-            echo "${params.mailingList}"
+            echo "Sending notifications to: ${params.mailingList} ..."
             mail    subject : "${JOB_NAME} - Build # ${BUILD_NUMBER} - ${currentBuild.result}!",
                 	body : "Please see ${JOB_URL}",
                 	from : 'medispend_ci@projects.softservecom.com',
