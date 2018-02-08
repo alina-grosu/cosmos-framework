@@ -17,6 +17,8 @@ pipeline {
     post {
         always {
             allure 	results: [[path: 'csms-frk/allure-results']]
+            archive "logs/**/*"
+            archive "logs/*"
             deleteDir()
             echo "Sending notifications to: ${params.mailingList} ..."
             mail    subject : "${JOB_NAME} - Build # ${BUILD_NUMBER} - ${currentBuild.result}!",
