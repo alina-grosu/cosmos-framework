@@ -1,6 +1,6 @@
 pipeline {
     //agent 'any'    
-    agent { label 'docker-linux-ssh-agent-1' }
+    agent { label 'linux-ssh-slave-1' }
     options { 
     			buildDiscarder(logRotator(numToKeepStr: '10')) 
     		}
