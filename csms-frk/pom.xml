@@ -7,9 +7,18 @@
 	<packaging>jar</packaging>
 
 	<properties>
+		<!-- compiler -->
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<!-- dependency version -->
 		<aspectj.version>1.8.10</aspectj.version>
+		<cucumber.version>2.3.1</cucumber.version>
+		<junit.version>4.12</junit.version>
+		<selenium.version>3.8.1</selenium.version>
+		<spring.version>4.3.13.RELEASE</spring.version>
+		<commons.version>3.0</commons.version>
+		<log4j.version>2.10.0</log4j.version>
+		<allure.version>2.0-BETA21</allure.version>
 	</properties>
 
 
@@ -18,65 +27,65 @@
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-spring</artifactId>
-			<version>2.3.1</version>
+			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>2.3.1</version>
+			<version>${cucumber.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-junit</artifactId>
-			<version>2.3.1</version>
+			<version>${cucumber.version}</version>
 		</dependency>
 		<!-- junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.version}</version>
 		</dependency>
 		<!-- selenium -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>3.8.1</version>
+			<version>${selenium.version}</version>
 		</dependency>
 		<!-- spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>4.3.13.RELEASE</version>
+			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>4.3.13.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<!-- commons -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.0</version>
+			<version>${commons.version}</version>
 		</dependency>
 		<!-- log4j -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
-			<version>2.10.0</version>
+			<version>${log4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>2.10.0</version>
+			<version>${log4j.version}</version>
 		</dependency>
-		<!-- allure -->		
+		<!-- allure -->
 		<dependency>
 			<groupId>io.qameta.allure</groupId>
 			<artifactId>allure-cucumber2-jvm</artifactId>
-			<version>2.0-BETA21</version>
+			<version>${allure.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -117,7 +126,7 @@
 								</property> -->
 						</systemProperties>
 					</configuration>
-					<dependencies>						
+					<dependencies>
 						<dependency>
 							<groupId>org.aspectj</groupId>
 							<artifactId>aspectjweaver</artifactId>
@@ -125,8 +134,11 @@
 						</dependency>
 					</dependencies>
 				</plugin>
-				<!-- <plugin> <groupId>io.qameta.allure</groupId> <artifactId>allure-maven</artifactId> 
-					<version>2.8</version> </plugin> -->
+				<plugin>
+					<groupId>io.qameta.allure</groupId>
+					<artifactId>allure-maven</artifactId>
+					<version>2.8</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
