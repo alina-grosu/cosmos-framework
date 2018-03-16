@@ -19,6 +19,7 @@
 		<commons.version>3.0</commons.version>
 		<log4j.version>2.10.0</log4j.version>
 		<allure.version>2.0-BETA21</allure.version>
+
 	</properties>
 
 
@@ -89,60 +90,39 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.20.1</version>
-					<configuration>
-						<argLine>
-							-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-						</argLine>
-						<includes>
-							<include>MedispendLoginScreenTestsRunner</include>
-							<!-- <include>MedispendPostLogoutScreenTestsRunner</include> -->
-						</includes>
-						<parallel>classes</parallel>
-						<threadCount>5</threadCount>
-						<systemProperties>
-							<property>
-								<name>com.cosmos.configuration.strategy</name>
-								<value>${com.cosmos.configuration.strategy}</value>
-							</property>
-							<property>
-								<name>com.cosmos.execution.type</name>
-								<value>${com.cosmos.execution.type}</value>
-							</property>
-							<property>
-								<name>com.cosmos.grid.hub.url</name>
-								<value>${com.cosmos.grid.hub.url}</value>
-							</property>
-							<property>
-								<name>com.cosmos.driver.browser</name>
-								<value>${com.cosmos.driver.browser}</value>
-							</property>
-							<!-- <property> <name>allure.results.directory</name> <value>C:\devtools\gitrepo\csms-frk\target\allure-results</value> 
-								</property> -->
-						</systemProperties>
-					</configuration>
-					<dependencies>
-						<dependency>
-							<groupId>org.aspectj</groupId>
-							<artifactId>aspectjweaver</artifactId>
-							<version>${aspectj.version}</version>
-						</dependency>
-					</dependencies>
-				</plugin>
-				<!-- 
-				<plugin>
-					<groupId>io.qameta.allure</groupId>
-					<artifactId>allure-maven</artifactId>
-					<version>2.8</version>
-				</plugin> 
-				-->
-			</plugins>
-		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.20.1</version>
+				<configuration>
+					<argLine>
+						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+					</argLine>
+					<includes>
+						<include>MedispendLoginScreenTestsRunner</include>
+						<!-- <include>MedispendPostLogoutScreenTestsRunner</include> -->
+					</includes>
+					<parallel>classes</parallel>
+					<threadCount>5</threadCount>					
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjweaver</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<!-- 
+			<plugin>
+				<groupId>io.qameta.allure</groupId>
+				<artifactId>allure-maven</artifactId>
+				<version>2.8</version>
+			</plugin> 
+			-->
+		</plugins>
 	</build>
 
 </project>
