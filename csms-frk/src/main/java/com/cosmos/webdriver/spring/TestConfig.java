@@ -12,6 +12,7 @@ import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.config.IConfigurationBuilder;
 import com.cosmos.webdriver.config.impl.ConfigurationFactory;
 import com.cosmos.webdriver.config.impl.EnvironmentBasedConfigurationBuilder;
+import com.cosmos.webdriver.config.impl.PropertiesBasedConfigurationBuilder;
 import com.cosmos.webdriver.context.IStepsContext;
 import com.cosmos.webdriver.context.impl.DefaultStepsContext;
 import com.cosmos.webdriver.manager.IDriverManager;
@@ -28,16 +29,11 @@ public class TestConfig {
 	public Map<String, IConfigurationBuilder> configurationBuilders()
 	{
 		Map<String, IConfigurationBuilder> builders = new HashMap<>();
-		builders.put("env", environmentConfigurationBuilder());
+		builders.put("env", new EnvironmentBasedConfigurationBuilder());
+		builders.put("prop", new PropertiesBasedConfigurationBuilder());
 		
 		return builders;
-	}
-	
-	@Bean
-	public IConfigurationBuilder environmentConfigurationBuilder()
-	{
-		return new EnvironmentBasedConfigurationBuilder();
-	}		
+	}			
 	
 	@Bean
 	public IConfiguration configuration()

@@ -13,6 +13,7 @@ public class DefaultConfiguration implements IConfiguration {
 	private ExecutionTypes executionType;
 	private URL gridHubUrl;
 	private File executable;
+	private URL autUrl;
 
 	@Override
 	public Browsers getBrowser()
@@ -33,7 +34,7 @@ public class DefaultConfiguration implements IConfiguration {
 	}
 
 	@Override
-	public void setBrowser(Browsers browser)
+	public void setDesiredBrowser(Browsers browser)
 	{
 		this.browser = browser;
 	}
@@ -57,9 +58,21 @@ public class DefaultConfiguration implements IConfiguration {
 	}
 
 	@Override
-	public void setDriverExecutableLocation(File executable)
-	{	
+	public void setChromeDriverExecutableLocation(File executable)
+	{
 		this.executable = executable;
+	}
+
+	@Override
+	public URL getAppUnderTestUrl()
+	{
+		return autUrl;
+	}
+
+	@Override
+	public void setAppUnderTestUrl(URL autUrl)
+	{
+		this.autUrl = autUrl;
 	}
 
 }

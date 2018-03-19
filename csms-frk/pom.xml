@@ -19,7 +19,19 @@
 		<commons.version>3.0</commons.version>
 		<log4j.version>2.10.0</log4j.version>
 		<allure.version>2.0-BETA21</allure.version>
-
+		<!-- cosmos default config -->
+		<com.cosmos.driver.browser>chrome</com.cosmos.driver.browser>
+		<com.cosmos.execution.type>local</com.cosmos.execution.type>
+		<com.cosmos.grid.hub.url>http://localhost:4444/wd/hub</com.cosmos.grid.hub.url>
+		<com.cosmos.driver.chrome.executable.location>chromedriver.exe</com.cosmos.driver.chrome.executable.location>
+		<com.cosmos.steps.context.scope>feature</com.cosmos.steps.context.scope>
+		<com.cosmos.aut.url>https://login.tst-us-east.medispend.com/dashboard/login</com.cosmos.aut.url>
+		<!-- Surefire default config -->
+		<!-- test runners to include -->
+		<surefire.include.test.runners>MedispendPostLogoutScreenTestsRunner, MedispendLoginScreenTestsRunner</surefire.include.test.runners>
+		<!-- none or classes -->
+		<surefire.parallel>none</surefire.parallel>
+		<surefire.parallel.thread.count>0</surefire.parallel.thread.count>
 	</properties>
 
 
@@ -90,7 +102,12 @@
 		</dependency>
 	</dependencies>
 	<build>
-
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -100,12 +117,11 @@
 					<argLine>
 						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
 					</argLine>
-					<includes>
-						<include>MedispendLoginScreenTestsRunner</include>
-						<!-- <include>MedispendPostLogoutScreenTestsRunner</include> -->
+					<includes>						
+						<include>${surefire.include.test.runners}</include>
 					</includes>
-					<parallel>classes</parallel>
-					<threadCount>5</threadCount>					
+					<parallel>${surefire.parallel}</parallel>
+					<threadCount>${surefire.parallel.thread.count}</threadCount>					
 				</configuration>
 				<dependencies>
 					<dependency>
@@ -113,7 +129,7 @@
 						<artifactId>aspectjweaver</artifactId>
 						<version>${aspectj.version}</version>
 					</dependency>
-				</dependencies>
+				</dependencies>				
 			</plugin>
 			<!-- 
 			<plugin>
@@ -124,5 +140,13 @@
 			-->
 		</plugins>
 	</build>
-
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<com.cosmos.driver.chrome.executable.location>C:\devtools\drivers\chrome\2.34\chromedriver_win32\chromedriver.exe</com.cosmos.driver.chrome.executable.location>
+				<include.test.runners>MedispendLoginScreenTestsRunner</include.test.runners>				
+			</properties>
+		</profile>
+	</profiles>
 </project>

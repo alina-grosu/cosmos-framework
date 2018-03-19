@@ -30,7 +30,7 @@ public class EnvironmentBasedConfigurationBuilder implements IConfigurationBuild
 		}
 		
 		IConfiguration config = new DefaultConfiguration();
-		config.setBrowser(Browsers.valueOf(browser.toUpperCase()));
+		config.setDesiredBrowser(Browsers.valueOf(browser.toUpperCase()));
 		config.setExecutionType(ExecutionTypes.valueOf(executionStrategy.toUpperCase()));
 		URL hubUrl;
 		try
@@ -42,7 +42,7 @@ public class EnvironmentBasedConfigurationBuilder implements IConfigurationBuild
 			throw new RuntimeException("Selenium Grid Hub URL " + hub + " is malformed");
 		}
 		config.setRemoteGridHubUrl(hubUrl);
-		config.setDriverExecutableLocation(new File(driverExecutableLocation));
+		config.setChromeDriverExecutableLocation(new File(driverExecutableLocation));
 		
 		return config;
 	}

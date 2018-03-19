@@ -11,10 +11,12 @@ public interface IConfiguration {
 	Browsers getBrowser();
 	ExecutionTypes getExecutionType();
 	URL getRemoteGridHubUrl();
-	void setBrowser(Browsers browser);
+	void setDesiredBrowser(Browsers browser);
 	void setExecutionType(ExecutionTypes executionType);
 	void setRemoteGridHubUrl(URL gridHubUrl);
 	File getDriverExecutableLocation();
-	void setDriverExecutableLocation(File executable);
+	void setChromeDriverExecutableLocation(File executable);
+	URL getAppUnderTestUrl();
+	void setAppUnderTestUrl(URL autUrl);
 	
 }
