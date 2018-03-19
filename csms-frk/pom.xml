@@ -145,7 +145,7 @@
 			<id>dev</id>
 			<properties>
 				<com.cosmos.driver.chrome.executable.location>C:\devtools\drivers\chrome\2.34\chromedriver_win32\chromedriver.exe</com.cosmos.driver.chrome.executable.location>
-				<include.test.runners>MedispendLoginScreenTestsRunner</include.test.runners>				
+				<surefire.include.test.runners>MedispendLoginScreenTestsRunner</surefire.include.test.runners>				
 			</properties>
 		</profile>
 	</profiles>
