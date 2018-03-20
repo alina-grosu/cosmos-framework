@@ -6,6 +6,7 @@ import java.net.URL;
 import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.manager.Browsers;
 import com.cosmos.webdriver.manager.ExecutionTypes;
+import com.cosmos.webdriver.manager.StepContextScopes;
 
 public class DefaultConfiguration implements IConfiguration {
 
@@ -14,6 +15,7 @@ public class DefaultConfiguration implements IConfiguration {
 	private URL gridHubUrl;
 	private File executable;
 	private URL autUrl;
+	private StepContextScopes scope;
 
 	@Override
 	public Browsers getBrowser()
@@ -73,6 +75,18 @@ public class DefaultConfiguration implements IConfiguration {
 	public void setAppUnderTestUrl(URL autUrl)
 	{
 		this.autUrl = autUrl;
+	}
+
+	@Override
+	public StepContextScopes getStepsContextScope()
+	{		
+		return scope;
+	}
+
+	@Override
+	public void setStepsContextScope(StepContextScopes scope)
+	{
+		this.scope = scope;
 	}
 
 }

@@ -16,6 +16,7 @@ import com.cosmos.webdriver.config.impl.PropertiesBasedConfigurationBuilder;
 import com.cosmos.webdriver.context.IStepsContext;
 import com.cosmos.webdriver.context.impl.DefaultStepsContext;
 import com.cosmos.webdriver.manager.IDriverManager;
+import com.cosmos.webdriver.manager.StepContextScopes;
 import com.cosmos.webdriver.manager.impl.DefaultDriverManagerFactory;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 import com.cosmos.webdriver.spring.registry.IDisposableRegistry;
@@ -58,7 +59,7 @@ public class TestConfig {
 	@Scope("prototype")
 	public PageObjectManager pageObjectManager()
 	{
-		return "scenario".equals(System.getProperty("com.cosmos.steps.context.scope"))
+		return StepContextScopes.SCENARIO.equals(configuration().getStepsContextScope())
 				? new PageObjectManager(glueCodeScopedDriverManager())
 				: new PageObjectManager(singletonDriverManager());
 	}

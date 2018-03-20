@@ -5,6 +5,7 @@ import java.net.URL;
 
 import com.cosmos.webdriver.manager.Browsers;
 import com.cosmos.webdriver.manager.ExecutionTypes;
+import com.cosmos.webdriver.manager.StepContextScopes;
 
 public interface IConfiguration {
 
@@ -18,5 +19,7 @@ public interface IConfiguration {
 	void setChromeDriverExecutableLocation(File executable);
 	URL getAppUnderTestUrl();
 	void setAppUnderTestUrl(URL autUrl);
+	StepContextScopes getStepsContextScope();
+	void setStepsContextScope(StepContextScopes scope);
 	
 }
