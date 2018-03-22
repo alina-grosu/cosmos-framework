@@ -1,34 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
 	<Properties>
-		<Property name="commonTracePattern">[%p] %d{dd.MM.yy HH:mm:ss,SSS} [%t] %C %m %X%n</Property>			
+		<Property name="commonTracePattern">[%p] %d{dd.MM.yy HH:mm:ss,SSS} [%t] %C %m %X%n
+		</Property>
 	</Properties>
 	<Appenders>
 		<Console name="sysout" target="SYSTEM_OUT">
 			<PatternLayout pattern="${commonTracePattern}" />
 		</Console>
-		<File name="logfile" fileName="${sys:com.cosmos.logs.location}\log.txt">
+		<File name="logfile"
+			fileName="${sys:com.cosmos.logs.location}\${date:dd-MM-yyyy}\log-common.txt">
 			<PatternLayout>
 				<pattern>${commonTracePattern}</pattern>
 			</PatternLayout>
 		</File>
 		<Routing name="threadBounded">
-			<Routes pattern="$${ctx:featureLogName}">
+			<Routes pattern="$${ctx:threadLogName}">
 
-				<Route key="$${ctx:featureLogName}">
-					<AppenderRef ref="sysout" />
-					<AppenderRef ref="logfile" />
-				</Route>
-
-				<!-- This route is chosen if ThreadContext has a value for featureLogName. 
-					The value dynamically determines the name of the log file. -->
-				<Route>
-					<File name="logfile-${ctx:featureLogName}"
-						fileName="${sys:com.cosmos.logs.location}\${date:dd-MM-yyyy}\log-${ctx:featureLogName}.txt">
+				<Route key="$${ctx:threadLogName}" >
+					<File name="logfile"
+						fileName="${sys:com.cosmos.logs.location}\${date:dd-MM-yyyy}\log-common1.txt">
 						<PatternLayout>
 							<pattern>${commonTracePattern}</pattern>
 						</PatternLayout>
 					</File>
+				</Route>
+
+
+				<Route>
+					<Routing name="featureBounded">
+						<Routes pattern="$${ctx:featureLogName}">
+
+							<!-- This route is chosen if ThreadContext does not have a value for 
+								featureLogName which is set by Cucumber @before hook. -->
+							<Route key="$${ctx:featureLogName}">
+								<File name="logfile"
+									fileName="${sys:com.cosmos.logs.location}\${date:dd-MM-yyyy}\log-${ctx:threadLogName}.txt">
+									<PatternLayout>
+										<pattern>${commonTracePattern}</pattern>
+									</PatternLayout>
+								</File>
+							</Route>
+
+							<!-- This route is chosen if ThreadContext has a value for featureLogName. 
+								The value dynamically determines the name of the log file. -->
+							<Route>
+								<File name="logfile"
+									fileName="${sys:com.cosmos.logs.location}\${date:dd-MM-yyyy}\log-${ctx:featureLogName}.txt">
+									<PatternLayout>
+										<pattern>${commonTracePattern}</pattern>
+									</PatternLayout>
+								</File>
+							</Route>
+						</Routes>
+					</Routing>
 				</Route>
 			</Routes>
 		</Routing>
@@ -36,7 +61,7 @@
 	<Loggers>
 		<Root level="trace">
 			<AppenderRef ref="sysout" />
-			<AppenderRef ref="logfile" />
+			<AppenderRef ref="logfile"/>
 			<AppenderRef ref="threadBounded" />
 		</Root>
 	</Loggers>
