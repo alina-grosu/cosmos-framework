@@ -20,7 +20,7 @@
 
 				<Route>
 					<File name="logfile"
-						fileName="${sys:com.cosmos.logs.location}\${date:dd-MM-yyyy}\log-${ctx:logfileName}.txt">
+						fileName="${sys:com.cosmos.logs.location}\${date:dd-MM-yyyy}\${ctx:logfileName}">
 						<PatternLayout>
 							<pattern>${commonTracePattern}</pattern>
 						</PatternLayout>

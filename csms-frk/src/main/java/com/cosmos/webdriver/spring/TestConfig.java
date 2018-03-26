@@ -2,13 +2,12 @@ package com.cosmos.webdriver.spring;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.logging.log4j.ThreadContext;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
-import com.cosmos.log4j.Log4JThreadContextKeysEnum;
+import com.cosmos.log4j.Log4JThreadBoundLogNameManager;
 import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.config.IConfigurationBuilder;
 import com.cosmos.webdriver.config.impl.ConfigurationFactory;
@@ -32,12 +31,11 @@ public class TestConfig {
 	Dummy bean main intent of which is to configure an initial thread local key value pair
 	which is used by log4j's RoutingAppender in order to write traces
 	for each thread/feature separately.
-	*/
+	*/		
 	@Bean
     public Object log4jInitialSetup() 
 	{			
-		ThreadContext.put(Log4JThreadContextKeysEnum.LOG_NAME_KEY.get(),
-				String.format("%s-%s", Thread.currentThread().getName(), Thread.currentThread().getId()));		
+		Log4JThreadBoundLogNameManager.init();		
 		return new Object();
     }	
 	
