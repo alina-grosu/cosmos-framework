@@ -8,7 +8,7 @@
 			<PatternLayout pattern="${commonTracePattern}" />
 		</Console>
 		<File name="logfile"
-				fileName="${sys:com.cosmos.logs.location}\${date:dd-MM-yyyy}\log-common.txt">
+				fileName="${com.cosmos.logs.location}\${date:dd-MM-yyyy}\log-common.txt">
 			<PatternLayout>
 				<pattern>${commonTracePattern}</pattern>
 			</PatternLayout>
@@ -20,7 +20,7 @@
 
 				<Route>
 					<File name="logfile"
-						fileName="${sys:com.cosmos.logs.location}\${date:dd-MM-yyyy}\${ctx:logfileName}">
+						fileName="${com.cosmos.logs.location}\${date:dd-MM-yyyy}\${ctx:logfileName}">
 						<PatternLayout>
 							<pattern>${commonTracePattern}</pattern>
 						</PatternLayout>
