@@ -2,6 +2,7 @@ package com.cosmos.webdriver.spring;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -103,8 +104,5 @@ public class TestConfig {
         CustomScopeConfigurer configurer = new CustomScopeConfigurer();
         configurer.addScope("cucumber-glue", new GlueCodeScope());
         return configurer;
-    }
-	
-		
-
+    }		
 }
