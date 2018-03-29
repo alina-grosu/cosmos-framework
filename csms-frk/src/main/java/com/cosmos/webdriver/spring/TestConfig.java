@@ -104,5 +104,28 @@ public class TestConfig {
         CustomScopeConfigurer configurer = new CustomScopeConfigurer();
         configurer.addScope("cucumber-glue", new GlueCodeScope());
         return configurer;
-    }		
+    }	
+	
+	@Bean
+	public Object foo()
+	{
+		System.out.println("122");
+		System.out.println("123");
+		System.out.print("124");
+		try
+		{
+			Thread.sleep(1000);
+		} 
+		catch (InterruptedException e)
+		{
+			System.err.println("Interrupted");
+		}
+		System.out.print("\r\b\r\b\r");
+		
+		System.out.println("125");
+		System.out.println("126");
+		System.out.println("127");
+		
+		return "";
+	}
 }

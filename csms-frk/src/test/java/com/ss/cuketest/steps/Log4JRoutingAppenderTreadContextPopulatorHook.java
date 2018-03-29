@@ -19,32 +19,17 @@ public class Log4JRoutingAppenderTreadContextPopulatorHook {
 	private static final String DOLLAR = "$";
 	
 	
-	@Before
-	public void logFeatureName(Scenario scenario)
+//	@Before
+	/*public void logFeatureName(Scenario scenario)
 	{
 		StringBuilder sb = new StringBuilder();
 		
 		for (int amount = 0; amount < 128; amount++) sb.append(ASTERISK);
 		logger.info(sb);
 		
-		System.out.println("122");
-		System.out.println("123");
-		System.out.print("124");
-		try
-		{
-			Thread.sleep(1000);
-		} 
-		catch (InterruptedException e)
-		{
-			System.err.println("Interrupted");
-		}
-		System.out.print("\r\b\r\b\r");
 		
-		System.out.println("125");
-		System.out.println("126");
-		System.out.println("127");
 	}
-	
+	*/
 	@Before
 	public void setUp(Scenario scenario)
 	{				
