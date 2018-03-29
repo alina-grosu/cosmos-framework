@@ -7,7 +7,7 @@ import com.cosmos.log4j.Log4JThreadBoundLogNameManager;
 import cucumber.api.Scenario;
 import cucumber.api.java.Before;
 
-public class Log4JRoutingAppenderTreadContextPopulatorHook {		
+public class LoggingHooks {		
 	
 	private static final Logger logger = LogManager.getLogger();	
 	private static final String ASTERISK = "*";
