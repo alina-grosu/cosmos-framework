@@ -10,9 +10,8 @@ pipeline {
 			}
     stages {
         stage('build') {
-            steps {
-                //bat 'mvn -f csms-frk/pom.xml -Dcom.cosmos.grid.hub.url=http://localhost:4444/grid -Dcom.cosmos.driver.browser=chrome -Dcom.cosmos.execution.type=local -Dcom.cosmos.configuration.strategy=env -Dcom.cosmos.driver.executable.location=C:\\devtools\\drivers\\chrome\\2.34\\chromedriver_win32\\chromedriver.exe -Dcom.cosmos.steps.context.scope=feature -Dcom.cosmos.logs.location=logs clean test'
-                sh 'mvn -f csms-frk/pom.xml -Dcom.cosmos.grid.hub.url=http://localhost:4444/grid -Dcom.cosmos.driver.browser=chrome -Dcom.cosmos.execution.type=local -Dcom.cosmos.configuration.strategy=env -Dcom.cosmos.driver.executable.location=C:\\devtools\\drivers\\chrome\\2.34\\chromedriver_win32\\chromedriver.exe -Dcom.cosmos.steps.context.scope=feature -Dcom.cosmos.logs.location=logs clean test'
+            steps {               
+                sh 'mvn -f csms-frk/pom.xml -Dcom.cosmos.configuration.strategy=prop clean test'
             }
         }        
     }
