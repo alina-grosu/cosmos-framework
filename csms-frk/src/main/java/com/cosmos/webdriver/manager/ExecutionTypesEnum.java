@@ -1,6 +1,6 @@
 package com.cosmos.webdriver.manager;
 
-public enum ExecutionTypes {
+public enum ExecutionTypesEnum {
 	LOCAL,
 	REMOTE
 }

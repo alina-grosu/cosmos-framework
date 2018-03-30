@@ -12,22 +12,22 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import com.cosmos.webdriver.manager.Browsers;
+import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.IDriverManager;
 
 public class AbstractRemoteDriverManager implements IDriverManager{
 		
 	protected WebDriver driver;
 	protected URL hubUrl;
-	protected Browsers browser;	
-	private final Map<Browsers, Supplier<Capabilities>> lamCapsMap = new EnumMap<>(Browsers.class);
+	protected BrowsersEnum browser;	
+	private final Map<BrowsersEnum, Supplier<Capabilities>> lamCapsMap = new EnumMap<>(BrowsersEnum.class);
 	
-	public AbstractRemoteDriverManager(URL hubUrl, Browsers browser)
+	public AbstractRemoteDriverManager(URL hubUrl, BrowsersEnum browser)
 	{
 		this.hubUrl = hubUrl;
 		this.browser = browser;
-		lamCapsMap.put(Browsers.CHROME, ChromeOptions::new);
-		lamCapsMap.put(Browsers.IE, InternetExplorerOptions::new);
+		lamCapsMap.put(BrowsersEnum.CHROME, ChromeOptions::new);
+		lamCapsMap.put(BrowsersEnum.IE, InternetExplorerOptions::new);
 	}
 	
 	@Override

@@ -4,27 +4,27 @@ import java.io.File;
 import java.net.URL;
 
 import com.cosmos.webdriver.config.IConfiguration;
-import com.cosmos.webdriver.manager.Browsers;
-import com.cosmos.webdriver.manager.ExecutionTypes;
-import com.cosmos.webdriver.manager.StepContextScopes;
+import com.cosmos.webdriver.manager.BrowsersEnum;
+import com.cosmos.webdriver.manager.ExecutionTypesEnum;
+import com.cosmos.webdriver.manager.StepContextScopesEnum;
 
 public class DefaultConfiguration implements IConfiguration {
 
-	private Browsers browser;
-	private ExecutionTypes executionType;
+	private BrowsersEnum browser;
+	private ExecutionTypesEnum executionType;
 	private URL gridHubUrl;
 	private File executable;
 	private URL autUrl;
-	private StepContextScopes scope;
+	private StepContextScopesEnum scope;
 
 	@Override
-	public Browsers getBrowser()
+	public BrowsersEnum getBrowser()
 	{
 		return browser;
 	}
 
 	@Override
-	public ExecutionTypes getExecutionType()
+	public ExecutionTypesEnum getExecutionType()
 	{
 		return executionType;
 	}
@@ -36,13 +36,13 @@ public class DefaultConfiguration implements IConfiguration {
 	}
 
 	@Override
-	public void setDesiredBrowser(Browsers browser)
+	public void setDesiredBrowser(BrowsersEnum browser)
 	{
 		this.browser = browser;
 	}
 
 	@Override
-	public void setExecutionType(ExecutionTypes executionType)
+	public void setExecutionType(ExecutionTypesEnum executionType)
 	{
 		this.executionType = executionType;
 	}
@@ -78,13 +78,13 @@ public class DefaultConfiguration implements IConfiguration {
 	}
 
 	@Override
-	public StepContextScopes getStepsContextScope()
+	public StepContextScopesEnum getStepsContextScope()
 	{		
 		return scope;
 	}
 
 	@Override
-	public void setStepsContextScope(StepContextScopes scope)
+	public void setStepsContextScope(StepContextScopesEnum scope)
 	{
 		this.scope = scope;
 	}

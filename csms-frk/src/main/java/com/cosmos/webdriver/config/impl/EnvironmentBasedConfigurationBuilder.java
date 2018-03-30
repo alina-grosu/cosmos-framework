@@ -8,8 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.config.IConfigurationBuilder;
-import com.cosmos.webdriver.manager.Browsers;
-import com.cosmos.webdriver.manager.ExecutionTypes;
+import com.cosmos.webdriver.manager.BrowsersEnum;
+import com.cosmos.webdriver.manager.ExecutionTypesEnum;
 
 public class EnvironmentBasedConfigurationBuilder implements IConfigurationBuilder {
 	
@@ -30,8 +30,8 @@ public class EnvironmentBasedConfigurationBuilder implements IConfigurationBuild
 		}
 		
 		IConfiguration config = new DefaultConfiguration();
-		config.setDesiredBrowser(Browsers.valueOf(browser.toUpperCase()));
-		config.setExecutionType(ExecutionTypes.valueOf(executionStrategy.toUpperCase()));
+		config.setDesiredBrowser(BrowsersEnum.valueOf(browser.toUpperCase()));
+		config.setExecutionType(ExecutionTypesEnum.valueOf(executionStrategy.toUpperCase()));
 		URL hubUrl;
 		try
 		{

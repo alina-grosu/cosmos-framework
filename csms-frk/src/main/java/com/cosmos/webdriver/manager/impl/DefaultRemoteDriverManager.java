@@ -2,11 +2,11 @@ package com.cosmos.webdriver.manager.impl;
 
 import java.net.URL;
 
-import com.cosmos.webdriver.manager.Browsers;
+import com.cosmos.webdriver.manager.BrowsersEnum;
 
 public class DefaultRemoteDriverManager extends AbstractRemoteDriverManager{
 
-	public DefaultRemoteDriverManager(URL hubUrl, Browsers browser)
+	public DefaultRemoteDriverManager(URL hubUrl, BrowsersEnum browser)
 	{
 		super(hubUrl, browser);
 	}

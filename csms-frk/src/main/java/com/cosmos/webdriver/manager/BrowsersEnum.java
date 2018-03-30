@@ -1,6 +1,6 @@
 package com.cosmos.webdriver.manager;
 
-public enum Browsers {
+public enum BrowsersEnum {
 	
 	CHROME,
 	IE,

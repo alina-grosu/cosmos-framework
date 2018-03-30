@@ -10,9 +10,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.config.IConfigurationBuilder;
-import com.cosmos.webdriver.manager.Browsers;
-import com.cosmos.webdriver.manager.ExecutionTypes;
-import com.cosmos.webdriver.manager.StepContextScopes;
+import com.cosmos.webdriver.manager.BrowsersEnum;
+import com.cosmos.webdriver.manager.ExecutionTypesEnum;
+import com.cosmos.webdriver.manager.StepContextScopesEnum;
 
 public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilder {
 	
@@ -25,10 +25,10 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 		IConfiguration config = new DefaultConfiguration();
 		
 		config.setDesiredBrowser(
-				Browsers.valueOf(getProperty(props, PropertiesEnum.BROWSER_ENVIRO_KEY).toUpperCase()));
+				BrowsersEnum.valueOf(getProperty(props, PropertiesEnum.BROWSER_ENVIRO_KEY).toUpperCase()));
 		
 		config.setExecutionType(
-				ExecutionTypes.valueOf(getProperty(props, PropertiesEnum.EXECUTION_TYPE_ENVIRO_KEY).toUpperCase()));
+				ExecutionTypesEnum.valueOf(getProperty(props, PropertiesEnum.EXECUTION_TYPE_ENVIRO_KEY).toUpperCase()));
 		
 		config.setChromeDriverExecutableLocation(new File(getProperty(props, PropertiesEnum.CHROMEDRIVER_LOCATION_KEY)));
 		
@@ -39,7 +39,7 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 				toUrl(getProperty(props, PropertiesEnum.AUT_URL_KEY), "Application Under Test URL seems to be malformed"));			
 		
 		config.setStepsContextScope(
-				StepContextScopes.valueOf(getProperty(props, PropertiesEnum.STEPS_CONTEXT_SCOPE_KEY).toUpperCase()));
+				StepContextScopesEnum.valueOf(getProperty(props, PropertiesEnum.STEPS_CONTEXT_SCOPE_KEY).toUpperCase()));
 		
 		return config;
 	}
@@ -49,8 +49,7 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 		Properties p = new Properties();
 		String configName = "cosmos.configuration.properties";
 		try
-		{
-			
+		{			
 			p.load(new FileInputStream(this.getClass().getClassLoader().getResource(configName).getFile()));
 		} 
 		catch (IOException e)
