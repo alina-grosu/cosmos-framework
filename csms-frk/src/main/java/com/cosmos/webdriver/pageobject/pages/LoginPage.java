@@ -1,16 +1,8 @@
 package com.cosmos.webdriver.pageobject.pages;
 
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-
 import com.cosmos.webdriver.manager.IDriverManager;
 
 public class LoginPage extends BasePage {
