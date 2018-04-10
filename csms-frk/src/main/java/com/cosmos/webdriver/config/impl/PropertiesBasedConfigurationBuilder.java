@@ -24,8 +24,8 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 		Properties props = getProperties();
 		IConfiguration config = new DefaultConfiguration();
 		
-		config.setDesiredBrowser(
-				BrowsersEnum.valueOf(getProperty(props, PropertiesEnum.BROWSER_ENVIRO_KEY).toUpperCase()));
+		BrowsersEnum desiredBrowser = BrowsersEnum.valueOf(getProperty(props, PropertiesEnum.BROWSER_ENVIRO_KEY).toUpperCase());
+		config.setDesiredBrowser(desiredBrowser);
 		
 		config.setExecutionType(
 				ExecutionTypesEnum.valueOf(getProperty(props, PropertiesEnum.EXECUTION_TYPE_ENVIRO_KEY).toUpperCase()));
@@ -40,6 +40,10 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 		
 		config.setStepsContextScope(
 				StepContextScopesEnum.valueOf(getProperty(props, PropertiesEnum.STEPS_CONTEXT_SCOPE_KEY).toUpperCase()));
+		
+		config.setDesiredCapabilities(CapabilitiesStore.get(desiredBrowser, getProperty(props, PropertiesEnum.CAPS_ADDITIONAL_KEY)));
+		
+		config.setDriverManagerHint(getProperty(props, PropertiesEnum.DRIVER_MANAGER_HINT).toUpperCase());
 		
 		return config;
 	}
@@ -57,8 +61,10 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 			logger.error(String.format("Failed to read properties file '%s' from classpath.", configName));
 			throw new RuntimeException(e);
 		}
-		logger.info("Loaded properties:");
-		p.forEach((key, value) -> logger.info(String.format("%s=%s", key, value)));
+		
+		StringBuilder sb = new StringBuilder("Loaded properties: \n");
+		p.forEach((key, value) -> sb.append(String.format("%s=%s \n", key, value)));
+		logger.info(sb.toString());
 		
 		return p;
 	}

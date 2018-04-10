@@ -6,5 +6,6 @@ public interface IDriverManager {
 
 	WebDriver getDriver();
 	void quitDriver();
+	void quit();
 	
 }

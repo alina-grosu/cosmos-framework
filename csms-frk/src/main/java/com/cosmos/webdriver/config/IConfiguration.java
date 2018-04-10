@@ -3,6 +3,8 @@ package com.cosmos.webdriver.config;
 import java.io.File;
 import java.net.URL;
 
+import org.openqa.selenium.Capabilities;
+
 import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
 import com.cosmos.webdriver.manager.StepContextScopesEnum;
@@ -21,5 +23,9 @@ public interface IConfiguration {
 	void setAppUnderTestUrl(URL autUrl);
 	StepContextScopesEnum getStepsContextScope();
 	void setStepsContextScope(StepContextScopesEnum scope);
+	Capabilities getDesiredCapabilities();
+	void setDesiredCapabilities(Capabilities caps);
+	String getDriverManagerHint();
+	void setDriverManagerHint(String hint);
 	
 }

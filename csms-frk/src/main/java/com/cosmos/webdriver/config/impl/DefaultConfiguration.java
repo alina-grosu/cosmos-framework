@@ -3,6 +3,8 @@ package com.cosmos.webdriver.config.impl;
 import java.io.File;
 import java.net.URL;
 
+import org.openqa.selenium.Capabilities;
+
 import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
@@ -16,6 +18,8 @@ public class DefaultConfiguration implements IConfiguration {
 	private File executable;
 	private URL autUrl;
 	private StepContextScopesEnum scope;
+	private Capabilities caps;
+	private String driverManagerHint;
 
 	@Override
 	public BrowsersEnum getBrowser()
@@ -87,6 +91,30 @@ public class DefaultConfiguration implements IConfiguration {
 	public void setStepsContextScope(StepContextScopesEnum scope)
 	{
 		this.scope = scope;
+	}
+
+	@Override
+	public Capabilities getDesiredCapabilities()
+	{		
+		return caps;
+	}
+
+	@Override
+	public void setDesiredCapabilities(Capabilities caps)
+	{
+		this.caps = caps;
+	}
+
+	@Override
+	public String getDriverManagerHint()
+	{		
+		return driverManagerHint;
+	}
+
+	@Override
+	public void setDriverManagerHint(String driverManagerHint)
+	{
+		this.driverManagerHint = driverManagerHint;		
 	}
 
 }

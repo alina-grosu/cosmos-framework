@@ -12,20 +12,27 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.IDriverManager;
+import com.cosmos.webdriver.manager.IDriverServiceManager;
 
-public class AbstractRemoteDriverManager implements IDriverManager{
+public abstract class AbstractRemoteDriverManager extends DefaultRemotingDriverManager {
+
+	public AbstractRemoteDriverManager(IConfiguration config, IDriverServiceManager driverServiceManager)
+	{
+		super(config, driverServiceManager);		
+	}
 		
-	protected WebDriver driver;
+	/*protected WebDriver driver;
 	protected URL hubUrl;
 	protected BrowsersEnum browser;	
 	private final Map<BrowsersEnum, Supplier<Capabilities>> lamCapsMap = new EnumMap<>(BrowsersEnum.class);
 	
-	public AbstractRemoteDriverManager(URL hubUrl, BrowsersEnum browser)
+	public AbstractRemoteDriverManager(IConfiguration config, IDriverServiceManager driverServiceManager)
 	{
-		this.hubUrl = hubUrl;
-		this.browser = browser;
+		this.hubUrl = config;
+		this.browser = driverServiceManager;
 		lamCapsMap.put(BrowsersEnum.CHROME, ChromeOptions::new);
 		lamCapsMap.put(BrowsersEnum.IE, InternetExplorerOptions::new);
 	}
@@ -51,5 +58,11 @@ public class AbstractRemoteDriverManager implements IDriverManager{
             driver = null;
         }	
 	}
+
+	@Override
+	public void quit()
+	{
+		quitDriver();		
+	}*/
 
 }

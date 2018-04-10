@@ -28,6 +28,8 @@
 		<com.cosmos.steps.context.scope>feature</com.cosmos.steps.context.scope>
 		<com.cosmos.aut.url>https://login.tst-us-east.medispend.com/dashboard/login</com.cosmos.aut.url>
 		<com.cosmos.logs.location>logs</com.cosmos.logs.location>
+		<com.cosmos.capabilities.key>default</com.cosmos.capabilities.key>
+		<com.cosmos.driver.manager.key>remoting</com.cosmos.driver.manager.key>
 		<!-- Surefire default config -->
 		<!-- Comma separated test runners to include -->
 		<surefire.include.test.runners>MedispendPostLogoutScreenTestsRunner, MedispendLoginScreenTestsRunner</surefire.include.test.runners>
@@ -153,9 +155,9 @@
 				<com.cosmos.driver.chrome.executable.location>C:\devtools\drivers\chrome\2.37\chromedriver_win32\chromedriver.exe</com.cosmos.driver.chrome.executable.location>
 				<!-- <surefire.include.test.runners>MedispendLoginScreenTestsRunner</surefire.include.test.runners> -->
 				<!-- <com.cosmos.steps.context.scope>feature</com.cosmos.steps.context.scope> -->
-				<!-- <surefire.parallel>classes</surefire.parallel>
-				<surefire.parallel.thread.count>5</surefire.parallel.thread.count>  -->
-								
+				<surefire.parallel>classes</surefire.parallel>
+				<surefire.parallel.thread.count>5</surefire.parallel.thread.count> 
+				<com.cosmos.steps.context.scope>feature</com.cosmos.steps.context.scope>								
 			</properties>
 		</profile>
 	</profiles>

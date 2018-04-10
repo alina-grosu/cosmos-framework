@@ -1,7 +1,9 @@
 package com.cosmos.webdriver.manager;
 
+import com.cosmos.webdriver.config.IConfiguration;
+
 public interface IDriverManagerFactory {
 
-	IDriverManager getManager();
+	IDriverManager newManager(IConfiguration config, IDriverServiceManager driverServiceManager);
 	
 }

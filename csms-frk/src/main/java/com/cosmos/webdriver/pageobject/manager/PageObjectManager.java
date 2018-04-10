@@ -48,6 +48,11 @@ public class PageObjectManager {
 	
 	public void quit()
 	{
+		driverManager.quit();
+	}
+	
+	public void quitDriver()
+	{
 		driverManager.quitDriver();
 	}
 	

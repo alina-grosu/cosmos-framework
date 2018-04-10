@@ -7,7 +7,10 @@ enum PropertiesEnum {
 	GRID_URL_KEY("com.cosmos.grid.hub.url", "http://localhost:4444/wd/hub"),
 	CHROMEDRIVER_LOCATION_KEY("com.cosmos.driver.chrome.executable.location", "chromedriver.exe"),
 	STEPS_CONTEXT_SCOPE_KEY("com.cosmos.steps.context.scope", "scenario"),
-	AUT_URL_KEY("com.cosmos.aut.url", "https://login.tst-us-east.medispend.com/dashboard/login");
+	AUT_URL_KEY("com.cosmos.aut.url", "https://login.tst-us-east.medispend.com/dashboard/login"),
+	CAPS_ADDITIONAL_KEY("com.cosmos.capabilities.key", "default"),
+	DRIVER_MANAGER_HINT("com.cosmos.driver.manager.key", "remoting")
+	;
 	
 
 	private final String key;

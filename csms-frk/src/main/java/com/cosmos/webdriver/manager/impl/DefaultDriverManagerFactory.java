@@ -1,39 +1,27 @@
 package com.cosmos.webdriver.manager.impl;
 
+import java.util.Optional;
 import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.manager.IDriverManagerFactory;
+import com.cosmos.webdriver.manager.IDriverServiceManager;
 
-public class DefaultDriverManagerFactory implements IDriverManagerFactory {
 
-	private final IConfiguration config;
-
-	public DefaultDriverManagerFactory(IConfiguration config)
-	{
-		this.config = config;
-	}
+public class DefaultDriverManagerFactory implements IDriverManagerFactory {	
 	
 	@Override
-	public IDriverManager getManager()
-	{
-		IDriverManager mgr;
-		switch (config.getExecutionType())
-		{
-			case LOCAL:
-				switch (config.getBrowser())
-				{
-					case CHROME:
-						mgr = new ChromeDriverManager(config.getDriverExecutableLocation());
-						break;
-					default:
-						throw new RuntimeException("Browser is temporarily unsupported");
-				}
-				break;
-			case REMOTE:
-				default:
-					mgr = new DefaultRemoteDriverManager(config.getRemoteGridHubUrl(), config.getBrowser());
-		}
-		return mgr;
+	public IDriverManager newManager(IConfiguration config, IDriverServiceManager driverServiceManager)
+	{			
+		IDriverManager driverManager = null;
+		
+		if ("REMOTING".equals(config.getDriverManagerHint()))
+			driverManager = new DefaultRemotingDriverManager(config, driverServiceManager);
+				
+		return Optional.ofNullable(driverManager)
+					   .orElseThrow(
+							   () -> new RuntimeException(
+									   		String.format("Unable to determine DriverManager using hint %s.", 
+									   		config.getDriverManagerHint()
+						)));
 	}
-
 }
