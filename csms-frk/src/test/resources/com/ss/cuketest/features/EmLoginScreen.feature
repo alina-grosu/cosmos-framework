@@ -1,5 +1,5 @@
 
-Feature: Login Screen
+Feature: EM Login Screen
   EM Login Screen related tests
 
   

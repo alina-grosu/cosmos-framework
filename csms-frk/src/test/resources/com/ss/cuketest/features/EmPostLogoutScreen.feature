@@ -1,4 +1,4 @@
-Feature: PostLogout Screen
+Feature: EM PostLogout Screen
  EM PostLogout Screen related tests
 
   Scenario: Login Logout GoBack
