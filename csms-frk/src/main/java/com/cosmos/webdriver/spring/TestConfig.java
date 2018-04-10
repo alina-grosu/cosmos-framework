@@ -30,8 +30,6 @@ import com.cosmos.webdriver.manager.impl.DefaultDriverManagerFactory;
 import com.cosmos.webdriver.manager.impl.LocalDriverServiceManager;
 import com.cosmos.webdriver.manager.impl.RemoteDriverServiceManager;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
-import com.cosmos.webdriver.spring.registry.IDisposableRegistry;
-import com.cosmos.webdriver.spring.registry.impl.DefaultDisposableRegistry;
 import com.cosmos.webdriver.spring.scope.GlueCodeScope;
 
 
