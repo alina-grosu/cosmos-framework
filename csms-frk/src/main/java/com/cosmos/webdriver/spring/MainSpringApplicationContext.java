@@ -34,7 +34,7 @@ import com.cosmos.webdriver.spring.scope.GlueCodeScope;
 
 
 @Configuration
-public class TestConfig {
+public class MainSpringApplicationContext {
 	
 	/*
 	Dummy bean main intent of which is to configure an initial thread local key value pair
