@@ -1,6 +1,6 @@
 
 Feature: Login Screen
-  Maedispent Application Login Screen related tests
+  EM Login Screen related tests
 
   
   Scenario: Successfull login

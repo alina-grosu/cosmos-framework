@@ -5,13 +5,13 @@ import org.apache.logging.log4j.Logger;
 import com.cosmos.webdriver.context.IStepsContext;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 
-public abstract class MedispendStepsBase {
+public abstract class EmStepsBase {
 	
 	private static final Logger logger = LogManager.getLogger();
 	protected IStepsContext context;
 	protected final PageObjectManager pageObjectManager;
 	
-	public MedispendStepsBase (IStepsContext context)
+	public EmStepsBase (IStepsContext context)
 	{
 		this.context = context;
 		this.pageObjectManager = context.getPageObjectManager();

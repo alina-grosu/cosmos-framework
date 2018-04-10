@@ -7,9 +7,9 @@ import com.cosmos.webdriver.context.IStepsContext;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class MedispendPostLogoutPageSteps extends MedispendStepsBase{
+public class EmPostLogoutPageSteps extends EmStepsBase{
 
-	public MedispendPostLogoutPageSteps(@Autowired IStepsContext context)
+	public EmPostLogoutPageSteps(@Autowired IStepsContext context)
 	{
 		super(context);		
 	}

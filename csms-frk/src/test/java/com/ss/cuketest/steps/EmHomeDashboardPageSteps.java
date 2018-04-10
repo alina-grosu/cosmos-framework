@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.cosmos.webdriver.context.IStepsContext;
 import cucumber.api.java.en.Then;
 
-public class MedispendHomeDashboardPageSteps extends MedispendStepsBase {
+public class EmHomeDashboardPageSteps extends EmStepsBase {
 
-	public MedispendHomeDashboardPageSteps (@Autowired IStepsContext context)
+	public EmHomeDashboardPageSteps (@Autowired IStepsContext context)
 	{
 		super(context);
 	}	

@@ -1,5 +1,5 @@
 Feature: PostLogout Screen
-  Medispend Application PostLogout Screen related tests
+ EM PostLogout Screen related tests
 
   Scenario: Login Logout GoBack
     Given user navigates to login page

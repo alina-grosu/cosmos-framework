@@ -11,10 +11,10 @@ import static org.junit.Assert.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class MedispendLoginPageSteps extends MedispendStepsBase{
+public class EmLoginPageSteps extends EmStepsBase{
 	private static final Logger logger = LogManager.getLogger();
 		
-	public MedispendLoginPageSteps(@Autowired IStepsContext context)
+	public EmLoginPageSteps(@Autowired IStepsContext context)
 	{
 		super(context);							
 	}
