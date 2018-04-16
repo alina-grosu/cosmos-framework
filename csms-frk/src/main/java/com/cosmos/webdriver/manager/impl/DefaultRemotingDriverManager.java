@@ -41,11 +41,11 @@ public class DefaultRemotingDriverManager implements IDriverManager {
 					logger.error(e);					
 				}
 			}
-			driver = new RemoteWebDriver(driverServiceManager.getDriverServiceUrl(), config.getDesiredCapabilities());
+			driver = configureRemoteWebDriver();
 			logger.info(String.format("WebDriver instance %s was created...", driver.toString()));
         }
 		return driver;
-	}
+	}	
 
 	@Override
 	public void quitDriver()
@@ -57,7 +57,7 @@ public class DefaultRemotingDriverManager implements IDriverManager {
 		}
 		else
 		{
-			logger.warn("Attempted to quit WebDriver which is null");
+			logger.warn("Attempted to quit WebDriver which was null");
 		}
 				
 	}
@@ -70,4 +70,19 @@ public class DefaultRemotingDriverManager implements IDriverManager {
 		driverServiceManager.stopDriverService();
 	}
 
+	private RemoteWebDriver configureRemoteWebDriver()
+	{
+		RemoteWebDriver remoteWebDriver = 
+				new RemoteWebDriver(driverServiceManager.getDriverServiceUrl(), config.getDesiredCapabilities());
+		if (config.getBrowserWindowDimension() == null)
+		{
+			remoteWebDriver.manage().window().maximize();
+		}
+		else
+		{
+			remoteWebDriver.manage().window().setSize(config.getBrowserWindowDimension());
+		}
+			
+		return remoteWebDriver;
+	}
 }

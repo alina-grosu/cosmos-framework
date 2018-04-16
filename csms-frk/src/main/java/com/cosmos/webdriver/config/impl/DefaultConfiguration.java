@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URL;
 
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Dimension;
 
 import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.manager.BrowsersEnum;
@@ -20,6 +21,7 @@ public class DefaultConfiguration implements IConfiguration {
 	private StepContextScopesEnum scope;
 	private Capabilities caps;
 	private String driverManagerHint;
+	private Dimension dimension;
 
 	@Override
 	public BrowsersEnum getBrowser()
@@ -115,6 +117,18 @@ public class DefaultConfiguration implements IConfiguration {
 	public void setDriverManagerHint(String driverManagerHint)
 	{
 		this.driverManagerHint = driverManagerHint;		
+	}
+
+	@Override
+	public Dimension getBrowserWindowDimension()
+	{
+		return dimension;
+	}
+
+	@Override
+	public void setBrowserWindowDimension(Dimension dimension)
+	{
+		this.dimension = dimension;
 	}
 
 }

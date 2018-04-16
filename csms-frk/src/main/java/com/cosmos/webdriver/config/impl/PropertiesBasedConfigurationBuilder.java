@@ -8,6 +8,8 @@ import java.net.URL;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Dimension;
+
 import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.config.IConfigurationBuilder;
 import com.cosmos.webdriver.manager.BrowsersEnum;
@@ -45,9 +47,33 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 		
 		config.setDriverManagerHint(getProperty(props, PropertiesEnum.DRIVER_MANAGER_HINT).toUpperCase());
 		
+		config.setBrowserWindowDimension(getBrowserWindowDimension(props));
+		
 		return config;
 	}
 	
+	private Dimension getBrowserWindowDimension(Properties props)
+	{
+		String height = getProperty(props, PropertiesEnum.BROWSER_HEIGHT);
+		String width = getProperty(props, PropertiesEnum.BROWSER_WIDTH);
+		if ("".equals(height) || "".equals(width))
+		{
+			return null;
+		}
+		
+		try
+		{
+			return new Dimension(Integer.parseInt(width), Integer.parseInt(height));
+		}
+		catch (NumberFormatException e)
+		{
+			String format = "Unable to parse desired browser dimensions: height=%s, width=%s. Values must be ints.";
+			logger.error(String.format(format, height, width));
+			logger.error(e);
+			throw new RuntimeException(e);
+		}			
+	}
+
 	private Properties getProperties()
 	{
 		Properties p = new Properties();

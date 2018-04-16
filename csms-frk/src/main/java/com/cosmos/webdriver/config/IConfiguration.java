@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URL;
 
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Dimension;
 
 import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
@@ -27,5 +28,7 @@ public interface IConfiguration {
 	void setDesiredCapabilities(Capabilities caps);
 	String getDriverManagerHint();
 	void setDriverManagerHint(String hint);
+	Dimension getBrowserWindowDimension();
+	void setBrowserWindowDimension(Dimension dimension); 
 	
 }
