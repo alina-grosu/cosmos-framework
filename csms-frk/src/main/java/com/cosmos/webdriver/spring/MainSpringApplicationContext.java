@@ -1,13 +1,7 @@
 package com.cosmos.webdriver.spring;
 
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-
-import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.ie.InternetExplorerDriverService;
-import org.openqa.selenium.remote.service.DriverService;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,12 +15,12 @@ import com.cosmos.webdriver.config.impl.EnvironmentBasedConfigurationBuilder;
 import com.cosmos.webdriver.config.impl.PropertiesBasedConfigurationBuilder;
 import com.cosmos.webdriver.context.IStepsContext;
 import com.cosmos.webdriver.context.impl.DefaultStepsContext;
-import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
 import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.manager.IDriverServiceManager;
 import com.cosmos.webdriver.manager.StepContextScopesEnum;
 import com.cosmos.webdriver.manager.impl.DefaultDriverManagerFactory;
+import com.cosmos.webdriver.manager.impl.DefaultDriverServiceFactory;
 import com.cosmos.webdriver.manager.impl.LocalDriverServiceManager;
 import com.cosmos.webdriver.manager.impl.RemoteDriverServiceManager;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
@@ -62,68 +56,28 @@ public class MainSpringApplicationContext {
 	public IConfiguration configuration()
 	{
 		return new ConfigurationFactory(configurationBuilders()).getConfiguration();
-	}
-	
-	@Bean
-	public ChromeDriverService chromeDriverService()
-	{
-		return new ChromeDriverService.Builder()
-				.usingDriverExecutable(configuration().getDriverExecutableLocation())
-				.usingAnyFreePort()
-				.build();			
-	}
-	
-	@Bean 
-	public InternetExplorerDriverService ieDriverService()
-	{
-		//TODO
-		return null;
-	}
-	
-	@Bean
-	public Map<BrowsersEnum, DriverService> driverServices()
-	{
-		Map<BrowsersEnum, DriverService> driverServices = new EnumMap<>(BrowsersEnum.class);
-		driverServices.put(BrowsersEnum.CHROME, chromeDriverService());
-		driverServices.put(BrowsersEnum.IE, ieDriverService());
-		return driverServices;
-	}
+	}		
 	
 	@Bean(destroyMethod="stopDriverService")
-	public IDriverServiceManager localDriverServiceManager()
+	public IDriverServiceManager driverServiceManager()
 	{
-		return new LocalDriverServiceManager(Optional.ofNullable(driverServices().get(configuration().getBrowser())));
-	}	
-	
-	@Bean
-	public IDriverServiceManager remoteDriverServiceManager()
-	{
-		return new RemoteDriverServiceManager(configuration());
+		return configuration().getExecutionType().equals(ExecutionTypesEnum.REMOTE)
+				? new RemoteDriverServiceManager(configuration())
+				: new LocalDriverServiceManager(new DefaultDriverServiceFactory().newDriverService(configuration()))
+				;
 	}
 	
-	@Bean
+	@Bean(destroyMethod="quitDriver")
 	public IDriverManager singletonDriverManager() 
 	{
-		return new DefaultDriverManagerFactory().newManager
-						(
-							configuration(), 
-							configuration().getExecutionType() == ExecutionTypesEnum.REMOTE
-									? remoteDriverServiceManager() 
-									: localDriverServiceManager()
-						);
+		return new DefaultDriverManagerFactory().newManager(configuration(), driverServiceManager());
 	}
 	
-	@Bean
+	@Bean(destroyMethod="quitDriver")
 	@Scope("cucumber-glue")
 	public IDriverManager glueCodeScopedDriverManager() 
 	{
-		return new DefaultDriverManagerFactory().newManager
-				(
-					configuration(), 
-					configuration().getExecutionType() == ExecutionTypesEnum.REMOTE 
-							? remoteDriverServiceManager()
-							: localDriverServiceManager()
-				);
+		return new DefaultDriverManagerFactory().newManager(configuration(), driverServiceManager());
 	}	
 	
 	@Bean
@@ -139,8 +93,7 @@ public class MainSpringApplicationContext {
 	@Scope("prototype")
 	public IStepsContext stepsContext()
 	{
-		IStepsContext context = new DefaultStepsContext(pageObjectManager());		
-		return context;
+		return new DefaultStepsContext(pageObjectManager());				
 	}	
 		
 	/*

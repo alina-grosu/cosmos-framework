@@ -24,7 +24,7 @@
 		<com.cosmos.driver.browser>chrome</com.cosmos.driver.browser>
 		<com.cosmos.execution.type>local</com.cosmos.execution.type>
 		<com.cosmos.grid.hub.url>http://localhost:4444/wd/hub</com.cosmos.grid.hub.url>
-		<com.cosmos.driver.chrome.executable.location>chromedriver.exe</com.cosmos.driver.chrome.executable.location>
+		<com.cosmos.driver.executable.location>chromedriver.exe</com.cosmos.driver.executable.location>
 		<com.cosmos.steps.context.scope>feature</com.cosmos.steps.context.scope>
 		<com.cosmos.aut.url>https://login.tst-us-east.medispend.com/dashboard/login</com.cosmos.aut.url>
 		<com.cosmos.logs.location>logs</com.cosmos.logs.location>
@@ -152,12 +152,14 @@
 		<profile>
 			<id>dev</id>
 			<properties>
-				<com.cosmos.driver.chrome.executable.location>C:\devtools\drivers\chrome\2.37\chromedriver_win32\chromedriver.exe</com.cosmos.driver.chrome.executable.location>
+				<com.cosmos.driver.executable.location>C:\devtools\drivers\chrome\2.37\chromedriver_win32\chromedriver.exe</com.cosmos.driver.executable.location>
+				<!-- <com.cosmos.driver.executable.location>C:\devtools\drivers\ie\3.9.0_x32\IEDriverServer.exe</com.cosmos.driver.executable.location> -->
 				<!-- <surefire.include.test.runners>MedispendLoginScreenTestsRunner</surefire.include.test.runners> -->
 				<!-- <com.cosmos.steps.context.scope>feature</com.cosmos.steps.context.scope> -->
 				<surefire.parallel>classes</surefire.parallel>
 				<surefire.parallel.thread.count>5</surefire.parallel.thread.count> 
-				<com.cosmos.steps.context.scope>feature</com.cosmos.steps.context.scope>								
+				<com.cosmos.steps.context.scope>scenario</com.cosmos.steps.context.scope>	
+				<com.cosmos.driver.browser>chrome</com.cosmos.driver.browser>							
 			</properties>
 		</profile>
 	</profiles>

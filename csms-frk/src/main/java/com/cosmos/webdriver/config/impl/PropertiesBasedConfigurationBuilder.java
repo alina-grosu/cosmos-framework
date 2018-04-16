@@ -30,7 +30,7 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 		config.setExecutionType(
 				ExecutionTypesEnum.valueOf(getProperty(props, PropertiesEnum.EXECUTION_TYPE_ENVIRO_KEY).toUpperCase()));
 		
-		config.setChromeDriverExecutableLocation(new File(getProperty(props, PropertiesEnum.CHROMEDRIVER_LOCATION_KEY)));
+		config.setChromeDriverExecutableLocation(new File(getProperty(props, PropertiesEnum.WEBDRIVER_LOCATION_KEY)));
 		
 		config.setRemoteGridHubUrl(
 				toUrl(getProperty(props, PropertiesEnum.GRID_URL_KEY), "Selenium Grid Hub URL seems to be malformed"));
