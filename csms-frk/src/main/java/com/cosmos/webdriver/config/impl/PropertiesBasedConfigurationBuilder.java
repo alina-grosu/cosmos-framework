@@ -68,8 +68,7 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 		catch (NumberFormatException e)
 		{
 			String format = "Unable to parse desired browser dimensions: height=%s, width=%s. Values must be ints.";
-			logger.error(String.format(format, height, width));
-			logger.error(e);
+			logger.error(String.format(format, height, width), e);			
 			throw new RuntimeException(e);
 		}			
 	}
@@ -84,7 +83,7 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 		} 
 		catch (IOException e)
 		{
-			logger.error(String.format("Failed to read properties file '%s' from classpath.", configName));
+			logger.error(String.format("Failed to read properties file '%s' from classpath.", configName), e);
 			throw new RuntimeException(e);
 		}
 		
@@ -109,7 +108,7 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 		}
 		catch (MalformedURLException e)
 		{
-			logger.error(String.format("Failed to parse URL: %s", url));			
+			logger.error(String.format("Failed to parse URL: %s", url), e);			
 			throw new RuntimeException(failMessage, e);			
 		}
 		return toUrl;

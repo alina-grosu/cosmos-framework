@@ -37,8 +37,7 @@ public class DefaultRemotingDriverManager implements IDriverManager {
 				} 
 				catch (IOException e)
 				{
-					logger.error("DriverService startup failed.");
-					logger.error(e);					
+					logger.error("DriverService startup failed.", e);									
 				}
 			}
 			driver = configureRemoteWebDriver();
@@ -74,6 +73,7 @@ public class DefaultRemotingDriverManager implements IDriverManager {
 	{
 		RemoteWebDriver remoteWebDriver = 
 				new RemoteWebDriver(driverServiceManager.getDriverServiceUrl(), config.getDesiredCapabilities());
+		
 		if (config.getBrowserWindowDimension() == null)
 		{
 			remoteWebDriver.manage().window().maximize();
