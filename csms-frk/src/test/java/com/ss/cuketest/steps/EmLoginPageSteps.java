@@ -1,6 +1,5 @@
 package com.ss.cuketest.steps;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import com.cosmos.webdriver.context.IStepsContext;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -14,26 +13,22 @@ import org.apache.logging.log4j.Logger;
 public class EmLoginPageSteps extends EmStepsBase{
 	private static final Logger logger = LogManager.getLogger();
 		
-	public EmLoginPageSteps(@Autowired IStepsContext context)
+	public EmLoginPageSteps(IStepsContext context)
 	{
 		super(context);							
 	}
 	
 	@Given("^user navigates to login page$")
 	public void user_navigates_to_login_page() throws Exception
-	{
-
-		System.out.println(1);
-		System.out.println("Started in thread " + Thread.currentThread().getId());
-		pageObjectManager.get("https://login.tst-us-east.medispend.com/dashboard/login");
-		assertTrue(pageObjectManager.getLoginPage().isAt());
-		Thread.sleep(5000);
-
+	{		
+		pageObjectManager.get(context.getConfiguration().getAppUnderTestUrl().toString());
+		assertTrue(pageObjectManager.getLoginPage().isAt());		
 	}
 	
 	@When("^user inputs \"([^\"]*)\" as login and \"([^\"]*)\" as password$")
 	public void user_inputs_as_login_and_as_password(String login, String password) throws Exception {		
-		pageObjectManager.getLoginPage().inputCredentials(login, password);		
+		pageObjectManager.getLoginPage().inputCredentials(login, password);	
+		//assertTrue(false);
 	}
 
 	@And("^clicks Login button$")

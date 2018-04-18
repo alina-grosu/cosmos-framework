@@ -1,13 +1,11 @@
 package com.ss.cuketest.steps;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.cosmos.webdriver.context.IStepsContext;
 import cucumber.api.java.en.Then;
 
 public class EmHomeDashboardPageSteps extends EmStepsBase {
 
-	public EmHomeDashboardPageSteps (@Autowired IStepsContext context)
+	public EmHomeDashboardPageSteps (IStepsContext context)
 	{
 		super(context);
 	}	

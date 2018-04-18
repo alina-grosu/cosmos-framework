@@ -1,7 +1,5 @@
 package com.ss.cuketest.steps;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.cosmos.webdriver.context.IStepsContext;
 
 import cucumber.api.java.en.Then;
@@ -9,7 +7,7 @@ import cucumber.api.java.en.When;
 
 public class EmPostLogoutPageSteps extends EmStepsBase{
 
-	public EmPostLogoutPageSteps(@Autowired IStepsContext context)
+	public EmPostLogoutPageSteps(IStepsContext context)
 	{
 		super(context);		
 	}

@@ -1,6 +1,7 @@
 package com.cosmos.webdriver.pageobject.manager;
 
-import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.pageobject.pages.HomeDashboardPage;
@@ -57,9 +58,13 @@ public class PageObjectManager {
 	}
 	
 	public void get(String url)
-	{
-		driverManager.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	{		
 		driverManager.getDriver().get(url);
+	}
+	
+	public <T> T getScreenshotAs (OutputType<T> type)
+	{
+		return ((TakesScreenshot)driverManager.getDriver()).getScreenshotAs(type);
 	}
 
 }

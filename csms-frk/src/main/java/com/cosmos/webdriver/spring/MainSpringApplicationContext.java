@@ -93,7 +93,7 @@ public class MainSpringApplicationContext {
 	@Scope("prototype")
 	public IStepsContext stepsContext()
 	{
-		return new DefaultStepsContext(pageObjectManager());				
+		return new DefaultStepsContext(pageObjectManager(), configuration());				
 	}	
 		
 	/*
