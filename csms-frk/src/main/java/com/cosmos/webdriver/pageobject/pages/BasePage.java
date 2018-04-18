@@ -21,14 +21,19 @@ public abstract class BasePage {
 		this.driverManager = driverManager;
 		PageFactory.initElements(driverManager.getDriver(), this);
 	}
-		
+	
 	public boolean isAt()
+	{
+		return isAt(5);
+	}
+	
+	public boolean isAt(long timeout)
 	{
 		boolean isAt;
 		
 		try
 		{
-			waitUntilElementVisible(getPagePresenceValidatingWebElement());				
+			waitUntilElementVisible(getPagePresenceValidatingWebElement(), timeout);				
 			isAt = true;
 		} 
 		catch (TimeoutException exception)
@@ -37,13 +42,18 @@ public abstract class BasePage {
 		}
 		
 		return isAt;
-	}
+	}			
 	
 	protected WebElement waitUntilElementVisible(WebElement target)
 	{
+		return waitUntilElementVisible(target, 5);
+	}
+	
+	protected WebElement waitUntilElementVisible(WebElement target, long timeout)
+	{
 		return new FluentWait<WebDriver>(driverManager.getDriver())
-					.pollingEvery(250, TimeUnit.MILLISECONDS)
-					.withTimeout(30, TimeUnit.SECONDS)
+					.pollingEvery(50, TimeUnit.MILLISECONDS)
+					.withTimeout(timeout, TimeUnit.SECONDS)
 					.ignoring(NoSuchElementException.class)
 					.until(ExpectedConditions.visibilityOf(target))
 					;
