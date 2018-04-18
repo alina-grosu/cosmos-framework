@@ -3,3 +3,6 @@
 /logs/
 /target/
 /.allure/
+/allure-report/
+/screenshots/
+/src/test/java/com/ss/research
