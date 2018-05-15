@@ -1,15 +1,43 @@
 package com.ss.cuketest.steps;
 
-import com.cosmos.webdriver.context.IStepsContext;
+import com.cosmos.webdriver.context.IUiComparisonContext;
+import com.cosmos.webdriver.context.IUiDrivingStepContext;
+import com.cosmos.webdriver.screenshots.IScreenshotAccessor;
+import com.cosmos.webdriver.uicomparison.IUiComparisonResult;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.junit.Cucumber;
+import io.qameta.allure.cucumber2jvm.CucumberSourceUtils;
 
-public class EmPostLogoutPageSteps extends EmStepsBase{
+import static com.cosmos.cucumber.uicomparison.FeatureLocationAwareUiComparisonHelper.*;
+import static com.cosmos.webdriver.uicomparison.IUiComparisonResult.UiComparisonStatusEnum;
+import static com.cosmos.webdriver.util.AllureUtils.*;
 
-	public EmPostLogoutPageSteps(IStepsContext context)
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.function.Supplier;
+
+import javax.imageio.ImageIO;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+
+
+public class EmPostLogoutPageSteps extends EmStepsBase {
+	
+	private static final Logger logger = LogManager.getLogger();
+	private final IUiComparisonContext uiComparisonContext;
+
+	public EmPostLogoutPageSteps(IUiDrivingStepContext uiDrivingContext, IUiComparisonContext uiComparisonContext)
 	{
-		super(context);		
+		this.uiDrivingContext = uiDrivingContext;
+		this.uiComparisonContext = uiComparisonContext;
 	}
 
 	@Then("^PostLogout page shows$")
@@ -30,6 +58,36 @@ public class EmPostLogoutPageSteps extends EmStepsBase{
 	@When("^user clicks Home button$")
 	public void user_clicks_Home_button() throws Exception {
 		pageObjectManager.getPostLogoutPage().navigateToLoginScreen();
+	}
+	
+	@Then("^PostLogout page looks like \"([^\"]*)\"$")
+	public void postlogout_page_looks_like(String baseScreenshotName) throws Exception {
+		
+		String failureMessage = "UI comparison has failed!";
+		TakesScreenshot screenshotProvider = (TakesScreenshot) uiDrivingContext.getDriverManager().getDriver();		
+		IScreenshotAccessor screenshotAccessor = 
+				IScreenshotAccessor.builder()
+										.inputFileGuarding()
+										.proposingIfAbsent(() -> screenshotProvider.getScreenshotAs(OutputType.BYTES))
+										.build();
+		
+		Path baseScreenshotLocation = 
+				uiComparisonContext
+					.getScreenshotsLocation()
+					.getBaseScreenshotsLocation()
+					.resolve(baseScreenshotName);
+		
+		BufferedImage baseScreenshot = screenshotAccessor.readScreenshot(baseScreenshotLocation);		
+		
+		IUiComparisonResult uiComparisonResult = uiComparisonContext
+						.getUiComparator()
+						.compare(baseScreenshot);
+		
+		if (uiComparisonResult.getUiComparisonStatus() == UiComparisonStatusEnum.FAIL)
+		{			
+			uiComparisonContext.setLatestFailure(uiComparisonResult);			
+			throw new RuntimeException(failureMessage);
+		}
 	}
 	
 }

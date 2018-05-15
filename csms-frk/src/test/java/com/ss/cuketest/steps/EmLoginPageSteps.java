@@ -1,6 +1,6 @@
 package com.ss.cuketest.steps;
 
-import com.cosmos.webdriver.context.IStepsContext;
+import com.cosmos.webdriver.context.IUiDrivingStepContext;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 public class EmLoginPageSteps extends EmStepsBase{
 	private static final Logger logger = LogManager.getLogger();
 		
-	public EmLoginPageSteps(IStepsContext context)
+	public EmLoginPageSteps(IUiDrivingStepContext context)
 	{
 		super(context);							
 	}
@@ -21,7 +21,7 @@ public class EmLoginPageSteps extends EmStepsBase{
 	@Given("^user navigates to login page$")
 	public void user_navigates_to_login_page() throws Exception
 	{		
-		pageObjectManager.get(context.getConfiguration().getAppUnderTestUrl().toString());
+		pageObjectManager.get(uiDrivingContext.getConfiguration().getAppUnderTestUrl().toString());
 		assertTrue(pageObjectManager.getLoginPage().isAt());		
 	}
 	
@@ -43,7 +43,7 @@ public class EmLoginPageSteps extends EmStepsBase{
 	
 	@Then("^error with text \"([^\"]*)\" appears$")
 	public void error_with_text_appears(String message) throws Exception {
-	   String loginError = pageObjectManager.getLoginPage().getLoginError();
+	   String loginError = pageObjectManager.getLoginPage().getLoginErrorMessage();
 	   logger.debug(String.format("message: %s ; loginError: %s ;", message, loginError));
 	   assertTrue(loginError.equalsIgnoreCase(message));
 	}

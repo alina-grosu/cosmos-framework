@@ -5,8 +5,9 @@ Feature: EM PostLogout Screen
     Given user navigates to login page
     When user inputs "admin@alpha.com" as login and "password1" as password
     And clicks Login button
-    Then Dashboard page shows
+    Then Dashboard page shows    
     Then user logs off from Dashboard
+    And PostLogout page looks like "post_logout.png"  
     Then PostLogout page shows
     When user clicks Go Back button
     Then LoginPage shows
@@ -16,17 +17,18 @@ Feature: EM PostLogout Screen
     When user inputs "admin@alpha.com" as login and "password1" as password
     And clicks Login button
     Then Dashboard page shows
+    And PostLogout page looks like "post_logout.png"
     Then user logs off from Dashboard
-    Then PostLogout page shows
+    Then PostLogout page shows     
     When user clicks Home button
     Then LoginPage shows
 
-  Scenario: Login Logout LoginScreen
-    Given user navigates to login page
-    When user inputs "admin@alpha.com" as login and "password1" as password
-    And clicks Login button
-    Then Dashboard page shows
-    Then user logs off from Dashboard
-    Then PostLogout page shows
-    When user clicks Login Screen button
-    Then LoginPage shows
+  #Scenario: Login Logout LoginScreen
+    #Given user navigates to login page
+    #When user inputs "admin@alpha.com" as login and "password1" as password
+    #And clicks Login button
+    #Then Dashboard page shows
+    #Then user logs off from Dashboard
+    #Then PostLogout page shows
+    #When user clicks Login Screen button
+    #Then LoginPage shows

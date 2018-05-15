@@ -10,6 +10,7 @@ Feature: EM Login Screen
     Then Dashboard page shows    
     Then user logs off from Dashboard
     Then PostLogout page shows
+    And PostLogout page looks like "post_logout.png"
     When user clicks Login Screen button
     Then LoginPage shows
     
@@ -17,5 +18,6 @@ Feature: EM Login Screen
     Given user navigates to login page
     When user inputs "admin@alpha.com" as login and "password2" as password
     And clicks Login button
-    Then error with text "WRONG EMAIL OR PASSWORD." appears    
+    Then error with text "WRONG EMAIL OR PASSWORD." appears 
+    And PostLogout page looks like "post_logout.png"   
     And LoginPage shows    

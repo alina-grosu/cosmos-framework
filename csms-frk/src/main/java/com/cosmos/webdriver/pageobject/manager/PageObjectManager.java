@@ -66,5 +66,7 @@ public class PageObjectManager {
 	{
 		return ((TakesScreenshot)driverManager.getDriver()).getScreenshotAs(type);
 	}
+	
+	
 
 }

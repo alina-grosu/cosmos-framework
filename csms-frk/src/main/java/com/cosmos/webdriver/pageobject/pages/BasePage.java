@@ -1,16 +1,15 @@
 package com.cosmos.webdriver.pageobject.pages;
 
-import java.util.concurrent.TimeUnit;
+import static com.cosmos.webdriver.util.WaitUtils.waitUntilElementVisible;
 
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 
 import com.cosmos.webdriver.manager.IDriverManager;
+import com.cosmos.webdriver.pageobject.pages.pagefactory.WebDriverAwareDecorator;
+
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
 public abstract class BasePage {
 			
@@ -19,7 +18,10 @@ public abstract class BasePage {
 	public BasePage(IDriverManager driverManager)
 	{
 		this.driverManager = driverManager;
-		PageFactory.initElements(driverManager.getDriver(), this);
+		//PageFactory.initElements(driverManager.getDriver(), this);
+		PageFactory
+			.initElements(new WebDriverAwareDecorator
+								(new HtmlElementLocatorFactory(driverManager.getDriver()), driverManager.getDriver()), this);
 	}
 	
 	public boolean isAt()
@@ -33,7 +35,7 @@ public abstract class BasePage {
 		
 		try
 		{
-			waitUntilElementVisible(getPagePresenceValidatingWebElement(), timeout);				
+			waitUntilElementVisible(getPagePresenceValidatingWebElement(), driverManager.getDriver(), timeout);				
 			isAt = true;
 		} 
 		catch (TimeoutException exception)
@@ -44,7 +46,9 @@ public abstract class BasePage {
 		return isAt;
 	}			
 	
-	protected WebElement waitUntilElementVisible(WebElement target)
+	protected abstract WebElement getPagePresenceValidatingWebElement();
+	
+	/*protected WebElement waitUntilElementVisible(WebElement target)
 	{
 		return waitUntilElementVisible(target, 5);
 	}
@@ -57,8 +61,8 @@ public abstract class BasePage {
 					.ignoring(NoSuchElementException.class)
 					.until(ExpectedConditions.visibilityOf(target))
 					;
-	}
+	}*/
 	
-	protected abstract WebElement getPagePresenceValidatingWebElement();	
+		
 		
 }

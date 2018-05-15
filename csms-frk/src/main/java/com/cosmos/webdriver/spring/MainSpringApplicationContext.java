@@ -13,8 +13,8 @@ import com.cosmos.webdriver.config.IConfigurationBuilder;
 import com.cosmos.webdriver.config.impl.ConfigurationFactory;
 import com.cosmos.webdriver.config.impl.EnvironmentBasedConfigurationBuilder;
 import com.cosmos.webdriver.config.impl.PropertiesBasedConfigurationBuilder;
-import com.cosmos.webdriver.context.IStepsContext;
-import com.cosmos.webdriver.context.impl.DefaultStepsContext;
+import com.cosmos.webdriver.context.IUiDrivingStepContext;
+import com.cosmos.webdriver.context.impl.DefaultUiDrivingStepContext;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
 import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.manager.IDriverServiceManager;
@@ -25,6 +25,8 @@ import com.cosmos.webdriver.manager.impl.LocalDriverServiceManager;
 import com.cosmos.webdriver.manager.impl.RemoteDriverServiceManager;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 import com.cosmos.webdriver.spring.scope.GlueCodeScope;
+import com.cosmos.webdriver.uicomparison.IUiComparisonContext;
+import com.cosmos.webdriver.uicomparison.impl.DefaultIUiComparisonContext;
 
 
 @Configuration
@@ -81,19 +83,33 @@ public class MainSpringApplicationContext {
 	}	
 	
 	@Bean
+	@Scope("cucumber-glue")
+	public IUiComparisonContext uiComparisonContext() 
+	{
+		DefaultUiComparisonContext defaultIUiComparisonContext = new DefaultUiComparisonContext();
+		System.out.println("RETURNING INSTANCE" + defaultIUiComparisonContext );
+		return defaultIUiComparisonContext;
+	}	
+	
+	@Bean
 	@Scope("prototype")
 	public PageObjectManager pageObjectManager()
 	{
+		return new PageObjectManager(driverManager());
+	}
+
+	private IDriverManager driverManager()
+	{
 		return StepContextScopesEnum.SCENARIO.equals(configuration().getStepsContextScope())
-				? new PageObjectManager(glueCodeScopedDriverManager())
-				: new PageObjectManager(singletonDriverManager());
+				? glueCodeScopedDriverManager()
+				: singletonDriverManager();
 	}
 		
 	@Bean
 	@Scope("prototype")
-	public IStepsContext stepsContext()
+	public IUiDrivingStepContext stepsContext()
 	{
-		return new DefaultStepsContext(pageObjectManager(), configuration());				
+		return new DefaultUiDrivingStepContext(pageObjectManager(), configuration(), driverManager());				
 	}	
 		
 	/*

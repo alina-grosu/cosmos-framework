@@ -2,21 +2,25 @@ package com.cosmos.webdriver.context.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.cosmos.webdriver.config.IConfiguration;
-import com.cosmos.webdriver.context.IStepsContext;
+import com.cosmos.webdriver.context.IUiDrivingStepContext;
+import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 
-public class DefaultStepsContext implements IStepsContext {
+public class DefaultUiDrivingStepContext implements IUiDrivingStepContext {
 	
 	private final PageObjectManager pageObjectManager;
 	private IConfiguration config;
+	private IDriverManager driverManager;	
 	private static final Logger logger = LogManager.getLogger();
 	
-	public DefaultStepsContext (PageObjectManager pageObjectManager, IConfiguration config)
+	public DefaultUiDrivingStepContext (PageObjectManager pageObjectManager,
+								IConfiguration config, 
+								IDriverManager driverManager)
 	{
 		this.pageObjectManager = pageObjectManager;
 		this.config = config;
+		this.driverManager = driverManager;		
 	}
 
 	@Override
@@ -30,6 +34,18 @@ public class DefaultStepsContext implements IStepsContext {
 	public IConfiguration getConfiguration()
 	{		
 		return config;
+	}
+
+	@Override 
+	public IDriverManager getDriverManager()
+	{		
+		return driverManager;
+	}
+
+	@Override
+	public IUiComparisonContext getUiComparisonContext()
+	{		
+		return uiContext;
 	}
 
 }

@@ -66,7 +66,7 @@ public class DefaultRemotingDriverManager implements IDriverManager {
 	@Override
 	public void quit()
 	{
-		logger.info(String.format("Quiting WebDriver instance %s and corresponding DriverService..."));
+		logger.info(String.format("Quiting WebDriver instance %s and corresponding DriverService..."), driver.toString());
 		quitDriver();
 		driverServiceManager.stopDriverService();
 	}
