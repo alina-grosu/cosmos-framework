@@ -42,10 +42,4 @@ public class DefaultUiDrivingStepContext implements IUiDrivingStepContext {
 		return driverManager;
 	}
 
-	@Override
-	public IUiComparisonContext getUiComparisonContext()
-	{		
-		return uiContext;
-	}
-
 }

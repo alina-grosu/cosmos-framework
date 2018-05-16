@@ -1,12 +1,14 @@
 package com.cosmos.webdriver.screenshots.impl;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import com.cosmos.cucumber.ThreadLocalBasedFeatureTracker;
 import com.cosmos.webdriver.screenshots.IScreenshotsLocationAware;
 
 public class FeatureLocationBasedShcreenshotsLocationAware implements IScreenshotsLocationAware {
-		
+			
+	
 	@Override
 	public Path getBaseScreenshotsLocation()
 	{
@@ -28,8 +30,8 @@ public class FeatureLocationBasedShcreenshotsLocationAware implements IScreensho
 	private Path getScreenshotsDir()
 	{
 		return ThreadLocalBasedFeatureTracker
-				.getCurrentFeatureDir()
-				.resolve("screenshots");
+				.getCurrentScenarioDir()				
+				.resolve("screenshots");				
 	}
 
 }

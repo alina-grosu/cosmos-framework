@@ -13,7 +13,7 @@ import com.cosmos.webdriver.uicomparison.impl.AShotUiComparator;
 
 public class FeatureLocationAwareUiComparisonHelper {	
 	
-	public static IUiComparisonResult compare(String baseScreenshotName, WebDriver driver)
+	/*public static IUiComparisonResult compare(String baseScreenshotName, WebDriver driver)
 	{
 		Path baseScreenshot = getBaseScreenshotLocation(baseScreenshotName);				
 		IUiComparator uiComparator = new AShotUiComparator(driver);				
@@ -36,6 +36,6 @@ public class FeatureLocationAwareUiComparisonHelper {
 		Path base = currentScreenshotsLocation.resolve("base");
 		Path baseScreenshot = base.resolve(baseScreenshotName);
 		return baseScreenshot;
-	}
+	}*/
 	
 }

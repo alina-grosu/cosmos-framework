@@ -12,6 +12,7 @@ public class FeatureTrackingHooks {
 	{	
 		System.out.println(scenario.getUri());
 		ThreadLocalBasedFeatureTracker.updateCurrentFeatureUri(scenario.getUri());
+		ThreadLocalBasedFeatureTracker.setCurrentScenario(scenario);
 	}
 	
 }

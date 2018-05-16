@@ -46,8 +46,9 @@ public class ScreenshotingHooks {
 			try
 			{
 				Path failureScreenshotLocation = uiComparisonContext
-					.getScreenshotsLocation()
+					.getScreenshotsLocationAware()
 					.getFailureScreenshotsLocation()
+					.resolve(context.getConfiguration().getBrowser().toString().toLowerCase())
 					.resolve("failure.png");
 				logger.info(
 						String.format(
@@ -66,9 +67,9 @@ public class ScreenshotingHooks {
 	}		
 	
 	@After
-	public void embedScreenshotsOnComparisonFailure()
+	public void embedScreenshotsOnComparisonFailure(Scenario scenario)
 	{
-		if (uiComparisonContext.getLatestFailure() != null)
+		if (scenario.isFailed() && uiComparisonContext.getLatestFailure() != null)
 		{
 			logger.info("UI comparison results seem to be available, trying to embed to Allure report...");
 			attachUiComparisonResults(uiComparisonContext.getLatestFailure());
@@ -76,8 +77,9 @@ public class ScreenshotingHooks {
 			try
 			{
 				Path diffScreenshotLocation = uiComparisonContext
-						.getScreenshotsLocation()
+						.getScreenshotsLocationAware()
 						.getResultScreenshotsLocation()
+						.resolve(context.getConfiguration().getBrowser().toString().toLowerCase())
 						.resolve("diff.png");
 				
 				logger.info(

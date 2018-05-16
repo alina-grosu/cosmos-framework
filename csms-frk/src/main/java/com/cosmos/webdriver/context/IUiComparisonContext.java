@@ -7,7 +7,7 @@ import com.cosmos.webdriver.uicomparison.IUiComparisonResult;
 public interface IUiComparisonContext extends ICucumberStepContext {
 	
 	IUiComparator getUiComparator();
-	IScreenshotsLocationAware getScreenshotsLocation();
+	IScreenshotsLocationAware getScreenshotsLocationAware();
 	IUiComparisonResult getLatestFailure();
 	void setLatestFailure(IUiComparisonResult failure);
 }

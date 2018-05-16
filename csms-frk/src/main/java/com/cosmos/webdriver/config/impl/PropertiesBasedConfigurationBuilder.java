@@ -15,6 +15,7 @@ import com.cosmos.webdriver.config.IConfigurationBuilder;
 import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
 import com.cosmos.webdriver.manager.StepContextScopesEnum;
+import com.cosmos.webdriver.uicomparison.UiComparatorTypesEnum;
 
 public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilder {
 	
@@ -48,6 +49,10 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 		config.setDriverManagerHint(getProperty(props, PropertiesEnum.DRIVER_MANAGER_HINT).toUpperCase());
 		
 		config.setBrowserWindowDimension(getBrowserWindowDimension(props));
+		
+		config.setUiComparatorType(
+				UiComparatorTypesEnum.valueOf(
+						getProperty(props, PropertiesEnum.UI_COMPARATOR).toUpperCase()));
 		
 		return config;
 	}

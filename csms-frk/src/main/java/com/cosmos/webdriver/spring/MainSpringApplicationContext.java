@@ -13,7 +13,9 @@ import com.cosmos.webdriver.config.IConfigurationBuilder;
 import com.cosmos.webdriver.config.impl.ConfigurationFactory;
 import com.cosmos.webdriver.config.impl.EnvironmentBasedConfigurationBuilder;
 import com.cosmos.webdriver.config.impl.PropertiesBasedConfigurationBuilder;
+import com.cosmos.webdriver.context.IUiComparisonContext;
 import com.cosmos.webdriver.context.IUiDrivingStepContext;
+import com.cosmos.webdriver.context.impl.DefaultUiComparisonContext;
 import com.cosmos.webdriver.context.impl.DefaultUiDrivingStepContext;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
 import com.cosmos.webdriver.manager.IDriverManager;
@@ -24,9 +26,11 @@ import com.cosmos.webdriver.manager.impl.DefaultDriverServiceFactory;
 import com.cosmos.webdriver.manager.impl.LocalDriverServiceManager;
 import com.cosmos.webdriver.manager.impl.RemoteDriverServiceManager;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
+import com.cosmos.webdriver.screenshots.IScreenshotsLocationAware;
+import com.cosmos.webdriver.screenshots.impl.FeatureLocationBasedShcreenshotsLocationAware;
 import com.cosmos.webdriver.spring.scope.GlueCodeScope;
-import com.cosmos.webdriver.uicomparison.IUiComparisonContext;
-import com.cosmos.webdriver.uicomparison.impl.DefaultIUiComparisonContext;
+import com.cosmos.webdriver.uicomparison.IUiComparator;
+import com.cosmos.webdriver.uicomparison.impl.DefaultUiComparatorFactory;
 
 
 @Configuration
@@ -81,16 +85,7 @@ public class MainSpringApplicationContext {
 	{
 		return new DefaultDriverManagerFactory().newManager(configuration(), driverServiceManager());
 	}	
-	
-	@Bean
-	@Scope("cucumber-glue")
-	public IUiComparisonContext uiComparisonContext() 
-	{
-		DefaultUiComparisonContext defaultIUiComparisonContext = new DefaultUiComparisonContext();
-		System.out.println("RETURNING INSTANCE" + defaultIUiComparisonContext );
-		return defaultIUiComparisonContext;
-	}	
-	
+			
 	@Bean
 	@Scope("prototype")
 	public PageObjectManager pageObjectManager()
@@ -110,6 +105,18 @@ public class MainSpringApplicationContext {
 	public IUiDrivingStepContext stepsContext()
 	{
 		return new DefaultUiDrivingStepContext(pageObjectManager(), configuration(), driverManager());				
+	}	
+	
+	@Bean
+	@Scope("cucumber-glue")
+	public IUiComparisonContext uiComparisonContext() 
+	{
+		IUiComparator comparator = new DefaultUiComparatorFactory(configuration()).getUiComparator();
+		IScreenshotsLocationAware screenshotsLocationAware = new FeatureLocationBasedShcreenshotsLocationAware();
+		DefaultUiComparisonContext defaultIUiComparisonContext = 
+				new DefaultUiComparisonContext(comparator, screenshotsLocationAware);
+		System.out.println("RETURNING INSTANCE" + defaultIUiComparisonContext );
+		return defaultIUiComparisonContext;
 	}	
 		
 	/*

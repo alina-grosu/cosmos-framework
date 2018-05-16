@@ -27,6 +27,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 
 
 public class EmPostLogoutPageSteps extends EmStepsBase {
@@ -42,51 +43,54 @@ public class EmPostLogoutPageSteps extends EmStepsBase {
 
 	@Then("^PostLogout page shows$")
 	public void postlogoff_page_shows() throws Exception {
-		System.out.println(pageObjectManager.getPostLogoutPage().isAt());
+		System.out.println(uiDrivingContext.getPageObjectManager().getPostLogoutPage().isAt());
 	}
 
 	@When("^user clicks Login Screen button$")
 	public void user_clicks_Login_Screen_button() throws Exception {
-		pageObjectManager.getPostLogoutPage().navigateToLoginScreen();
+		uiDrivingContext.getPageObjectManager().getPostLogoutPage().navigateToLoginScreen();
 	}
 	
 	@When("^user clicks Go Back button$")
 	public void user_clicks_Go_Back_button() throws Exception {
-		pageObjectManager.getPostLogoutPage().navigateToLoginScreen();
+		uiDrivingContext.getPageObjectManager().getPostLogoutPage().navigateToLoginScreen();
 	}
 	
 	@When("^user clicks Home button$")
 	public void user_clicks_Home_button() throws Exception {
-		pageObjectManager.getPostLogoutPage().navigateToLoginScreen();
+		uiDrivingContext.getPageObjectManager().getPostLogoutPage().navigateToLoginScreen();
 	}
 	
 	@Then("^PostLogout page looks like \"([^\"]*)\"$")
 	public void postlogout_page_looks_like(String baseScreenshotName) throws Exception {
-		
-		String failureMessage = "UI comparison has failed!";
-		TakesScreenshot screenshotProvider = (TakesScreenshot) uiDrivingContext.getDriverManager().getDriver();		
+				
+		WebDriver actualScreenshotProvider =  uiDrivingContext.getDriverManager().getDriver();		
 		IScreenshotAccessor screenshotAccessor = 
-				IScreenshotAccessor.builder()
-										.inputFileGuarding()
-										.proposingIfAbsent(() -> screenshotProvider.getScreenshotAs(OutputType.BYTES))
-										.build();
+				IScreenshotAccessor
+					.builder()
+						.inputFileGuarding()
+						.proposingIfAbsent(() -> ((TakesScreenshot) actualScreenshotProvider).getScreenshotAs(OutputType.BYTES))
+						.build();
 		
 		Path baseScreenshotLocation = 
 				uiComparisonContext
-					.getScreenshotsLocation()
+					.getScreenshotsLocationAware()
 					.getBaseScreenshotsLocation()
+					.resolve(uiDrivingContext.getConfiguration().getBrowser().toString().toLowerCase())
 					.resolve(baseScreenshotName);
 		
 		BufferedImage baseScreenshot = screenshotAccessor.readScreenshot(baseScreenshotLocation);		
 		
 		IUiComparisonResult uiComparisonResult = uiComparisonContext
 						.getUiComparator()
-						.compare(baseScreenshot);
+						.compare(baseScreenshot, 
+								actualScreenshotProvider, 
+								uiDrivingContext.getPageObjectManager().getPostLogoutPage().getElementsToIgnore());
 		
 		if (uiComparisonResult.getUiComparisonStatus() == UiComparisonStatusEnum.FAIL)
 		{			
 			uiComparisonContext.setLatestFailure(uiComparisonResult);			
-			throw new RuntimeException(failureMessage);
+			throw new RuntimeException("UI comparison has failed!");
 		}
 	}
 	

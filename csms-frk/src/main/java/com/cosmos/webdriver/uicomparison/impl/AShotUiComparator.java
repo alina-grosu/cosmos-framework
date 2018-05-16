@@ -1,117 +1,74 @@
 package com.cosmos.webdriver.uicomparison.impl;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.imageio.ImageIO;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.uicomparison.IUiComparator;
-import com.cosmos.webdriver.uicomparison.IUiComparisonIgnorableElementsAware;
 import com.cosmos.webdriver.uicomparison.IUiComparisonResult;
+import com.cosmos.webdriver.uicomparison.IUiComparisonResult.UiComparisonStatusEnum;
 
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
 import ru.yandex.qatools.ashot.comparison.ImageDiffer;
 import ru.yandex.qatools.ashot.coordinates.Coords;
-
-import static com.cosmos.webdriver.uicomparison.IUiComparisonResult.UiComparisonStatusEnum;
+import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
 public class AShotUiComparator implements IUiComparator {
 
-	private static final Logger logger = LogManager.getLogger();	
-	private final WebDriver driver;
-	
-	public AShotUiComparator(WebDriver driver)
-	{
-		this.driver = driver;
-	}
-				
+	private static final Logger logger = LogManager.getLogger();			
+			
 	@Override
-	public IUiComparisonResult compare(BufferedImage baseScreenshot)
+	public IUiComparisonResult compare(BufferedImage baseScreenshot, WebDriver actualScreenshotProvider)
 	{
-		return compare(baseScreenshot, new LinkedList<WebElement>());
+		return compare(baseScreenshot, actualScreenshotProvider, new LinkedList<WebElement>());
 	}	
 
 	@Override
-	public IUiComparisonResult compare(BufferedImage baseScreenshot, List<WebElement> ignoredElements)
+	public IUiComparisonResult compare(
+			BufferedImage baseScreenshot, 
+			WebDriver actualScreenshotProvider, 
+			List<WebElement> ignoredElements)
 	{
-		logger.info(String
-				.format("Attempting to compare screenshot [%s] to current UI state", baseScreenshot.toString()));
-		
-		
-		
-		
-		BufferedImage baseImg = null;
-		BufferedImage sampleImg = null;
-		BufferedImage diffImg = null;					
-		
-		try 
-		{
-			logger.info("Reading base screenshot...");
-			baseImg = ImageIO.read(baseScreenshot.toFile());
-		}
-		catch (IOException e)
-		{
-			logger.error(String.format("Unable to read base screenshot file from path [%s]", baseScreenshot.toString()), e);
-			throw new RuntimeException("Unable to read image.", e);
-		}				
-		
+		logger.info("Attempting to compare screenshots...");						
+									
 		Screenshot actual = new AShot()
-						.ignoredAreas(toAreas(ignoredElements))
-						.takeScreenshot(driver);
-		Screenshot expected = new Screenshot(baseImg);
-		
+						.coordsProvider(new WebDriverCoordsProvider())
+						.ignoredAreas(toAreas(ignoredElements))	
+						.shootingStrategy(ShootingStrategies.viewportPasting(100))
+						.takeScreenshot(actualScreenshotProvider);
+		Screenshot expected = new Screenshot(baseScreenshot);
+		expected.setIgnoredAreas(actual.getIgnoredAreas());
 		ImageDiff diff = new ImageDiffer().makeDiff(expected, actual);
-		
-		baseImg = expected.getImage();
-		sampleImg = actual.getImage();
-		diffImg = diff.getMarkedImage();
+				
+		BufferedImage sampleImg = actual.getImage();
+		BufferedImage diffImg = diff.getMarkedImage();
 		UiComparisonStatusEnum status = diff.hasDiff() 
 				? UiComparisonStatusEnum.FAIL
-				: UiComparisonStatusEnum.PASS; 				
+				: UiComparisonStatusEnum.PASS; 								
 		
-		Path diffLocation = baseScreenshot.getParent().getParent().resolve("result").resolve("diff_" + baseScreenshot.getFileName());
-		try 
-		{						
-			logger.info(
-					String.format(
-							"Trying to preserve diff image to [%s]...", 
-							diffLocation));
-			File diffFile = diffLocation.toFile();
-			diffFile.mkdirs();
-			ImageIO.write(diffImg, "png", diffFile);
-		}
-		catch (IOException e)
-		{
-			logger.error(String.format("Unable to preserve diff screenshot file to path [%s]", diffLocation.toString()), e);
-			throw new RuntimeException("Unable to store image.", e);
-		}
-		
-		return new DefaultUiComparisonResult(status, baseImg, sampleImg, diffImg);
+		return new DefaultUiComparisonResult(status, baseScreenshot, sampleImg, diffImg);
 	}
 	
 	private Set<Coords> toAreas(List<WebElement> elementsToIgnore)
 	{
 		
-		return elementsToIgnore
+		return 
+			elementsToIgnore
 			.stream()
 			.map(
 					webElem -> 
-						new Coords(webElem.getRect().x, webElem.getRect().y, webElem.getRect().width, webElem.getRect().height)
+					new Coords(webElem.getRect().x, webElem.getRect().y, webElem.getRect().width, webElem.getRect().height)
 				)
 			.collect(Collectors.toSet())
 			;
