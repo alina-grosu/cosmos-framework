@@ -1,62 +1,53 @@
 package com.ss.cuketest.steps;
 
-import static com.cosmos.webdriver.util.AllureUtils.attachScreenshot;
-
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.nio.file.Path;
-
-import javax.imageio.ImageIO;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
-import com.cosmos.webdriver.context.IUiComparisonContext;
+import com.cosmos.resource.TestResourcesEnum;
+import com.cosmos.webdriver.context.ITestResourceContext;
 import com.cosmos.webdriver.context.IUiDrivingStepContext;
-import com.cosmos.webdriver.screenshots.IScreenshotAccessor;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 
-import static com.cosmos.webdriver.util.AllureUtils.*;
+import static com.cosmos.webdriver.util.ImageUtils.*;
+
+import java.io.IOException;
+import java.nio.file.Path;
 
 public class ScreenshotingHooks {
-
+	
 	private static final Logger logger = LogManager.getLogger();
-	private IUiDrivingStepContext context;
-	private IUiComparisonContext uiComparisonContext;
-	private IScreenshotAccessor screenshotAccessor = IScreenshotAccessor.builder()
-														.inputFileGuarding().build();
-
-	public ScreenshotingHooks (IUiDrivingStepContext context, IUiComparisonContext uiComparisonContext)
+	private final IUiDrivingStepContext uiContext;
+	private final ITestResourceContext resourceContext;
+	
+	public ScreenshotingHooks (IUiDrivingStepContext context, ITestResourceContext resourceContext)
 	{
-		this.context = context;
-		this.uiComparisonContext = uiComparisonContext;
+		this.uiContext = context;	
+		this.resourceContext = resourceContext;
 	}
 	
 	@After
-	public void embedScreenshotOnFailure(Scenario scenario)
+	public void saveScreenshotOnFailure(Scenario scenario)
 	{		
 		if (scenario.isFailed())
 		{
-			logger.info("Current scenario has failed. Embedding screenshot to Allure report...");			
-			byte[] failureScreenshot = attachScreenshot("Failure screenshot", context.getDriverManager().getDriver());
+					
+			byte[] failureScreenshot = 
+					((TakesScreenshot) uiContext.getDriverManager().getDriver()).getScreenshotAs(OutputType.BYTES);
+			Path failureDir = 
+					resourceContext.getResourceLocator().getResourcePath(TestResourcesEnum.FAILURE_SCREENSHOTS_DIR);						
+			
+			logger
+				.info(
+					String.format("Current scenario has failed. Trying to preserve screenshot to filesystem [%s]...",
+									failureDir.toString()));	
 			
 			try
 			{
-				Path failureScreenshotLocation = uiComparisonContext
-					.getScreenshotsLocationAware()
-					.getFailureScreenshotsLocation()
-					.resolve(context.getConfiguration().getBrowser().toString().toLowerCase())
-					.resolve("failure.png");
-				logger.info(
-						String.format(
-								"Trying to preserve screenshot in filesystem at location [%s]",
-								failureScreenshotLocation.toString()));
-				
-				screenshotAccessor
-					.persistScreenshot(failureScreenshotLocation, ImageIO.read(new ByteArrayInputStream(failureScreenshot)));
+				persistImage(failureDir.resolve("failure.png"), toBufferedImage(failureScreenshot));
 			}
 			catch (IOException e)
 			{
@@ -66,38 +57,4 @@ public class ScreenshotingHooks {
 		}									
 	}		
 	
-	@After
-	public void embedScreenshotsOnComparisonFailure(Scenario scenario)
-	{
-		if (scenario.isFailed() && uiComparisonContext.getLatestFailure() != null)
-		{
-			logger.info("UI comparison results seem to be available, trying to embed to Allure report...");
-			attachUiComparisonResults(uiComparisonContext.getLatestFailure());
-						
-			try
-			{
-				Path diffScreenshotLocation = uiComparisonContext
-						.getScreenshotsLocationAware()
-						.getResultScreenshotsLocation()
-						.resolve(context.getConfiguration().getBrowser().toString().toLowerCase())
-						.resolve("diff.png");
-				
-				logger.info(
-						String.format(
-								"Trying to preserve diff image to filesystem at location [%s]",
-								diffScreenshotLocation));
-				
-				screenshotAccessor
-					.persistScreenshot(
-							diffScreenshotLocation, 
-							uiComparisonContext.getLatestFailure().getDiffImage());
-			} 
-			catch (IOException e)
-			{
-				logger.error("Screenshot preservation has failed!", e);
-				throw new RuntimeException("Screenshoting hook has failed!");
-			}
-			
-		}
-	}
 }

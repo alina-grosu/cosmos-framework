@@ -9,9 +9,7 @@ public class FeatureTrackingHooks {
 
 	@Before
 	public void updateFeatureInfo(Scenario scenario)
-	{	
-		System.out.println(scenario.getUri());
-		ThreadLocalBasedFeatureTracker.updateCurrentFeatureUri(scenario.getUri());
+	{				
 		ThreadLocalBasedFeatureTracker.setCurrentScenario(scenario);
 	}
 	

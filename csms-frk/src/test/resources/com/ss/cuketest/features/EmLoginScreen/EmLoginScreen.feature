@@ -14,10 +14,10 @@ Feature: EM Login Screen
     When user clicks Login Screen button
     Then LoginPage shows
     
-  #Scenario: Unsuccessfull login
-    #Given user navigates to login page
-    #When user inputs "admin@alpha.com" as login and "password2" as password
-    #And clicks Login button
-    #Then error with text "WRONG EMAIL OR PASSWORD." appears 
-    #And PostLogout page looks like "post_logout.png"   
-    #And LoginPage shows    
+  Scenario: Unsuccessfull login
+    Given user navigates to login page
+    When user inputs "admin@alpha.com" as login and "password2" as password
+    And clicks Login button
+    Then error with text "WRONG EMAIL OR PASSWORD." appears       
+    And LoginPage shows    
+    And Login page looks like "login_wrong_cred.png"

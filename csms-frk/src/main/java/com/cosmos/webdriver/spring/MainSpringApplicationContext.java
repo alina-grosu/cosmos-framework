@@ -8,13 +8,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import com.cosmos.log4j.Log4JThreadBoundLogNameManager;
+import com.cosmos.resource.impl.CucumberDefaultTestResourceLocator;
 import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.config.IConfigurationBuilder;
 import com.cosmos.webdriver.config.impl.ConfigurationFactory;
 import com.cosmos.webdriver.config.impl.EnvironmentBasedConfigurationBuilder;
 import com.cosmos.webdriver.config.impl.PropertiesBasedConfigurationBuilder;
+import com.cosmos.webdriver.context.ITestResourceContext;
 import com.cosmos.webdriver.context.IUiComparisonContext;
 import com.cosmos.webdriver.context.IUiDrivingStepContext;
+import com.cosmos.webdriver.context.impl.DefaultResourceContext;
 import com.cosmos.webdriver.context.impl.DefaultUiComparisonContext;
 import com.cosmos.webdriver.context.impl.DefaultUiDrivingStepContext;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
@@ -114,9 +117,15 @@ public class MainSpringApplicationContext {
 		IUiComparator comparator = new DefaultUiComparatorFactory(configuration()).getUiComparator();
 		IScreenshotsLocationAware screenshotsLocationAware = new FeatureLocationBasedShcreenshotsLocationAware();
 		DefaultUiComparisonContext defaultIUiComparisonContext = 
-				new DefaultUiComparisonContext(comparator, screenshotsLocationAware);
-		System.out.println("RETURNING INSTANCE" + defaultIUiComparisonContext );
+				new DefaultUiComparisonContext(comparator, screenshotsLocationAware);		
 		return defaultIUiComparisonContext;
+	}	
+	
+	@Bean
+	@Scope("cucumber-glue")
+	public ITestResourceContext testResourceContext() 
+	{		
+		return new DefaultResourceContext(new CucumberDefaultTestResourceLocator(configuration()));
 	}	
 		
 	/*

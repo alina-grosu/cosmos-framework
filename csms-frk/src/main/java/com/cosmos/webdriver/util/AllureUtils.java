@@ -1,11 +1,11 @@
 package com.cosmos.webdriver.util;
 
 import static com.cosmos.webdriver.util.AllureUtils.attachScreenshot;
-import static com.cosmos.webdriver.util.AllureUtils.toByteArray;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import javax.imageio.ImageIO;
 
@@ -20,17 +20,32 @@ import com.cosmos.webdriver.uicomparison.IUiComparisonResult;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.model.Label;
+import static com.cosmos.webdriver.util.ImageUtils.*;
 
-public class AllureUtils {
+public class AllureUtils {	
 	
-	private static final Logger logger = LogManager.getLogger();
-	
-	public static void attachUiComparisonResults(IUiComparisonResult uiComparisonResult)
+	public static void attachUiComparisonResults(IUiComparisonResult uiComparisonResult) throws IOException
 	{		
 		Allure.addLabels(new Label().withName("testType").withValue("screenshotDiff"));		
 		attachScreenshot("actual", toByteArray(uiComparisonResult.getSampleImage()));
 		attachScreenshot("expected", toByteArray(uiComparisonResult.getBaseImage()));
 		attachScreenshot("diff", toByteArray(uiComparisonResult.getDiffImage()));
+	}
+	
+	public static void attachUiComparisonResults(BufferedImage actual, BufferedImage expected, BufferedImage diff) throws IOException
+	{		
+		Allure.addLabels(new Label().withName("testType").withValue("screenshotDiff"));		
+		attachScreenshot("actual", toByteArray(actual));
+		attachScreenshot("expected", toByteArray(expected));
+		attachScreenshot("diff", toByteArray(diff));
+	}
+	
+	public static void attachUiComparisonResults(Path actual, Path expected, Path diff) throws IOException
+	{		
+		Allure.addLabels(new Label().withName("testType").withValue("screenshotDiff"));		
+		attachScreenshot("actual", toByteArray(loadImage(actual)));
+		attachScreenshot("expected", toByteArray(loadImage(expected)));
+		attachScreenshot("diff", toByteArray(loadImage(diff)));
 	}
 
 	@Attachment(value = "{name}", type = "image/png")
@@ -42,15 +57,6 @@ public class AllureUtils {
 	@Attachment(value = "{name}", type = "image/png")
 	public static byte[] attachScreenshot(String name, byte[] data) {
 	    return data;
-	}
-	
-	public static byte[] toByteArray(final BufferedImage image) {
-	    try (final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-	        ImageIO.write(image, "png", out);
-	        return out.toByteArray();
-	    } catch (IOException ignored) {
-	        return new byte[0];
-	    }
 	}	
 	
 }

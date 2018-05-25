@@ -33,6 +33,7 @@
 		<com.cosmos.driver.browser.height></com.cosmos.driver.browser.height>
 		<com.cosmos.driver.browser.width></com.cosmos.driver.browser.width>
 		<com.cosmos.uicomparison.comparator>ashot</com.cosmos.uicomparison.comparator>
+		
 		<!-- Surefire default config -->
 		<!-- Comma separated test runners to include -->
 		<surefire.include.test.runners>EmPostLogoutScreenTestsRunner, EmLoginScreenTestsRunner</surefire.include.test.runners>

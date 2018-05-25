@@ -11,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 import com.cosmos.webdriver.uicomparison.IUiComparisonIgnorableElementsAware;
+import com.cosmos.webdriver.util.WaitUtils;
 
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
@@ -19,7 +20,7 @@ public class LoginFormComponent
 			extends HtmlElement 
 			implements IUiComparisonIgnorableElementsAware, IWebDriverAware {
 
-	@FindBy(how = How.XPATH, using = "//input[@type='email']")
+	@FindBy(how = How.XPATH, using = "//input[@type='email']")	
 	private WebElement login;
 	@FindBy(how = How.XPATH, using = "//input[@type='password']")
 	private WebElement password;
@@ -37,6 +38,7 @@ public class LoginFormComponent
 	
 	public void inputCredentials(String login, String password)
 	{
+		WaitUtils.waitUntilElementVisible(this.login, driver);
 		this.login.sendKeys(login);
 		this.password.sendKeys(password);					
 	}

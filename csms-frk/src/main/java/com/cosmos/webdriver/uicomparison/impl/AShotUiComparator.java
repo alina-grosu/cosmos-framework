@@ -1,6 +1,7 @@
 package com.cosmos.webdriver.uicomparison.impl;
 
 import java.awt.image.BufferedImage;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class AShotUiComparator implements IUiComparator {
 	@Override
 	public IUiComparisonResult compare(BufferedImage baseScreenshot, WebDriver actualScreenshotProvider)
 	{
-		return compare(baseScreenshot, actualScreenshotProvider, new LinkedList<WebElement>());
+		return compare(baseScreenshot, actualScreenshotProvider, Collections.emptyList());
 	}	
 
 	@Override
@@ -45,7 +46,7 @@ public class AShotUiComparator implements IUiComparator {
 		Screenshot actual = new AShot()
 						.coordsProvider(new WebDriverCoordsProvider())
 						.ignoredAreas(toAreas(ignoredElements))	
-						.shootingStrategy(ShootingStrategies.viewportPasting(100))
+						//.shootingStrategy(ShootingStrategies.viewportPasting(100))
 						.takeScreenshot(actualScreenshotProvider);
 		Screenshot expected = new Screenshot(baseScreenshot);
 		expected.setIgnoredAreas(actual.getIgnoredAreas());
