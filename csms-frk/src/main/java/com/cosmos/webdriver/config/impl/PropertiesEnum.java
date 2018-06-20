@@ -11,8 +11,7 @@ enum PropertiesEnum {
 	CAPS_ADDITIONAL_KEY("com.cosmos.capabilities.key", "default"),
 	DRIVER_MANAGER_HINT("com.cosmos.driver.manager.key", "remoting"),
 	BROWSER_HEIGHT("com.cosmos.driver.browser.height", ""),
-	BROWSER_WIDTH("com.cosmos.driver.browser.width", ""),
-	UI_COMPARATOR("com.cosmos.uicomparison.comparator", "ashot"),
+	BROWSER_WIDTH("com.cosmos.driver.browser.width", ""),	
 	SCREEN_RESOLUTION("com.cosmos.uicomparison.resolution", "")
 	;
 	

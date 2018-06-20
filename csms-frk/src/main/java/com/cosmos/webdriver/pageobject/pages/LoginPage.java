@@ -2,6 +2,8 @@ package com.cosmos.webdriver.pageobject.pages;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -49,7 +51,7 @@ public class LoginPage
 	public List<WebElement> getElementsToIgnore()
 	{
 		List<WebElement> elementsToIgnore = new LinkedList<>();
-		elementsToIgnore.addAll(loginForm.getElementsToIgnore());
+		elementsToIgnore.addAll(loginForm.getElementsToIgnore());				
 		return elementsToIgnore;
 	}	
 

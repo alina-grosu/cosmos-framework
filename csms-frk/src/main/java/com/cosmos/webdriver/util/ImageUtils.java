@@ -1,7 +1,5 @@
 package com.cosmos.webdriver.util;
 
-
-
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,7 +15,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import com.cosmos.resource.ITestResource;
-import com.cosmos.webdriver.uicomparison.IUiComparisonResult;
 
 public class ImageUtils {
 	
@@ -39,6 +36,11 @@ public class ImageUtils {
 	}
 	
 	public static void saveCurrentIfExpectedAbsent(Path expected, WebDriver currentProvider) throws IOException
+	{		
+		saveCurrentIfExpectedAbsent(expected, toBufferedImage(((TakesScreenshot)currentProvider).getScreenshotAs(OutputType.BYTES)));	
+	}
+	
+	public static void saveCurrentIfExpectedAbsent(Path expected, BufferedImage current) throws IOException
 	{
 		if (!expected.toFile().exists())
 		{
@@ -47,21 +49,17 @@ public class ImageUtils {
 					("Reading image from path [%s] has failed. Proposed sample is about to be stored to [%s].",
 					expected, proposedPath));
 			
-			persistImage(proposedPath, toBufferedImage(((TakesScreenshot)currentProvider).getScreenshotAs(OutputType.BYTES)));
+			persistImage(proposedPath, current);
 			
 			throw new IOException(String.format("Expected file [%s] does not exist!", expected.toString()));
 		}
 	}
-	
-	public static void preserveUiComparisonResults(Path failureScreenshotsLocation, IUiComparisonResult uiComparisonResult) throws IOException
-	{
-		logger.error("UI comparison has failed, attempting to preserve compared images...");
-	
-		persistImage(failureScreenshotsLocation.resolve("actual.png"), uiComparisonResult.getSampleImage());
-		persistImage(failureScreenshotsLocation.resolve("expected.png"), uiComparisonResult.getBaseImage());
-		persistImage(failureScreenshotsLocation.resolve("diff.png"), uiComparisonResult.getDiffImage());
-		
-		throw new RuntimeException("UI comparison has failed!");
+			
+	public static void preserveUiComparisonResults(Path failureScreenshotsLocation, BufferedImage actual, BufferedImage expected, BufferedImage diff) throws IOException
+	{			
+		persistImage(failureScreenshotsLocation.resolve("actual.png"), actual);
+		persistImage(failureScreenshotsLocation.resolve("expected.png"), expected);
+		persistImage(failureScreenshotsLocation.resolve("diff.png"), diff);			
 	}
 	
 	public static byte[] toByteArray(BufferedImage image) throws IOException

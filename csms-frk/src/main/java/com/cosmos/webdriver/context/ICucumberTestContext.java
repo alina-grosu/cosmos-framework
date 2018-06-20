@@ -1,5 +1,5 @@
 package com.cosmos.webdriver.context;
 
-public interface ICucumberStepContext {
+public interface ICucumberTestContext {
 		
 }

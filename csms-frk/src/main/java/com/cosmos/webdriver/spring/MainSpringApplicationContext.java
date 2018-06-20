@@ -6,7 +6,6 @@ import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-
 import com.cosmos.log4j.Log4JThreadBoundLogNameManager;
 import com.cosmos.resource.impl.CucumberDefaultTestResourceLocator;
 import com.cosmos.webdriver.config.IConfiguration;
@@ -15,11 +14,9 @@ import com.cosmos.webdriver.config.impl.ConfigurationFactory;
 import com.cosmos.webdriver.config.impl.EnvironmentBasedConfigurationBuilder;
 import com.cosmos.webdriver.config.impl.PropertiesBasedConfigurationBuilder;
 import com.cosmos.webdriver.context.ITestResourceContext;
-import com.cosmos.webdriver.context.IUiComparisonContext;
-import com.cosmos.webdriver.context.IUiDrivingStepContext;
-import com.cosmos.webdriver.context.impl.DefaultResourceContext;
-import com.cosmos.webdriver.context.impl.DefaultUiComparisonContext;
-import com.cosmos.webdriver.context.impl.DefaultUiDrivingStepContext;
+import com.cosmos.webdriver.context.ITestUiContext;
+import com.cosmos.webdriver.context.impl.DefaultTestResourceContext;
+import com.cosmos.webdriver.context.impl.DefaultTestUiContext;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
 import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.manager.IDriverServiceManager;
@@ -29,11 +26,7 @@ import com.cosmos.webdriver.manager.impl.DefaultDriverServiceFactory;
 import com.cosmos.webdriver.manager.impl.LocalDriverServiceManager;
 import com.cosmos.webdriver.manager.impl.RemoteDriverServiceManager;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
-import com.cosmos.webdriver.screenshots.IScreenshotsLocationAware;
-import com.cosmos.webdriver.screenshots.impl.FeatureLocationBasedShcreenshotsLocationAware;
 import com.cosmos.webdriver.spring.scope.GlueCodeScope;
-import com.cosmos.webdriver.uicomparison.IUiComparator;
-import com.cosmos.webdriver.uicomparison.impl.DefaultUiComparatorFactory;
 
 
 @Configuration
@@ -105,27 +98,16 @@ public class MainSpringApplicationContext {
 		
 	@Bean
 	@Scope("prototype")
-	public IUiDrivingStepContext stepsContext()
+	public ITestUiContext stepsContext()
 	{
-		return new DefaultUiDrivingStepContext(pageObjectManager(), configuration(), driverManager());				
-	}	
-	
-	@Bean
-	@Scope("cucumber-glue")
-	public IUiComparisonContext uiComparisonContext() 
-	{
-		IUiComparator comparator = new DefaultUiComparatorFactory(configuration()).getUiComparator();
-		IScreenshotsLocationAware screenshotsLocationAware = new FeatureLocationBasedShcreenshotsLocationAware();
-		DefaultUiComparisonContext defaultIUiComparisonContext = 
-				new DefaultUiComparisonContext(comparator, screenshotsLocationAware);		
-		return defaultIUiComparisonContext;
-	}	
+		return new DefaultTestUiContext(pageObjectManager(), configuration(), driverManager());				
+	}			
 	
 	@Bean
 	@Scope("cucumber-glue")
 	public ITestResourceContext testResourceContext() 
 	{		
-		return new DefaultResourceContext(new CucumberDefaultTestResourceLocator(configuration()));
+		return new DefaultTestResourceContext(new CucumberDefaultTestResourceLocator(configuration()));
 	}	
 		
 	/*

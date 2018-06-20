@@ -1,11 +1,11 @@
 package com.ss.cuketest.steps;
 
-import com.cosmos.webdriver.context.IUiDrivingStepContext;
+import com.cosmos.webdriver.context.ITestUiContext;
 import cucumber.api.java.en.Then;
 
 public class EmHomeDashboardPageSteps extends EmStepsBase {
 
-	public EmHomeDashboardPageSteps (IUiDrivingStepContext context)
+	public EmHomeDashboardPageSteps (ITestUiContext context)
 	{
 		super(context);
 	}	

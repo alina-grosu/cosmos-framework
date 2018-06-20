@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.cosmos.resource.TestResourcesEnum;
 import com.cosmos.webdriver.context.ITestResourceContext;
-import com.cosmos.webdriver.context.IUiDrivingStepContext;
+import com.cosmos.webdriver.context.ITestUiContext;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 
@@ -22,7 +22,7 @@ public class AllureReportingHooks {
 	private static final Logger logger = LogManager.getLogger();	
 	private ITestResourceContext resourceContext;
 
-	public AllureReportingHooks (IUiDrivingStepContext uiContext, ITestResourceContext resourceContext)
+	public AllureReportingHooks (ITestUiContext uiContext, ITestResourceContext resourceContext)
 	{		
 		this.resourceContext = resourceContext;
 	}

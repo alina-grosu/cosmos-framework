@@ -7,7 +7,7 @@ import org.openqa.selenium.TakesScreenshot;
 
 import com.cosmos.resource.TestResourcesEnum;
 import com.cosmos.webdriver.context.ITestResourceContext;
-import com.cosmos.webdriver.context.IUiDrivingStepContext;
+import com.cosmos.webdriver.context.ITestUiContext;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -20,10 +20,10 @@ import java.nio.file.Path;
 public class ScreenshotingHooks {
 	
 	private static final Logger logger = LogManager.getLogger();
-	private final IUiDrivingStepContext uiContext;
+	private final ITestUiContext uiContext;
 	private final ITestResourceContext resourceContext;
 	
-	public ScreenshotingHooks (IUiDrivingStepContext context, ITestResourceContext resourceContext)
+	public ScreenshotingHooks (ITestUiContext context, ITestResourceContext resourceContext)
 	{
 		this.uiContext = context;	
 		this.resourceContext = resourceContext;

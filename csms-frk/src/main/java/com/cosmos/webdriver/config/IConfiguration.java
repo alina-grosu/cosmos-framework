@@ -9,7 +9,6 @@ import org.openqa.selenium.Dimension;
 import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
 import com.cosmos.webdriver.manager.StepContextScopesEnum;
-import com.cosmos.webdriver.uicomparison.UiComparatorTypesEnum;
 
 public interface IConfiguration {
 
@@ -30,8 +29,5 @@ public interface IConfiguration {
 	String getDriverManagerHint();
 	void setDriverManagerHint(String hint);
 	Dimension getBrowserWindowDimension();
-	void setBrowserWindowDimension(Dimension dimension);
-	UiComparatorTypesEnum getUiComparatorType();
-	void setUiComparatorType(UiComparatorTypesEnum type);
-	
+	void setBrowserWindowDimension(Dimension dimension);		
 }

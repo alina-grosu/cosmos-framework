@@ -1,35 +1,43 @@
 package com.ss.cuketest.steps;
 
-import com.cosmos.resource.ITestResource;
 import com.cosmos.resource.TestResourcesEnum;
 import com.cosmos.webdriver.context.ITestResourceContext;
-import com.cosmos.webdriver.context.IUiComparisonContext;
-import com.cosmos.webdriver.context.IUiDrivingStepContext;
-import com.cosmos.webdriver.uicomparison.IUiComparisonResult;
+import com.cosmos.webdriver.context.ITestUiContext;
+import com.cosmos.webdriver.uicomparison.ashot.DownUpScrollingShootingStrategyDecorator;
+import com.cosmos.webdriver.uicomparison.ashot.HorizontalScrollRemovingShootingStrategyDecorator;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import java.awt.image.BufferedImage;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.comparison.ImageDiff;
+import ru.yandex.qatools.ashot.comparison.ImageDiffer;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategy;
+
 import java.nio.file.Path;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
-import static com.cosmos.webdriver.uicomparison.IUiComparisonResult.UiComparisonStatusEnum;
+import static com.cosmos.webdriver.util.AshotUtils.getScreenshot;
+import static com.cosmos.webdriver.util.AshotUtils.loadScreenshot;
 import static com.cosmos.webdriver.util.ImageUtils.*;
+import static org.junit.Assert.assertTrue;
 
 
 public class EmPostLogoutPageSteps extends EmStepsBase {
 	
 	private static final Logger logger = LogManager.getLogger();
-	private final IUiComparisonContext uiComparisonContext;
+	
 	private ITestResourceContext resourceContext;
 
-	public EmPostLogoutPageSteps(IUiDrivingStepContext uiDrivingContext, IUiComparisonContext uiComparisonContext, ITestResourceContext resourceContext)
+	public EmPostLogoutPageSteps(ITestUiContext uiDrivingContext, ITestResourceContext resourceContext)
 	{
-		this.uiDrivingContext = uiDrivingContext;
-		this.uiComparisonContext = uiComparisonContext;
+		this.uiDrivingContext = uiDrivingContext;		
 		this.resourceContext = resourceContext;
 	}
 
@@ -56,30 +64,35 @@ public class EmPostLogoutPageSteps extends EmStepsBase {
 	@And("^PostLogout page looks like \"([^\"]*)\"$")
 	public void postlogout_page_looks_like(String baseScreenshotName) throws Exception {
 				
-		WebDriver actualScreenshotProvider = uiDrivingContext.getDriverManager().getDriver();		
-	
+		WebDriver webDriver = uiDrivingContext.getDriverManager().getDriver();		
+		List<WebElement> elementsToIgnore = uiDrivingContext.getPageObjectManager().getPostLogoutPage().getElementsToIgnore();					
+		
+		Screenshot actualScreen = getScreenshot(webDriver, elementsToIgnore, ShootingStrategies.simple());
+		
 		Path baseScreenshotLocation = 
 				resourceContext
 					.getResourceLocator()
-					.getResourcePath(baseScreenshotName, TestResourcesEnum.EXPECTED_SCREENSHOTS_DIR);
+					.getResourcePath(baseScreenshotName, TestResourcesEnum.EXPECTED_SCREENSHOTS_DIR);				
+							
+		saveCurrentIfExpectedAbsent(baseScreenshotLocation, actualScreen.getImage());
 		
-		saveCurrentIfExpectedAbsent(baseScreenshotLocation, actualScreenshotProvider);
-			
-		BufferedImage baseScreenshot = ITestResource.IMAGE.load(baseScreenshotLocation);	
+		Screenshot expected = loadScreenshot(baseScreenshotLocation);
+		expected.setIgnoredAreas(actualScreen.getIgnoredAreas());
+		ImageDiff diff = new ImageDiffer().makeDiff(expected, actualScreen);							
 		
-		IUiComparisonResult uiComparisonResult = uiComparisonContext
-						.getUiComparator()
-						.compare(baseScreenshot, 
-								actualScreenshotProvider, 
-								uiDrivingContext.getPageObjectManager().getPostLogoutPage().getElementsToIgnore());
-		
-		if (uiComparisonResult.getUiComparisonStatus() == UiComparisonStatusEnum.FAIL)
+		if (diff.hasDiff())
 		{						
 			Path failureScreenshotsLocation = 
 					resourceContext
 						.getResourceLocator()
 						.getResourcePath(TestResourcesEnum.FAILURE_SCREENSHOTS_DIR);
-			preserveUiComparisonResults(failureScreenshotsLocation, uiComparisonResult);
+			
+			preserveUiComparisonResults(failureScreenshotsLocation, 
+					actualScreen.getImage(), 
+					expected.getImage(), 
+					diff.getMarkedImage());
+			
+			assertTrue("Ui comparison has failed!", false);
 		}
 	}
 	

@@ -10,7 +10,7 @@ import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
 import com.cosmos.webdriver.manager.StepContextScopesEnum;
-import com.cosmos.webdriver.uicomparison.UiComparatorTypesEnum;
+
 
 public class DefaultConfiguration implements IConfiguration {
 
@@ -22,8 +22,7 @@ public class DefaultConfiguration implements IConfiguration {
 	private StepContextScopesEnum scope;
 	private Capabilities caps;
 	private String driverManagerHint;
-	private Dimension dimension;
-	private UiComparatorTypesEnum uiComparatorType ;
+	private Dimension dimension;	
 
 	@Override
 	public BrowsersEnum getBrowser()
@@ -131,18 +130,6 @@ public class DefaultConfiguration implements IConfiguration {
 	public void setBrowserWindowDimension(Dimension dimension)
 	{
 		this.dimension = dimension;
-	}
-
-	@Override
-	public UiComparatorTypesEnum getUiComparatorType()
-	{		
-		return uiComparatorType;
-	}
-
-	@Override
-	public void setUiComparatorType(UiComparatorTypesEnum type)
-	{ 
-		this.uiComparatorType = type;
-	}
+	}	
 
 }

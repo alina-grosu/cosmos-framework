@@ -3,13 +3,13 @@ package com.ss.cuketest.steps;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cosmos.webdriver.context.IUiDrivingStepContext;
+import com.cosmos.webdriver.context.ITestUiContext;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 
 public abstract class EmStepsBase {
 	
 	private static final Logger logger = LogManager.getLogger();
-	protected IUiDrivingStepContext uiDrivingContext;
+	protected ITestUiContext uiDrivingContext;
 	protected PageObjectManager pageObjectManager;
 	
 	public EmStepsBase()
@@ -17,7 +17,7 @@ public abstract class EmStepsBase {
 		
 	}
 	
-	public EmStepsBase (IUiDrivingStepContext context)
+	public EmStepsBase (ITestUiContext context)
 	{
 		this.uiDrivingContext = context;
 		this.pageObjectManager = context.getPageObjectManager();

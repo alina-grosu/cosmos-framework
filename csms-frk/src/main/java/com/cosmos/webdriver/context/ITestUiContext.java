@@ -4,7 +4,7 @@ import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 
-public interface IUiDrivingStepContext extends ICucumberStepContext {
+public interface ITestUiContext extends ICucumberTestContext {
 	
 	PageObjectManager getPageObjectManager();
 	IDriverManager getDriverManager();	
