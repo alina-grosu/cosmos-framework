@@ -28,7 +28,7 @@ import ru.yandex.qatools.ashot.comparison.ImageDiffer;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategy;
 
-public class EmLoginPageSteps extends EmStepsBase{
+public class EmLoginPageSteps extends EmStepsBase {
 	private static final Logger logger = LogManager.getLogger();
 	private ITestResourceContext resourceContext;	
 		
@@ -41,7 +41,10 @@ public class EmLoginPageSteps extends EmStepsBase{
 	@Given("^user navigates to login page$")
 	public void user_navigates_to_login_page() throws Exception
 	{		
-		pageObjectManager.get(uiDrivingContext.getConfiguration().getAppUnderTestUrl().toString());
+		uiDrivingContext
+			.getDriverManager()
+			.getDriver()
+			.get(uiDrivingContext.getConfiguration().getAppUnderTestUrl().toString());
 		assertTrue(pageObjectManager.getLoginPage().isAt());		
 	}
 	

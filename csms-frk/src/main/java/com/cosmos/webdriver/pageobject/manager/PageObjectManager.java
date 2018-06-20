@@ -1,8 +1,5 @@
 package com.cosmos.webdriver.pageobject.manager;
 
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-
 import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.pageobject.pages.HomeDashboardPage;
 import com.cosmos.webdriver.pageobject.pages.LoginPage;
@@ -45,28 +42,5 @@ public class PageObjectManager {
 			postLogoutPage = new PostLogoutPage(driverManager);
 		}
 		return postLogoutPage;
-	}
-	
-	public void quit()
-	{
-		driverManager.quit();
-	}
-	
-	public void quitDriver()
-	{
-		driverManager.quitDriver();
-	}
-	
-	public void get(String url)
-	{		
-		driverManager.getDriver().get(url);
-	}
-	
-	public <T> T getScreenshotAs (OutputType<T> type)
-	{
-		return ((TakesScreenshot)driverManager.getDriver()).getScreenshotAs(type);
-	}
-	
-	
-
+	}		
 }
