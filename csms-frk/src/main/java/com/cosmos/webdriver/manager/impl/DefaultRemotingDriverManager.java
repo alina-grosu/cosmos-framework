@@ -54,7 +54,8 @@ public class DefaultRemotingDriverManager implements IDriverManager {
 		if (driver != null)
 		{
 			logger.info(String.format("Quiting WebDriver instance : %s", driver.toString()));
-			driver.quit();			
+			driver.quit();	
+			driver = null;
 		}
 		else
 		{

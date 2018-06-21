@@ -68,32 +68,18 @@ public class MainSpringApplicationContext {
 				: new LocalDriverServiceManager(new DefaultDriverServiceFactory().newDriverService(configuration()))
 				;
 	}
-	
+			
 	@Bean(destroyMethod="quitDriver")
-	public IDriverManager singletonDriverManager() 
+	public IDriverManager driverManager() 
 	{
 		return new DefaultDriverManagerFactory().newManager(configuration(), driverServiceManager());
 	}
-	
-	@Bean(destroyMethod="quitDriver")
-	@Scope("cucumber-glue")
-	public IDriverManager glueCodeScopedDriverManager() 
-	{
-		return new DefaultDriverManagerFactory().newManager(configuration(), driverServiceManager());
-	}	
 			
 	@Bean
 	@Scope("prototype")
 	public PageObjectManager pageObjectManager()
 	{
 		return new PageObjectManager(driverManager());
-	}
-
-	private IDriverManager driverManager()
-	{
-		return StepContextScopesEnum.SCENARIO.equals(configuration().getStepsContextScope())
-				? glueCodeScopedDriverManager()
-				: singletonDriverManager();
 	}
 		
 	@Bean
