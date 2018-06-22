@@ -6,14 +6,21 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.ie.InternetExplorerDriverService;
 import org.openqa.selenium.remote.service.DriverService;
 
-import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.manager.BrowsersEnum;
+import com.cosmos.webdriver.manager.IDriverManagerConfiguration;
 import com.cosmos.webdriver.manager.IDriverServiceFactory;
 
 public class DefaultDriverServiceFactory implements IDriverServiceFactory {
 
+	private final IDriverManagerConfiguration config;
+
+	public DefaultDriverServiceFactory(IDriverManagerConfiguration config)
+	{
+		this.config = config;
+	}
+	
 	@Override
-	public DriverService newDriverService(IConfiguration config)
+	public DriverService newDriverService()
 	{		
 		DriverService driverService = null;
 		
@@ -30,7 +37,7 @@ public class DefaultDriverServiceFactory implements IDriverServiceFactory {
 		
 		return Optional.ofNullable(driverService)
 					.orElseThrow(() -> new RuntimeException(
-							String.format("Browser %s seems to be not supported.", config.getBrowser().toString())));
+							String.format("Browser %s seems not to be supported.", config.getBrowser().toString())));
 	}
 
 }

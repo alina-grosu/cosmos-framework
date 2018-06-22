@@ -8,20 +8,20 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.manager.IDriverManager;
+import com.cosmos.webdriver.manager.IDriverManagerConfiguration;
 import com.cosmos.webdriver.manager.IDriverServiceManager;
 
 public class DefaultRemotingDriverManager implements IDriverManager {
 
-	private static final Logger logger = LogManager.getLogger();
-	private final IConfiguration config;
+	private static final Logger logger = LogManager.getLogger();	
 	private final IDriverServiceManager driverServiceManager;
+	private final IDriverManagerConfiguration dmConfig;
 	private WebDriver driver;	
-
-	public DefaultRemotingDriverManager(IConfiguration config, IDriverServiceManager driverServiceManager)
+	
+	public DefaultRemotingDriverManager(IDriverManagerConfiguration config, IDriverServiceManager driverServiceManager)
 	{
-		this.config = config;
+		this.dmConfig = config;
 		this.driverServiceManager = driverServiceManager;		
 	}
 	
@@ -66,26 +66,25 @@ public class DefaultRemotingDriverManager implements IDriverManager {
 
 	@Override
 	public void quitDriverAndDriverService()
-	{
-		logger.info(String.format("Quiting WebDriver instance %s and corresponding DriverService..."), driver.toString());
+	{		
 		quitDriver();
 		driverServiceManager.stopDriverService();
-	}
-
+	}	
+	
 	private RemoteWebDriver configureRemoteWebDriver()
 	{
 		RemoteWebDriver remoteWebDriver = 
-				new RemoteWebDriver(driverServiceManager.getDriverServiceUrl(), config.getDesiredCapabilities());
+				new RemoteWebDriver(driverServiceManager.getDriverServiceUrl(), dmConfig.getDesiredCapabilities());
 		
 		remoteWebDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
-		if (config.getBrowserWindowDimension() == null)
+		if (dmConfig.getBrowserWindowDimension() == null)
 		{
 			remoteWebDriver.manage().window().maximize();
 		}
 		else
 		{
-			remoteWebDriver.manage().window().setSize(config.getBrowserWindowDimension());
+			remoteWebDriver.manage().window().setSize(dmConfig.getBrowserWindowDimension());
 		}
 			
 		return remoteWebDriver;

@@ -9,6 +9,7 @@ import org.openqa.selenium.Dimension;
 import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
+import com.cosmos.webdriver.manager.IDriverManagerConfiguration;
 import com.cosmos.webdriver.manager.StepContextScopesEnum;
 
 

@@ -2,6 +2,7 @@ package com.cosmos.webdriver.spring;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +21,6 @@ import com.cosmos.webdriver.context.impl.DefaultTestUiContext;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
 import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.manager.IDriverServiceManager;
-import com.cosmos.webdriver.manager.StepContextScopesEnum;
 import com.cosmos.webdriver.manager.impl.DefaultDriverManagerFactory;
 import com.cosmos.webdriver.manager.impl.DefaultDriverServiceFactory;
 import com.cosmos.webdriver.manager.impl.LocalDriverServiceManager;
@@ -59,20 +59,11 @@ public class MainSpringApplicationContext {
 	{
 		return new ConfigurationFactory(configurationBuilders()).getConfiguration();
 	}		
-	
-	@Bean(destroyMethod="stopDriverService")
-	public IDriverServiceManager driverServiceManager()
-	{
-		return configuration().getExecutionType().equals(ExecutionTypesEnum.REMOTE)
-				? new RemoteDriverServiceManager(configuration())
-				: new LocalDriverServiceManager(new DefaultDriverServiceFactory().newDriverService(configuration()))
-				;
-	}
 			
-	@Bean(destroyMethod="quitDriver")
+	@Bean(destroyMethod="quitDriverAndDriverService")
 	public IDriverManager driverManager() 
 	{
-		return new DefaultDriverManagerFactory().newManager(configuration(), driverServiceManager());
+		return new DefaultDriverManagerFactory(configuration()).newManager();
 	}
 			
 	@Bean
@@ -107,6 +98,6 @@ public class MainSpringApplicationContext {
         CustomScopeConfigurer configurer = new CustomScopeConfigurer();
         configurer.addScope("cucumber-glue", new GlueCodeScope());
         return configurer;
-    }	
+    }		
 	
 }

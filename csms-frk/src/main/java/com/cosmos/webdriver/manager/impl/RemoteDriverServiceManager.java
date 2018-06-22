@@ -7,14 +7,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.cosmos.webdriver.config.IConfiguration;
+import com.cosmos.webdriver.manager.IDriverManagerConfiguration;
 import com.cosmos.webdriver.manager.IDriverServiceManager;
 
 public class RemoteDriverServiceManager implements IDriverServiceManager {
 				
 	private static final Logger logger = LogManager.getLogger();
-	private final IConfiguration config;
+	private final IDriverManagerConfiguration config;
 	
-	public RemoteDriverServiceManager(IConfiguration config)
+	public RemoteDriverServiceManager(IDriverManagerConfiguration config)
 	{
 		this.config = config;
 	}

@@ -1,33 +1,14 @@
 package com.cosmos.webdriver.config;
 
-import java.io.File;
 import java.net.URL;
 
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.Dimension;
-
-import com.cosmos.webdriver.manager.BrowsersEnum;
-import com.cosmos.webdriver.manager.ExecutionTypesEnum;
+import com.cosmos.webdriver.manager.IDriverManagerConfiguration;
 import com.cosmos.webdriver.manager.StepContextScopesEnum;
 
-public interface IConfiguration {
-
-	BrowsersEnum getBrowser();
-	ExecutionTypesEnum getExecutionType();
-	URL getRemoteGridHubUrl();
-	void setDesiredBrowser(BrowsersEnum browser);
-	void setExecutionType(ExecutionTypesEnum executionType);
-	void setRemoteGridHubUrl(URL gridHubUrl);
-	File getDriverExecutableLocation();
-	void setChromeDriverExecutableLocation(File executable);
+public interface IConfiguration extends IDriverManagerConfiguration {
+		
 	URL getAppUnderTestUrl();
 	void setAppUnderTestUrl(URL autUrl);
 	StepContextScopesEnum getStepsContextScope();
-	void setStepsContextScope(StepContextScopesEnum scope);
-	Capabilities getDesiredCapabilities();
-	void setDesiredCapabilities(Capabilities caps);
-	String getDriverManagerHint();
-	void setDriverManagerHint(String hint);
-	Dimension getBrowserWindowDimension();
-	void setBrowserWindowDimension(Dimension dimension);		
+	void setStepsContextScope(StepContextScopesEnum scope);	
 }
