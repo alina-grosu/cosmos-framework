@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.pageobject.pages;
+package com.cosmos.pageobject.em.pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import com.cosmos.cucumber.config.WebDriverLifecycleEnum;
 import com.cosmos.cucumber.context.ITestConfigurationContext;
 import com.cosmos.cucumber.context.ITestUiContext;
-import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
+import com.cosmos.pageobject.em.manager.PageObjectManager;
 
 import cucumber.api.java.After;
 

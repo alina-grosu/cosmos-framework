@@ -1,6 +1,6 @@
-package com.cosmos.webdriver.pageobject.pages.pagecomponents;
+package com.cosmos.pageobject.em.pages.pagecomponents;
 
-import static com.cosmos.webdriver.util.WaitUtils.waitUntilElementVisible;
+import static com.cosmos.util.WaitUtils.waitUntilElementVisible;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-import com.cosmos.webdriver.uicomparison.IUiComparisonIgnorableElementsAware;
-import com.cosmos.webdriver.util.WaitUtils;
+import com.cosmos.uicomparison.IUiComparisonIgnorableElementsAware;
+import com.cosmos.util.WaitUtils;
 
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;

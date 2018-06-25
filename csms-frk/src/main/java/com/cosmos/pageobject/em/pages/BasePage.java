@@ -1,13 +1,13 @@
-package com.cosmos.webdriver.pageobject.pages;
+package com.cosmos.pageobject.em.pages;
 
-import static com.cosmos.webdriver.util.WaitUtils.waitUntilElementVisible;
+import static com.cosmos.util.WaitUtils.waitUntilElementVisible;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
+import com.cosmos.pageobject.em.pages.pagefactory.WebDriverAwareDecorator;
 import com.cosmos.webdriver.manager.IDriverManager;
-import com.cosmos.webdriver.pageobject.pages.pagefactory.WebDriverAwareDecorator;
 
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 

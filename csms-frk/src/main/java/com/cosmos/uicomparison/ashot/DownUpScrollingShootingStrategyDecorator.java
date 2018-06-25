@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.uicomparison.ashot;
+package com.cosmos.uicomparison.ashot;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

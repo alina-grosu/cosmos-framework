@@ -22,9 +22,9 @@ import com.cosmos.cucumber.context.impl.DefaultTestUiContext;
 import com.cosmos.cucumber.log4j.Log4JThreadBoundLogNameManager;
 import com.cosmos.cucumber.resource.impl.CucumberDefaultTestResourceLocator;
 import com.cosmos.cucumber.spring.scope.GlueCodeScope;
+import com.cosmos.pageobject.em.manager.PageObjectManager;
 import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.manager.impl.DefaultDriverManagerFactory;
-import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 
 
 @Configuration

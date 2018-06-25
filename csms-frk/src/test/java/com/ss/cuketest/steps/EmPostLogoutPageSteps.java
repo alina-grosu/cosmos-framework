@@ -2,8 +2,9 @@ package com.ss.cuketest.steps;
 
 import com.cosmos.cucumber.context.ITestResourceContext;
 import com.cosmos.cucumber.context.ITestUiContext;
+import com.cosmos.pageobject.em.manager.PageObjectManager;
 import com.cosmos.resource.TestResourcesEnum;
-import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
+
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -19,9 +20,9 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import static com.cosmos.webdriver.util.AshotUtils.getScreenshot;
-import static com.cosmos.webdriver.util.AshotUtils.loadScreenshot;
-import static com.cosmos.webdriver.util.ImageUtils.*;
+import static com.cosmos.util.AshotUtils.getScreenshot;
+import static com.cosmos.util.AshotUtils.loadScreenshot;
+import static com.cosmos.util.ImageUtils.*;
 import static org.junit.Assert.assertTrue;
 
 

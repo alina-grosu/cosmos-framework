@@ -1,7 +1,7 @@
-package com.cosmos.webdriver.util;
+package com.cosmos.util;
 
-import static com.cosmos.webdriver.util.ImageUtils.loadImage;
-import static com.cosmos.webdriver.util.ImageUtils.toByteArray;
+import static com.cosmos.util.ImageUtils.loadImage;
+import static com.cosmos.util.ImageUtils.toByteArray;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

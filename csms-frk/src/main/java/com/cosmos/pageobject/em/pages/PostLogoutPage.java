@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.pageobject.pages;
+package com.cosmos.pageobject.em.pages;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,8 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import com.cosmos.uicomparison.IUiComparisonIgnorableElementsAware;
 import com.cosmos.webdriver.manager.IDriverManager;
-import com.cosmos.webdriver.uicomparison.IUiComparisonIgnorableElementsAware;
 
 public class PostLogoutPage 
 				extends BasePage

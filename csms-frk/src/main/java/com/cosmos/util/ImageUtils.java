@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.util;
+package com.cosmos.util;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;

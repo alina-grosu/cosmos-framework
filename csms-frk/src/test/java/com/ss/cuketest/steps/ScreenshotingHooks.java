@@ -12,7 +12,7 @@ import com.cosmos.resource.TestResourcesEnum;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 
-import static com.cosmos.webdriver.util.ImageUtils.*;
+import static com.cosmos.util.ImageUtils.*;
 
 import java.io.IOException;
 import java.nio.file.Path;

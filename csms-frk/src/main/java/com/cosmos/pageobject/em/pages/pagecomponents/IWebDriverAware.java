@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.pageobject.pages.pagecomponents;
+package com.cosmos.pageobject.em.pages.pagecomponents;
 
 import org.openqa.selenium.WebDriver;
 

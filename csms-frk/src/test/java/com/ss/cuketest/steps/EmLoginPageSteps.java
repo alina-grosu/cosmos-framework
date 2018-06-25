@@ -1,8 +1,8 @@
 package com.ss.cuketest.steps;
 
-import static com.cosmos.webdriver.util.AshotUtils.*;
-import static com.cosmos.webdriver.util.ImageUtils.preserveUiComparisonResults;
-import static com.cosmos.webdriver.util.ImageUtils.saveCurrentIfExpectedAbsent;
+import static com.cosmos.util.AshotUtils.*;
+import static com.cosmos.util.ImageUtils.preserveUiComparisonResults;
+import static com.cosmos.util.ImageUtils.saveCurrentIfExpectedAbsent;
 import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.List;
@@ -15,10 +15,10 @@ import org.openqa.selenium.WebElement;
 import com.cosmos.cucumber.context.ITestConfigurationContext;
 import com.cosmos.cucumber.context.ITestResourceContext;
 import com.cosmos.cucumber.context.ITestUiContext;
+import com.cosmos.pageobject.em.manager.PageObjectManager;
 import com.cosmos.resource.TestResourcesEnum;
-import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
-import com.cosmos.webdriver.uicomparison.ashot.DownUpScrollingShootingStrategyDecorator;
-import com.cosmos.webdriver.uicomparison.ashot.HorizontalScrollRemovingShootingStrategyDecorator;
+import com.cosmos.uicomparison.ashot.DownUpScrollingShootingStrategyDecorator;
+import com.cosmos.uicomparison.ashot.HorizontalScrollRemovingShootingStrategyDecorator;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;

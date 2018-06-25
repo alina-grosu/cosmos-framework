@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.uicomparison;
+package com.cosmos.uicomparison;
 
 import java.util.Collections;
 import java.util.List;

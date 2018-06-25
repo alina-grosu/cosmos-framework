@@ -4,8 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.cosmos.cucumber.context.ITestUiContext;
+import com.cosmos.pageobject.em.manager.PageObjectManager;
 import com.cosmos.webdriver.manager.IDriverManager;
-import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 
 public class DefaultTestUiContext implements ITestUiContext<PageObjectManager> {
 	

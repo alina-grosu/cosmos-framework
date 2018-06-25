@@ -1,6 +1,7 @@
 package com.ss.cuketest.steps;
 
-import static com.cosmos.webdriver.util.AllureUtils.attachScreenshot;
+import static com.cosmos.util.AllureUtils.*;
+import static com.cosmos.util.ImageUtils.*;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -14,9 +15,6 @@ import com.cosmos.resource.TestResourcesEnum;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
-
-import static com.cosmos.webdriver.util.AllureUtils.*;
-import static com.cosmos.webdriver.util.ImageUtils.*;
 
 public class AllureReportingHooks {
 

@@ -1,9 +1,9 @@
-package com.cosmos.webdriver.pageobject.manager;
+package com.cosmos.pageobject.em.manager;
 
+import com.cosmos.pageobject.em.pages.HomeDashboardPage;
+import com.cosmos.pageobject.em.pages.LoginPage;
+import com.cosmos.pageobject.em.pages.PostLogoutPage;
 import com.cosmos.webdriver.manager.IDriverManager;
-import com.cosmos.webdriver.pageobject.pages.HomeDashboardPage;
-import com.cosmos.webdriver.pageobject.pages.LoginPage;
-import com.cosmos.webdriver.pageobject.pages.PostLogoutPage;
 
 public class PageObjectManager {
 	

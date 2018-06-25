@@ -1,10 +1,10 @@
-package com.cosmos.webdriver.pageobject.pages.pagefactory;
+package com.cosmos.pageobject.em.pages.pagefactory;
 
 import java.lang.reflect.Field;
 
 import org.openqa.selenium.WebDriver;
 
-import com.cosmos.webdriver.pageobject.pages.pagecomponents.IWebDriverAware;
+import com.cosmos.pageobject.em.pages.pagecomponents.IWebDriverAware;
 
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;

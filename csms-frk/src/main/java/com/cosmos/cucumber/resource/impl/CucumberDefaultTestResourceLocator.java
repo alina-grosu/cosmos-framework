@@ -12,7 +12,7 @@ import com.cosmos.cucumber.config.IConfiguration;
 import com.cosmos.cucumber.feature.ThreadLocalBasedFeatureTracker;
 import com.cosmos.resource.ITestResourceLocator;
 import com.cosmos.resource.TestResourcesEnum;
-import com.cosmos.webdriver.util.UuidSingleton;
+import com.cosmos.util.UuidSingleton;
 
 public class CucumberDefaultTestResourceLocator 
 		implements ITestResourceLocator {
