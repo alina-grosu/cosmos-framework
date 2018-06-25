@@ -5,5 +5,7 @@
 /.allure/
 /allure-report/
 /screenshots/
-/src/test/java/com/ss/research
+/src/test/java/com/cosmos/research
+/src/test/resources/junk
+/src/test/resources/grid_launch
 /testruns/
