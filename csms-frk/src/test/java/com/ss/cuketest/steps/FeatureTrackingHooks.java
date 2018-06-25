@@ -1,6 +1,6 @@
 package com.ss.cuketest.steps;
 
-import com.cosmos.cucumber.ThreadLocalBasedFeatureTracker;
+import com.cosmos.cucumber.feature.ThreadLocalBasedFeatureTracker;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.Before;

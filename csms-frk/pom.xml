@@ -181,7 +181,7 @@
 					<com.cosmos.driver.browser.width>600</com.cosmos.driver.browser.width> -->
 				<com.cosmos.driver.executable.location>C:\devtools\drivers\chrome\2.37\chromedriver_win32\chromedriver.exe</com.cosmos.driver.executable.location>
 				<!-- <com.cosmos.driver.executable.location>C:\devtools\drivers\ie\3.9.0_x32\IEDriverServer.exe</com.cosmos.driver.executable.location> -->
-				<surefire.include.test.runners>EmLoginScreenTestsRunner</surefire.include.test.runners>
+				<!-- <surefire.include.test.runners>EmLoginScreenTestsRunner</surefire.include.test.runners> -->
 				<com.cosmos.steps.context.scope>scenario</com.cosmos.steps.context.scope>
 				 <!-- <surefire.parallel>classes</surefire.parallel> 
 				<surefire.parallel.thread.count>5</surefire.parallel.thread.count> -->			

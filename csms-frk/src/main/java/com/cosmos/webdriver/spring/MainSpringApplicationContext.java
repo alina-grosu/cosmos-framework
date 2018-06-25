@@ -13,7 +13,7 @@ import com.cosmos.cucumber.config.IConfigurationBuilder;
 import com.cosmos.cucumber.config.impl.ConfigurationFactory;
 import com.cosmos.cucumber.config.impl.EnvironmentBasedConfigurationBuilder;
 import com.cosmos.cucumber.config.impl.PropertiesBasedConfigurationBuilder;
-import com.cosmos.log4j.Log4JThreadBoundLogNameManager;
+import com.cosmos.cucumber.log4j.Log4JThreadBoundLogNameManager;
 import com.cosmos.resource.impl.CucumberDefaultTestResourceLocator;
 import com.cosmos.webdriver.context.ITestConfigurationContext;
 import com.cosmos.webdriver.context.ITestResourceContext;

@@ -3,7 +3,8 @@ package com.ss.cuketest.steps;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.cosmos.log4j.Log4JThreadBoundLogNameManager;
+import com.cosmos.cucumber.log4j.Log4JThreadBoundLogNameManager;
+
 import cucumber.api.Scenario;
 import cucumber.api.java.Before;
 

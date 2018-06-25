@@ -1,4 +1,4 @@
-package com.cosmos.cucumber;
+package com.cosmos.cucumber.feature;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
