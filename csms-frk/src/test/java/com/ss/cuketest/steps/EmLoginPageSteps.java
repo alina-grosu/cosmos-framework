@@ -12,10 +12,10 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.cosmos.cucumber.context.ITestConfigurationContext;
+import com.cosmos.cucumber.context.ITestResourceContext;
+import com.cosmos.cucumber.context.ITestUiContext;
 import com.cosmos.resource.TestResourcesEnum;
-import com.cosmos.webdriver.context.ITestConfigurationContext;
-import com.cosmos.webdriver.context.ITestResourceContext;
-import com.cosmos.webdriver.context.ITestUiContext;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 import com.cosmos.webdriver.uicomparison.ashot.DownUpScrollingShootingStrategyDecorator;
 import com.cosmos.webdriver.uicomparison.ashot.HorizontalScrollRemovingShootingStrategyDecorator;

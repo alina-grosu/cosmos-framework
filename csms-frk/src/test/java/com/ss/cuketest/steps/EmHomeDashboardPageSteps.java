@@ -1,6 +1,6 @@
 package com.ss.cuketest.steps;
 
-import com.cosmos.webdriver.context.ITestUiContext;
+import com.cosmos.cucumber.context.ITestUiContext;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 
 import cucumber.api.java.en.Then;

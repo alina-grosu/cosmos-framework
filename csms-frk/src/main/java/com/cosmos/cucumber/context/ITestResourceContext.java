@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.context;
+package com.cosmos.cucumber.context;
 
 import com.cosmos.resource.ITestResourceLocator;
 

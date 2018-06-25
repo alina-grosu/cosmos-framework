@@ -1,4 +1,4 @@
-package com.cosmos.resource.impl;
+package com.cosmos.cucumber.resource.impl;
 
 import java.awt.Toolkit;
 import java.nio.file.Path;

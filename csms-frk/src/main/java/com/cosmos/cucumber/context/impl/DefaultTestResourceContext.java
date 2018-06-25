@@ -1,7 +1,7 @@
-package com.cosmos.webdriver.context.impl;
+package com.cosmos.cucumber.context.impl;
 
+import com.cosmos.cucumber.context.ITestResourceContext;
 import com.cosmos.resource.ITestResourceLocator;
-import com.cosmos.webdriver.context.ITestResourceContext;
 
 public class DefaultTestResourceContext implements ITestResourceContext {
 

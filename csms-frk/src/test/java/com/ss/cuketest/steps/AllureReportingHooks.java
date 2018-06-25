@@ -8,9 +8,10 @@ import java.nio.file.Path;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.cosmos.cucumber.context.ITestResourceContext;
+import com.cosmos.cucumber.context.ITestUiContext;
 import com.cosmos.resource.TestResourcesEnum;
-import com.cosmos.webdriver.context.ITestResourceContext;
-import com.cosmos.webdriver.context.ITestUiContext;
+
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 

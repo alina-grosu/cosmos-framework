@@ -1,8 +1,9 @@
-package com.cosmos.webdriver.context.impl;
+package com.cosmos.cucumber.context.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.cosmos.webdriver.context.ITestUiContext;
+
+import com.cosmos.cucumber.context.ITestUiContext;
 import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 
