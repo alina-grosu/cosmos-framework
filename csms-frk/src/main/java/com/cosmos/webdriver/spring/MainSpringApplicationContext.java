@@ -14,17 +14,14 @@ import com.cosmos.webdriver.config.IConfigurationBuilder;
 import com.cosmos.webdriver.config.impl.ConfigurationFactory;
 import com.cosmos.webdriver.config.impl.EnvironmentBasedConfigurationBuilder;
 import com.cosmos.webdriver.config.impl.PropertiesBasedConfigurationBuilder;
+import com.cosmos.webdriver.context.ITestConfigurationContext;
 import com.cosmos.webdriver.context.ITestResourceContext;
 import com.cosmos.webdriver.context.ITestUiContext;
+import com.cosmos.webdriver.context.impl.DefaultTestConfigurationContext;
 import com.cosmos.webdriver.context.impl.DefaultTestResourceContext;
 import com.cosmos.webdriver.context.impl.DefaultTestUiContext;
-import com.cosmos.webdriver.manager.ExecutionTypesEnum;
 import com.cosmos.webdriver.manager.IDriverManager;
-import com.cosmos.webdriver.manager.IDriverServiceManager;
 import com.cosmos.webdriver.manager.impl.DefaultDriverManagerFactory;
-import com.cosmos.webdriver.manager.impl.DefaultDriverServiceFactory;
-import com.cosmos.webdriver.manager.impl.LocalDriverServiceManager;
-import com.cosmos.webdriver.manager.impl.RemoteDriverServiceManager;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 import com.cosmos.webdriver.spring.scope.GlueCodeScope;
 
@@ -64,20 +61,13 @@ public class MainSpringApplicationContext {
 	public IDriverManager driverManager() 
 	{
 		return new DefaultDriverManagerFactory(configuration()).newManager();
-	}
-			
-	@Bean
-	@Scope("prototype")
-	public PageObjectManager pageObjectManager()
-	{
-		return new PageObjectManager(driverManager());
-	}
+	}				
 		
 	@Bean
-	@Scope("prototype")
-	public ITestUiContext stepsContext()
+	@Scope("cucumber-glue")
+	public ITestUiContext<PageObjectManager> stepsContext()
 	{
-		return new DefaultTestUiContext(pageObjectManager(), configuration(), driverManager());				
+		return new DefaultTestUiContext(new PageObjectManager(driverManager()), driverManager());				
 	}			
 	
 	@Bean
@@ -87,6 +77,13 @@ public class MainSpringApplicationContext {
 		return new DefaultTestResourceContext(new CucumberDefaultTestResourceLocator(configuration()));
 	}	
 		
+	@Bean
+	@Scope("cucumber-glue")
+	public ITestConfigurationContext testConfigurationContext() 
+	{		
+		return new DefaultTestConfigurationContext(configuration());
+	}
+	
 	/*
 	Workaround of a Cucumber issue: https://github.com/cucumber/cucumber-jvm/issues/965
 	GlueCodeScope is a direct copy of package private class from respective Cucumber package

@@ -1,12 +1,9 @@
 package com.cosmos.webdriver.context;
 
-import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.manager.IDriverManager;
-import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 
-public interface ITestUiContext extends ICucumberTestContext {
+public interface ITestUiContext<T> extends ICucumberTestContext {
 	
-	PageObjectManager getPageObjectManager();
-	IDriverManager getDriverManager();	
-	IConfiguration getConfiguration();	
+	T getPageObjectManager();
+	IDriverManager getDriverManager();		
 }

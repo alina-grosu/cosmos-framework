@@ -14,7 +14,7 @@ import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.config.IConfigurationBuilder;
 import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
-import com.cosmos.webdriver.manager.StepContextScopesEnum;
+import com.cosmos.webdriver.manager.TestContextScopesEnum;
 
 
 public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilder {
@@ -42,7 +42,7 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 				toUrl(getProperty(props, PropertiesEnum.AUT_URL_KEY), "Application Under Test URL seems to be malformed"));			
 		
 		config.setStepsContextScope(
-				StepContextScopesEnum.valueOf(getProperty(props, PropertiesEnum.STEPS_CONTEXT_SCOPE_KEY).toUpperCase()));
+				TestContextScopesEnum.valueOf(getProperty(props, PropertiesEnum.STEPS_CONTEXT_SCOPE_KEY).toUpperCase()));
 		
 		config.setDesiredCapabilities(CapabilitiesStore.get(desiredBrowser, getProperty(props, PropertiesEnum.CAPS_ADDITIONAL_KEY)));
 		

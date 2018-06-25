@@ -13,8 +13,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.cosmos.resource.TestResourcesEnum;
+import com.cosmos.webdriver.context.ITestConfigurationContext;
 import com.cosmos.webdriver.context.ITestResourceContext;
 import com.cosmos.webdriver.context.ITestUiContext;
+import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
 import com.cosmos.webdriver.uicomparison.ashot.DownUpScrollingShootingStrategyDecorator;
 import com.cosmos.webdriver.uicomparison.ashot.HorizontalScrollRemovingShootingStrategyDecorator;
 
@@ -29,22 +31,40 @@ import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategy;
 
 public class EmLoginPageSteps extends EmStepsBase {
+	
 	private static final Logger logger = LogManager.getLogger();
-	private ITestResourceContext resourceContext;	
+	private final ITestResourceContext resourceContext;
+	private final ITestUiContext<PageObjectManager> uiContext;
+	private final ITestConfigurationContext configurationContext;	
+	private final PageObjectManager pageObjectManager;
 		
-	public EmLoginPageSteps(ITestUiContext context, ITestResourceContext resourceContext)
+	public EmLoginPageSteps(
+							ITestUiContext<PageObjectManager> uiContext,
+							ITestResourceContext resourceContext,
+							ITestConfigurationContext configurationContext
+							)
 	{
-		super(context);		
-		this.resourceContext = resourceContext;		
+		this.uiContext = uiContext;		
+		this.resourceContext = resourceContext;
+		this.configurationContext = configurationContext;
+		this.pageObjectManager = uiContext.getPageObjectManager();
+		
+		logger.debug(String
+				.format("Instantiated [%s] using ui context [%s], resource context [%s], configuration context [%s]",
+						this.toString(),
+						uiContext.toString(),
+						resourceContext.toString(),
+						configurationContext.toString()
+						));
 	}
 	
 	@Given("^user navigates to login page$")
 	public void user_navigates_to_login_page() throws Exception
 	{		
-		uiDrivingContext
+		uiContext
 			.getDriverManager()
 			.getDriver()
-			.get(uiDrivingContext.getConfiguration().getAppUnderTestUrl().toString());
+			.get(configurationContext.getTestConfig().getAppUnderTestUrl().toString());
 		assertTrue(pageObjectManager.getLoginPage().isAt());		
 	}
 	
@@ -74,8 +94,8 @@ public class EmLoginPageSteps extends EmStepsBase {
 	@And("^Login page looks like \"([^\"]*)\"$")
 	public void login_page_looks_like(String baseScreenshotName) throws Exception {
 				
-		WebDriver webDriver = uiDrivingContext.getDriverManager().getDriver();		
-		List<WebElement> elementsToIgnore = uiDrivingContext.getPageObjectManager().getLoginPage().getElementsToIgnore();			
+		WebDriver webDriver = uiContext.getDriverManager().getDriver();		
+		List<WebElement> elementsToIgnore = uiContext.getPageObjectManager().getLoginPage().getElementsToIgnore();			
 		ShootingStrategy shootingStrategy = new HorizontalScrollRemovingShootingStrategyDecorator(
 				new DownUpScrollingShootingStrategyDecorator(ShootingStrategies.simple()));
 		

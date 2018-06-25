@@ -1,13 +1,19 @@
 package com.ss.cuketest.steps;
 
 import com.cosmos.webdriver.context.ITestUiContext;
+import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
+
 import cucumber.api.java.en.Then;
 
 public class EmHomeDashboardPageSteps extends EmStepsBase {
 
-	public EmHomeDashboardPageSteps (ITestUiContext context)
+	private final ITestUiContext<PageObjectManager> uiContext;
+	private final PageObjectManager pageObjectManager;
+
+	public EmHomeDashboardPageSteps (ITestUiContext<PageObjectManager> uiContext)
 	{
-		super(context);
+		this.uiContext = uiContext;
+		this.pageObjectManager = uiContext.getPageObjectManager();
 	}	
 	
 	@Then("^Dashboard page shows$")

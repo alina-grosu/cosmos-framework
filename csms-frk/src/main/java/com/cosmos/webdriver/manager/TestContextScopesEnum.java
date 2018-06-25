@@ -1,6 +1,6 @@
 package com.cosmos.webdriver.manager;
 
-public enum StepContextScopesEnum {
+public enum TestContextScopesEnum {
 	SCENARIO,
 	FEATURE;	
 }

@@ -9,8 +9,7 @@ import org.openqa.selenium.Dimension;
 import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
-import com.cosmos.webdriver.manager.IDriverManagerConfiguration;
-import com.cosmos.webdriver.manager.StepContextScopesEnum;
+import com.cosmos.webdriver.manager.TestContextScopesEnum;
 
 
 public class DefaultConfiguration implements IConfiguration {
@@ -20,7 +19,7 @@ public class DefaultConfiguration implements IConfiguration {
 	private URL gridHubUrl;
 	private File executable;
 	private URL autUrl;
-	private StepContextScopesEnum scope;
+	private TestContextScopesEnum scope;
 	private Capabilities caps;
 	private String driverManagerHint;
 	private Dimension dimension;	
@@ -86,13 +85,13 @@ public class DefaultConfiguration implements IConfiguration {
 	}
 
 	@Override
-	public StepContextScopesEnum getStepsContextScope()
+	public TestContextScopesEnum getStepsContextScope()
 	{		
 		return scope;
 	}
 
 	@Override
-	public void setStepsContextScope(StepContextScopesEnum scope)
+	public void setStepsContextScope(TestContextScopesEnum scope)
 	{
 		this.scope = scope;
 	}
