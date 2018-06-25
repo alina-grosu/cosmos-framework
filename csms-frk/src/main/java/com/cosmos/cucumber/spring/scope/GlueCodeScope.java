@@ -1,8 +1,9 @@
-package com.cosmos.webdriver.spring.scope;
+package com.cosmos.cucumber.spring.scope;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
-import com.cosmos.webdriver.spring.scope.GlueCodeContext;
+
+import com.cosmos.cucumber.spring.scope.GlueCodeContext;
 
 public class GlueCodeScope implements Scope {
     public static final String NAME = "cucumber-glue";

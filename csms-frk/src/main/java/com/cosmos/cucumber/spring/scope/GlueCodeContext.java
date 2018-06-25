@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.spring.scope;
+package com.cosmos.cucumber.spring.scope;
 
 import java.util.HashMap;
 import java.util.Map;

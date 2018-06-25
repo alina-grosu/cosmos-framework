@@ -3,7 +3,9 @@ package com.ss.cuketest.steps;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import com.cosmos.webdriver.spring.MainSpringApplicationContext;
+
+import com.cosmos.cucumber.spring.MainSpringApplicationContext;
+
 import cucumber.api.java.en.Given;
 
 @ContextConfiguration(classes=MainSpringApplicationContext.class)

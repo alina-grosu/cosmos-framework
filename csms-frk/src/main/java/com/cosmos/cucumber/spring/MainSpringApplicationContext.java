@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.spring;
+package com.cosmos.cucumber.spring;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,10 +21,10 @@ import com.cosmos.cucumber.context.impl.DefaultTestResourceContext;
 import com.cosmos.cucumber.context.impl.DefaultTestUiContext;
 import com.cosmos.cucumber.log4j.Log4JThreadBoundLogNameManager;
 import com.cosmos.cucumber.resource.impl.CucumberDefaultTestResourceLocator;
+import com.cosmos.cucumber.spring.scope.GlueCodeScope;
 import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.manager.impl.DefaultDriverManagerFactory;
 import com.cosmos.webdriver.pageobject.manager.PageObjectManager;
-import com.cosmos.webdriver.spring.scope.GlueCodeScope;
 
 
 @Configuration
