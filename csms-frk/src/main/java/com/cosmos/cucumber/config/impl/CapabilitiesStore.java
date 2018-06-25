@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.config.impl;
+package com.cosmos.cucumber.config.impl;
 
 import java.util.EnumMap;
 import java.util.HashMap;

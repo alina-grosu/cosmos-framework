@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.config;
+package com.cosmos.cucumber.config;
 
 public interface IConfigurationFactory {
 

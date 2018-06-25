@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.config.impl;
+package com.cosmos.cucumber.config.impl;
 
 import java.io.File;
 import java.net.URL;
@@ -6,10 +6,10 @@ import java.net.URL;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
 
-import com.cosmos.webdriver.config.IConfiguration;
+import com.cosmos.cucumber.config.IConfiguration;
+import com.cosmos.cucumber.config.WebDriverLifecycleEnum;
 import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
-import com.cosmos.webdriver.manager.TestContextScopesEnum;
 
 
 public class DefaultConfiguration implements IConfiguration {
@@ -19,7 +19,7 @@ public class DefaultConfiguration implements IConfiguration {
 	private URL gridHubUrl;
 	private File executable;
 	private URL autUrl;
-	private TestContextScopesEnum scope;
+	private WebDriverLifecycleEnum scope;
 	private Capabilities caps;
 	private String driverManagerHint;
 	private Dimension dimension;	
@@ -85,13 +85,13 @@ public class DefaultConfiguration implements IConfiguration {
 	}
 
 	@Override
-	public TestContextScopesEnum getStepsContextScope()
+	public WebDriverLifecycleEnum getStepsContextScope()
 	{		
 		return scope;
 	}
 
 	@Override
-	public void setStepsContextScope(TestContextScopesEnum scope)
+	public void setStepsContextScope(WebDriverLifecycleEnum scope)
 	{
 		this.scope = scope;
 	}

@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.config.impl;
+package com.cosmos.cucumber.config.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,11 +10,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Dimension;
 
-import com.cosmos.webdriver.config.IConfiguration;
-import com.cosmos.webdriver.config.IConfigurationBuilder;
+import com.cosmos.cucumber.config.IConfiguration;
+import com.cosmos.cucumber.config.IConfigurationBuilder;
+import com.cosmos.cucumber.config.WebDriverLifecycleEnum;
 import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
-import com.cosmos.webdriver.manager.TestContextScopesEnum;
 
 
 public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilder {
@@ -42,7 +42,7 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 				toUrl(getProperty(props, PropertiesEnum.AUT_URL_KEY), "Application Under Test URL seems to be malformed"));			
 		
 		config.setStepsContextScope(
-				TestContextScopesEnum.valueOf(getProperty(props, PropertiesEnum.STEPS_CONTEXT_SCOPE_KEY).toUpperCase()));
+				WebDriverLifecycleEnum.valueOf(getProperty(props, PropertiesEnum.STEPS_CONTEXT_SCOPE_KEY).toUpperCase()));
 		
 		config.setDesiredCapabilities(CapabilitiesStore.get(desiredBrowser, getProperty(props, PropertiesEnum.CAPS_ADDITIONAL_KEY)));
 		

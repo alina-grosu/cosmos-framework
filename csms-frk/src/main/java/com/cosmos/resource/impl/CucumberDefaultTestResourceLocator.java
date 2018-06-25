@@ -9,9 +9,9 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import com.cosmos.cucumber.ThreadLocalBasedFeatureTracker;
+import com.cosmos.cucumber.config.IConfiguration;
 import com.cosmos.resource.ITestResourceLocator;
 import com.cosmos.resource.TestResourcesEnum;
-import com.cosmos.webdriver.config.IConfiguration;
 import com.cosmos.webdriver.util.UuidSingleton;
 
 public class CucumberDefaultTestResourceLocator 

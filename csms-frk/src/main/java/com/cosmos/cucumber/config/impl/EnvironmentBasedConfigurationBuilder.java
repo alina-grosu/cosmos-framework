@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.config.impl;
+package com.cosmos.cucumber.config.impl;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -6,8 +6,8 @@ import java.net.URL;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.cosmos.webdriver.config.IConfiguration;
-import com.cosmos.webdriver.config.IConfigurationBuilder;
+import com.cosmos.cucumber.config.IConfiguration;
+import com.cosmos.cucumber.config.IConfigurationBuilder;
 import com.cosmos.webdriver.manager.BrowsersEnum;
 import com.cosmos.webdriver.manager.ExecutionTypesEnum;
 

@@ -1,12 +1,13 @@
-package com.cosmos.webdriver.config.impl;
+package com.cosmos.cucumber.config.impl;
 
 import java.util.Map;
 import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.cosmos.webdriver.config.IConfiguration;
-import com.cosmos.webdriver.config.IConfigurationBuilder;
-import com.cosmos.webdriver.config.IConfigurationFactory;
+
+import com.cosmos.cucumber.config.IConfiguration;
+import com.cosmos.cucumber.config.IConfigurationBuilder;
+import com.cosmos.cucumber.config.IConfigurationFactory;
 
 public class ConfigurationFactory implements IConfigurationFactory {
 

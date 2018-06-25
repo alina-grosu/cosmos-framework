@@ -1,4 +1,4 @@
-package com.cosmos.webdriver.config.impl;
+package com.cosmos.cucumber.config.impl;
 
 enum PropertiesEnum {
 	
