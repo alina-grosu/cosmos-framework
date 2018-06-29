@@ -28,7 +28,7 @@ import com.cosmos.webdriver.manager.impl.DefaultDriverManagerFactory;
 
 
 @Configuration
-public class MainSpringApplicationContext {
+public class CucumberSpringApplicationContext {
 	
 	/*
 	Dummy bean main intent of which is to configure an initial thread local key value pair

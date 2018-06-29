@@ -4,11 +4,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import com.cosmos.cucumber.spring.MainSpringApplicationContext;
+import com.cosmos.cucumber.spring.CucumberSpringApplicationContext;
 
 import cucumber.api.java.en.Given;
 
-@ContextConfiguration(classes=MainSpringApplicationContext.class)
+@ContextConfiguration(classes=CucumberSpringApplicationContext.class)
 @TestExecutionListeners(listeners = {DependencyInjectionTestExecutionListener.class})
 public class SpringContextBootTrigger {
 		
