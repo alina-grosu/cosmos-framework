@@ -41,7 +41,7 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 		config.setAppUnderTestUrl(
 				toUrl(getProperty(props, PropertiesEnum.AUT_URL_KEY), "Application Under Test URL seems to be malformed"));			
 		
-		config.setStepsContextScope(
+		config.setWebDriverScope(
 				WebDriverLifecycleEnum.valueOf(getProperty(props, PropertiesEnum.STEPS_CONTEXT_SCOPE_KEY).toUpperCase()));
 		
 		config.setDesiredCapabilities(CapabilitiesStore.get(desiredBrowser, getProperty(props, PropertiesEnum.CAPS_ADDITIONAL_KEY)));
@@ -49,6 +49,8 @@ public class PropertiesBasedConfigurationBuilder implements IConfigurationBuilde
 		config.setDriverManagerHint(getProperty(props, PropertiesEnum.DRIVER_MANAGER_HINT).toUpperCase());
 		
 		config.setBrowserWindowDimension(getBrowserWindowDimension(props));				
+		
+		config.setShouldRecordVideo(Boolean.parseBoolean(getProperty(props, PropertiesEnum.RECORD_VIDEO)));
 		
 		return config;
 	}

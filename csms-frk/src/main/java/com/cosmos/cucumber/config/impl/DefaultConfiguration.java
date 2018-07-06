@@ -22,7 +22,8 @@ public class DefaultConfiguration implements IConfiguration {
 	private WebDriverLifecycleEnum scope;
 	private Capabilities caps;
 	private String driverManagerHint;
-	private Dimension dimension;	
+	private Dimension dimension;
+	private boolean recordVideo;	
 
 	@Override
 	public BrowsersEnum getBrowser()
@@ -85,13 +86,13 @@ public class DefaultConfiguration implements IConfiguration {
 	}
 
 	@Override
-	public WebDriverLifecycleEnum getStepsContextScope()
+	public WebDriverLifecycleEnum getWebDriverScope()
 	{		
 		return scope;
 	}
 
 	@Override
-	public void setStepsContextScope(WebDriverLifecycleEnum scope)
+	public void setWebDriverScope(WebDriverLifecycleEnum scope)
 	{
 		this.scope = scope;
 	}
@@ -130,6 +131,18 @@ public class DefaultConfiguration implements IConfiguration {
 	public void setBrowserWindowDimension(Dimension dimension)
 	{
 		this.dimension = dimension;
+	}
+
+	@Override
+	public void setShouldRecordVideo(boolean recordVideo)
+	{		
+		this.recordVideo = recordVideo;
+	}
+
+	@Override
+	public boolean getShouldRecordVideo()
+	{		
+		return recordVideo;
 	}	
 
 }

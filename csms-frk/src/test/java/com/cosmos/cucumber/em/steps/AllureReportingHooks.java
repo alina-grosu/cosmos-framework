@@ -3,27 +3,33 @@ package com.cosmos.cucumber.em.steps;
 import static com.cosmos.util.AllureUtils.*;
 import static com.cosmos.util.ImageUtils.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.cosmos.cucumber.context.ITestConfigurationContext;
 import com.cosmos.cucumber.context.ITestResourceContext;
-import com.cosmos.cucumber.context.ITestUiContext;
 import com.cosmos.resource.TestResourcesEnum;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
+import io.qameta.allure.Allure;
 
 public class AllureReportingHooks {
 
 	private static final Logger logger = LogManager.getLogger();	
-	private ITestResourceContext resourceContext;
+	private final ITestResourceContext resourceContext;
+	private final ITestConfigurationContext testConfig;
 
-	public AllureReportingHooks (ITestUiContext uiContext, ITestResourceContext resourceContext)
+	public AllureReportingHooks (ITestResourceContext resourceContext, ITestConfigurationContext testConfig)
 	{		
 		this.resourceContext = resourceContext;
+		this.testConfig = testConfig;
 	}
 	
 	@After(order = 5000)
@@ -92,4 +98,27 @@ public class AllureReportingHooks {
 			
 		}
 	}
+	
+	@After(order = 5000)
+	public void embedTestVideo(Scenario scenario) throws Exception
+	{
+		if (testConfig.getTestConfig().getShouldRecordVideo())
+		{					
+			Path videoPath = resourceContext.
+								getResourceLocator().
+								getResourcePath(TestResourcesEnum.VIDEO_DIR)
+								.resolve(scenario.getName() + ".avi");
+			
+			logger.info(String.format("Attempting to attach video to Allure report from location [%s]", videoPath.toString()));
+			FileInputStream fileInputStream = new FileInputStream(videoPath.toFile());
+			
+			Allure
+				.addStreamAttachmentAsync(
+						"video", 
+						"video/mp4", 
+						() -> fileInputStream);
+			logger.info("Attached...");
+		}
+	}
+	
 }

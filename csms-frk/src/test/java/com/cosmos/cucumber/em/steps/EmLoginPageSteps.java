@@ -5,7 +5,9 @@ import static com.cosmos.util.ImageUtils.preserveUiComparisonResults;
 import static com.cosmos.util.ImageUtils.saveCurrentIfExpectedAbsent;
 import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,6 +40,7 @@ public class EmLoginPageSteps extends EmStepsBase {
 	private final ITestConfigurationContext configurationContext;	
 	private final PageObjectManager pageObjectManager;
 		
+		
 	public EmLoginPageSteps(
 							ITestUiContext<PageObjectManager> uiContext,
 							ITestResourceContext resourceContext,
@@ -69,30 +72,54 @@ public class EmLoginPageSteps extends EmStepsBase {
 	}
 	
 	@When("^user inputs \"([^\"]*)\" as login and \"([^\"]*)\" as password$")
-	public void user_inputs_as_login_and_as_password(String login, String password) throws Exception {		
-		pageObjectManager.getLoginPage().inputCredentials(login, password);	
-		//assertTrue(false);
+	public void user_inputs_as_login_and_as_password(String login, String password) throws Exception 
+	{		
+		pageObjectManager.getLoginPage().inputCredentials(login, password);			
 	}
 
 	@And("^clicks Login button$")
-	public void clicks_Login_button() throws Exception {
+	public void clicks_Login_button() throws Exception 
+	{
 		pageObjectManager.getLoginPage().login();		
 	}			
 
 	@Then("^LoginPage shows$")
-	public void loginpage_shows() throws Exception {
+	public void loginpage_shows() throws Exception 
+	{
 		assertTrue(pageObjectManager.getLoginPage().isAt());
 	}
 	
 	@Then("^error with text \"([^\"]*)\" appears$")
-	public void error_with_text_appears(String message) throws Exception {
+	public void error_with_text_appears(String message) throws Exception 
+	{
 	   String loginError = pageObjectManager.getLoginPage().getLoginErrorMessage();
 	   logger.debug(String.format("message: %s ; loginError: %s ;", message, loginError));
 	   assertTrue(loginError.equalsIgnoreCase(message));
 	}
 	
+	@Given("^User logs as \"([^\"]*)\" with password \"([^\"]*)\"$")
+	public void user_logs_as_with_password(String login, String password) throws Exception 
+	{
+		user_navigates_to_login_page();
+		user_inputs_as_login_and_as_password(login, password);
+		clicks_Login_button();		
+	}		
+	
+	@Then("^wait for \"([^\"]*)\"$")
+	public void wait_for(String arg1) throws Exception {
+	    try
+	    {
+	    	Thread.sleep(Integer.parseInt(arg1));
+	    }
+	    catch (InterruptedException e)
+	    {
+	    	System.out.println("INTERRUPTED");
+	    }
+	}
+	
 	@And("^Login page looks like \"([^\"]*)\"$")
-	public void login_page_looks_like(String baseScreenshotName) throws Exception {
+	public void login_page_looks_like(String baseScreenshotName) throws Exception 
+	{
 				
 		WebDriver webDriver = uiContext.getDriverManager().getDriver();		
 		List<WebElement> elementsToIgnore = uiContext.getPageObjectManager().getLoginPage().getElementsToIgnore();			
@@ -126,5 +153,5 @@ public class EmLoginPageSteps extends EmStepsBase {
 			
 			assertTrue("Ui comparison has failed!", false);
 		}
-	}			
+	}		
 }

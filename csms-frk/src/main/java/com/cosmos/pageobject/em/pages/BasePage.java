@@ -46,23 +46,6 @@ public abstract class BasePage {
 		return isAt;
 	}			
 	
-	protected abstract WebElement getPagePresenceValidatingWebElement();
-	
-	/*protected WebElement waitUntilElementVisible(WebElement target)
-	{
-		return waitUntilElementVisible(target, 5);
-	}
-	
-	protected WebElement waitUntilElementVisible(WebElement target, long timeout)
-	{
-		return new FluentWait<WebDriver>(driverManager.getDriver())
-					.pollingEvery(50, TimeUnit.MILLISECONDS)
-					.withTimeout(timeout, TimeUnit.SECONDS)
-					.ignoring(NoSuchElementException.class)
-					.until(ExpectedConditions.visibilityOf(target))
-					;
-	}*/
-	
-		
+	protected abstract WebElement getPagePresenceValidatingWebElement();		
 		
 }

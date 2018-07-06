@@ -24,7 +24,7 @@ public class WebDriverLifecycleHooks {
 	@After
 	public void restartBrowser()
 	{
-		if (configurationContext.getTestConfig().getStepsContextScope().equals(WebDriverLifecycleEnum.SCENARIO))
+		if (configurationContext.getTestConfig().getWebDriverScope().equals(WebDriverLifecycleEnum.SCENARIO))
 		{
 			logger.info("About to close current browser...");
 			uiContext.getDriverManager().quitDriver();

@@ -20,10 +20,10 @@ import java.nio.file.Path;
 public class ScreenshotingHooks {
 	
 	private static final Logger logger = LogManager.getLogger();
-	private final ITestUiContext uiContext;
+	private final ITestUiContext<?> uiContext;
 	private final ITestResourceContext resourceContext;
 	
-	public ScreenshotingHooks (ITestUiContext context, ITestResourceContext resourceContext)
+	public ScreenshotingHooks (ITestUiContext<?> context, ITestResourceContext resourceContext)
 	{
 		this.uiContext = context;	
 		this.resourceContext = resourceContext;

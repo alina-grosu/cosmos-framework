@@ -31,7 +31,8 @@
 		<com.cosmos.capabilities.key>default</com.cosmos.capabilities.key>
 		<com.cosmos.driver.manager.key>remoting</com.cosmos.driver.manager.key>
 		<com.cosmos.driver.browser.height></com.cosmos.driver.browser.height>
-		<com.cosmos.driver.browser.width></com.cosmos.driver.browser.width>		
+		<com.cosmos.driver.browser.width></com.cosmos.driver.browser.width>	
+		<com.cosmos.video.record>false</com.cosmos.video.record>		
 		
 		<!-- Surefire default config -->
 		<!-- Comma separated test runners to include -->
@@ -129,6 +130,12 @@
 			<artifactId>htmlelements-java</artifactId>
 			<version>1.19</version>
 		</dependency>
+		<!-- monte -->
+		<dependency>
+    		<groupId>com.pojosontheweb</groupId>
+    		<artifactId>monte-repack</artifactId>
+   			 <version>1.0.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>
@@ -182,10 +189,25 @@
 				<com.cosmos.driver.executable.location>C:\devtools\drivers\chrome\2.37\chromedriver_win32\chromedriver.exe</com.cosmos.driver.executable.location>
 				<!-- <com.cosmos.driver.executable.location>C:\devtools\drivers\ie\3.9.0_x32\IEDriverServer.exe</com.cosmos.driver.executable.location> -->
 				<!-- <surefire.include.test.runners>EmLoginScreenTestsRunner</surefire.include.test.runners> -->
-				<com.cosmos.steps.context.scope>scenario</com.cosmos.steps.context.scope>
-				 <!-- <surefire.parallel>classes</surefire.parallel> 
+				<com.cosmos.steps.context.scope>feature</com.cosmos.steps.context.scope>
+				<!--  <surefire.parallel>classes</surefire.parallel> 
 				<surefire.parallel.thread.count>5</surefire.parallel.thread.count> -->			
 				<com.cosmos.driver.browser>chrome</com.cosmos.driver.browser>
+				<com.cosmos.video.record>true</com.cosmos.video.record>
+				<com.cosmos.aut.url>login.tst-us-east.medispend.com</com.cosmos.aut.url>
+			</properties>
+		</profile>		
+		<profile>
+			<id>pof</id>
+			<properties>				
+				<com.cosmos.driver.executable.location>C:\devtools\drivers\chrome\2.37\chromedriver_win32\chromedriver.exe</com.cosmos.driver.executable.location>				
+				<surefire.include.test.runners>EmPofNeedsAssessmentsRunner</surefire.include.test.runners>
+				<com.cosmos.steps.context.scope>feature</com.cosmos.steps.context.scope>
+				<!--  <surefire.parallel>classes</surefire.parallel> 
+				<surefire.parallel.thread.count>5</surefire.parallel.thread.count> -->			
+				<com.cosmos.driver.browser>chrome</com.cosmos.driver.browser>
+				<com.cosmos.video.record>false</com.cosmos.video.record>
+				<com.cosmos.aut.url>https://login.tst-us-east.medispend.com</com.cosmos.aut.url>
 			</properties>
 		</profile>
 	</profiles>

@@ -18,6 +18,7 @@ public class CucumberDefaultTestResourceLocator
 		implements ITestResourceLocator {
 	
 	private static final String SCREENSHOTS = "screenshots";
+	private static final String VIDEOS = "videos";
 	private final IConfiguration config;
 	private final Map<TestResourcesEnum, Supplier<Path>> locations = new EnumMap<>(TestResourcesEnum.class);  
 	
@@ -26,13 +27,14 @@ public class CucumberDefaultTestResourceLocator
 		locations.put(TestResourcesEnum.RESULTS_DIR, () -> getResultsDir());
 		locations.put(TestResourcesEnum.EXPECTED_SCREENSHOTS_DIR, () -> getExpectedScreenshotsDir());
 		locations.put(TestResourcesEnum.FAILURE_SCREENSHOTS_DIR, () -> getFailureScreenshotsDir());
+		locations.put(TestResourcesEnum.VIDEO_DIR, () -> getVideosDir());
 	}
 	
 
 	public CucumberDefaultTestResourceLocator(IConfiguration config)
 	{
 		this.config = config; 
-	}
+	}	
 
 	@Override
 	public Path getResourcePath(TestResourcesEnum of)
@@ -75,6 +77,12 @@ public class CucumberDefaultTestResourceLocator
 	{
 		return getBaseDir()
 				.resolve(SCREENSHOTS);
+	}
+	
+	private Path getVideosDir()
+	{
+		return getResultsDir()
+				.resolve(VIDEOS);
 	}
 
 	

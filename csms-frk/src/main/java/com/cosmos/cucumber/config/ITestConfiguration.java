@@ -6,7 +6,9 @@ public interface ITestConfiguration {
 
 	URL getAppUnderTestUrl();
 	void setAppUnderTestUrl(URL autUrl);
-	WebDriverLifecycleEnum getStepsContextScope();
-	void setStepsContextScope(WebDriverLifecycleEnum scope);	
+	WebDriverLifecycleEnum getWebDriverScope();
+	void setWebDriverScope(WebDriverLifecycleEnum scope);
+	void setShouldRecordVideo(boolean record);
+	boolean getShouldRecordVideo();
 				
 }
