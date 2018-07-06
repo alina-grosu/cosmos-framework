@@ -17,8 +17,7 @@ public abstract class BasePage {
 
 	public BasePage(IDriverManager driverManager)
 	{
-		this.driverManager = driverManager;
-		//PageFactory.initElements(driverManager.getDriver(), this);
+		this.driverManager = driverManager;		
 		PageFactory
 			.initElements(new WebDriverAwareDecorator
 								(new HtmlElementLocatorFactory(driverManager.getDriver()), driverManager.getDriver()), this);

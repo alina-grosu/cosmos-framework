@@ -8,6 +8,8 @@ import com.cosmos.pageobject.em.pages.pagecomponents.ToolsMenuComponent;
 import com.cosmos.util.WaitUtils;
 import com.cosmos.webdriver.manager.IDriverManager;
 
+import ru.yandex.qatools.htmlelements.annotations.Timeout;
+
 public class HomeDashboardPage 	extends CommonInternalPage {
 	
 	@FindBy(how = How.XPATH, using = "//div[@class = 'navbar-collapse collapse']")
@@ -18,7 +20,7 @@ public class HomeDashboardPage 	extends CommonInternalPage {
 	private WebElement overlay;
 	@FindBy(how = How.XPATH, using = "//body[//div[@class='modal' and contains(@style, 'display: none')]]")
 	private WebElement noOverlay;
-	@FindBy(how = How.XPATH, using = "	//div[@id = 'engagmentManagerLink']")
+	@FindBy(how = How.XPATH, using = "	//div[@id = 'engagmentManagerLink']")	
 	private WebElement engagementManager;	
 	
 	public HomeDashboardPage(IDriverManager driverManager)
@@ -52,6 +54,6 @@ public class HomeDashboardPage 	extends CommonInternalPage {
 	
 	private void waitPageToLoad()
 	{
-		WaitUtils.waitUntilElementVisible(noOverlay, driverManager.getDriver());
+		WaitUtils.waitUntilElementVisible(noOverlay, driverManager.getDriver(), 10);
 	}
 }

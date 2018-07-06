@@ -51,7 +51,7 @@ public class MultiSelectCheckedDropBox 	extends HtmlElement
 	
 	private void clickDropList()
 	{
-		this.click();
+		button.click();
 	}
 
 	public void selectByText(List<String> itemValues)

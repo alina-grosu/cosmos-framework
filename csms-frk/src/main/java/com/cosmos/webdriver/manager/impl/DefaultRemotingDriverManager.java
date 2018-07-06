@@ -75,9 +75,7 @@ public class DefaultRemotingDriverManager implements IDriverManager {
 	{
 		RemoteWebDriver remoteWebDriver = 
 				new RemoteWebDriver(driverServiceManager.getDriverServiceUrl(), dmConfig.getDesiredCapabilities());
-		
-		remoteWebDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		
+						
 		if (dmConfig.getBrowserWindowDimension() == null)
 		{
 			remoteWebDriver.manage().window().maximize();

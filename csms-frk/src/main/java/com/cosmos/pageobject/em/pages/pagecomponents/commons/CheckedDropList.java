@@ -1,5 +1,6 @@
 package com.cosmos.pageobject.em.pages.pagecomponents.commons;
 
+import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -9,14 +10,16 @@ import org.openqa.selenium.support.How;
 import com.cosmos.pageobject.em.pages.pagecomponents.IWebDriverAware;
 import com.cosmos.util.WaitUtils;
 
+import ru.yandex.qatools.htmlelements.annotations.Timeout;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 public class CheckedDropList extends HtmlElement
 							implements IWebDriverAware {
 	
 	@FindBy(how = How.XPATH, using = ".//li")
-	private List<CheckedListItem> dropListItemsAll;
+	private List<CheckedListItem> dropListItemsAll;	
 	@FindBy(how = How.XPATH, using = ".//li[@class = 'active']")
+	@Timeout(0)
 	private List<CheckedListItem> dropListItemsChecked;
 	@FindBy(how = How.XPATH, using = ".//li[not(@class = 'active')]")
 	private List<CheckedListItem> dropListItemsUnchecked;
@@ -33,14 +36,16 @@ public class CheckedDropList extends HtmlElement
 	}
 
 	public void uncheckAll()
-	{		
-		for (int i = 0; i < dropListItemsChecked.size(); i++ )
+	{			
+		int i = 0;
+		while (dropListItemsChecked.size() != 0)
 		{
-			CheckedListItem checkedListItem = dropListItemsChecked.get(i);
+			CheckedListItem checkedListItem = dropListItemsChecked.iterator().next();
 			checkedListItem.uncheck();
-			System.out.println(driver.toString());
-			WaitUtils.waitUntilElementStaleness(checkedListItem, driver);
+			//WaitUtils.waitUntilElementStaleness(checkedListItem, driver);
+			System.out.println(new Date().getTime() + " Iteration " + i++);
 		}
+		System.out.println(new Date().getTime() + " UNCHECKED ALL ");
 	}
 
 	@Override
