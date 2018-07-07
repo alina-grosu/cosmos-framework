@@ -90,7 +90,8 @@ public class UsersGroupsPermissionsPage extends BasePage {
 		securityProfileName.click();
 		securityProfileName.selectByVisibleText(role);
 		search.click();
-		//WaitUtils.waitUntilElementInvisible(oneMomentPlease, driverManager.getDriver());		
+		WaitUtils.waitUntilElementInvisible(oneMomentPlease, driverManager.getDriver());		
+		
 		usersTable.getCellAt(0, 0).findElement(By.xpath("//div[@id = 'myDropdown']/button")).click();
 		cloakAs.click();
 		WaitUtils.waitUntilElementVisible(cloakAsConfirmPopup, driverManager.getDriver());

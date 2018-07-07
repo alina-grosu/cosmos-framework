@@ -45,7 +45,7 @@ public class EngagementManagerMainMenuPage extends BasePage {
 	
 	private void waitPageToLoad()
 	{
-		WaitUtils.waitUntilElementVisible(noOverlay, driverManager.getDriver());
+		WaitUtils.waitUntilElementVisible(noOverlay, driverManager.getDriver(), 15);
 	}
 
 }

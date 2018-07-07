@@ -1,6 +1,11 @@
 package com.cosmos.pageobject.em.pages;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,6 +20,17 @@ import ru.yandex.qatools.htmlelements.element.Select;
 
 public class NeedsAssessmentsEditorPage extends BasePage {
 
+	private static final Map<String, BiConsumer<NeedsAssessmentsEditorPage, String>> inputActions = new HashMap<>();
+	static 
+	{
+		inputActions.put("Title", (page, title) -> page.enterTitle(title));
+		inputActions.put("Description", (page, desc) -> page.enterDescription(desc));
+		inputActions.put("Justification", (page, just) -> page.enterJustification(just));
+		inputActions.put("Effective Date", (page, date) -> page.setEffectiveDate(LocalDate.parse(date)));
+		inputActions.put("Expiration Date", (page, date) -> page.setExpirationDate(LocalDate.parse(date)));
+		inputActions.put("Year", (page, year) -> page.selectYear(year));
+	}
+	
 	@FindBy(how = How.XPATH, using = "//div[contains(@class, 'contentBody')]//div[@class = 'needsAssessmentFormWrapper']")
 	private WebElement thisPage;
 	@FindBy(how = How.XPATH, using = "//div[contains(@class,'globalOverlay ')]")
@@ -43,16 +59,34 @@ public class NeedsAssessmentsEditorPage extends BasePage {
 	private WebElement version;
 	@FindBy(how = How.XPATH, using = ".//select[@id = 'needsAssessments-editor-functionalAreaField']")
 	private Select functionalAreaSelector;
-	@FindBy(how = How.XPATH, using = ".//div[@class = 'reactBootstrapDatePickerFront' and .//input[contains(@id, '-effectiveDateField')]]")
+	@FindBy(how = How.XPATH, using = ".//div[@class = 'reactBootstrapDatePickerFront' and .//input[contains(@id, '-effectiveDateField')]]/parent::div")
 	private Calendar effectiveDate;
-	@FindBy(how = How.XPATH, using = ".//div[@class = 'reactBootstrapDatePickerFront' and .//input[contains(@id, '-expirationDateField')]]")
-	private Calendar expirationDate;	
-	
-	
+	@FindBy(how = How.XPATH, using = ".//div[@class = 'reactBootstrapDatePickerFront' and .//input[contains(@id, '-expirationDateField')]]/parent::div")
+	private Calendar expirationDate;
+	@FindBy(how = How.XPATH, using = ".//select[@id='needsAssessments-editor-yearField']")
+	private Select year;
 	
 	public NeedsAssessmentsEditorPage(IDriverManager driverManager)
 	{
 		super(driverManager);		
+	}
+
+	public NeedsAssessmentsEditorPage selectYear(String year)
+	{
+		this.year.selectByVisibleText(year);
+		return this;
+	}
+
+	public NeedsAssessmentsEditorPage enterJustification(String just)
+	{
+		justification.sendKeys(just);
+		return this;
+	}
+
+	public NeedsAssessmentsEditorPage enterDescription(String desc)
+	{
+		description.sendKeys(desc);
+		return this;
 	}
 
 	@Override
@@ -97,6 +131,26 @@ public class NeedsAssessmentsEditorPage extends BasePage {
 		bussinessUnitSelector.clear();
 		bussinessUnitSelector.selectByText(bus);				
 		return this;
+	}
+
+	public NeedsAssessmentsEditorPage setExpirationDate(LocalDate date)
+	{
+		expirationDate.setDate(date);	
+		return this;
+	}
+
+	public NeedsAssessmentsEditorPage setEffectiveDate(LocalDate date)
+	{
+		effectiveDate.setDate(date);	
+		return this;		
+	}
+
+	public void setData(Map<String, String> form)
+	{
+		for (String key : form.keySet())
+		{
+			inputActions.get(key).accept(this, form.get(key));
+		}				
 	}
 
 }

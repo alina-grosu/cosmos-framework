@@ -90,14 +90,12 @@ public class CalendarDatePicker extends HtmlElement {
 
 	private int getCurrentYear()
 	{
-		return Integer.parseInt(getMonthAndYear()[2]);				
+		return Integer.parseInt(getMonthAndYear()[1]);				
 	}
 	
 	private String[] getMonthAndYear()
 	{
-		String date = monthAndYearSwitch.getText().replace(quotes, space);
-		System.out.println("+++++++++++++++++++++++++" + date);
-		return date.split(space);
+		return monthAndYearSwitch.getText().split(space);				
 	}	
 	
 	

@@ -1,5 +1,6 @@
 package com.cosmos.pageobject.em.pages.pagecomponents.commons;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
@@ -16,6 +17,12 @@ public class Calendar extends HtmlElement {
 	private WebElement button;
 	@FindBy(how = How.XPATH, using = ".//div[contains(@class, 'bootstrap-datetimepicker-widget') and contains(@style, 'display: block')]")
 	private CalendarDatePicker datePicker;
+	
+	public void setDate(LocalDate date)
+	{
+		button.click();
+		datePicker.setDate(date);
+	}
 	
 	
 	
