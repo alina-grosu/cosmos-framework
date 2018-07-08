@@ -1,25 +1,36 @@
 package com.cosmos.pageobject.em.pages;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 import com.cosmos.pageobject.em.pages.pagecomponents.commons.Calendar;
 import com.cosmos.pageobject.em.pages.pagecomponents.commons.MultiSelectCheckedDropBox;
+import com.cosmos.uicomparison.IUiComparisonIgnorableElementsAware;
 import com.cosmos.util.WaitUtils;
 import com.cosmos.webdriver.manager.IDriverManager;
 
 import ru.yandex.qatools.htmlelements.element.Select;
 
-public class NeedsAssessmentsEditorPage extends BasePage {
-
+public class NeedsAssessmentsEditorPage extends BasePage
+										implements IUiComparisonIgnorableElementsAware{
+	
+	private static final Logger logger = LogManager.getLogger();
+	
 	private static final Map<String, BiConsumer<NeedsAssessmentsEditorPage, String>> inputActions = new HashMap<>();
 	static 
 	{
@@ -29,6 +40,22 @@ public class NeedsAssessmentsEditorPage extends BasePage {
 		inputActions.put("Effective Date", (page, date) -> page.setEffectiveDate(LocalDate.parse(date)));
 		inputActions.put("Expiration Date", (page, date) -> page.setExpirationDate(LocalDate.parse(date)));
 		inputActions.put("Year", (page, year) -> page.selectYear(year));
+	}
+	
+	private static final Map<String, Function<NeedsAssessmentsEditorPage, String>> validateActions = new HashMap<>();
+	static 
+	{
+		validateActions.put("Title", (page) -> page.title.getAttribute("value"));
+		validateActions.put("Description", (page) -> page.description.getText());
+		validateActions.put("Justification", (page) -> page.justification.getText());
+		validateActions.put("Effective Date", (page) -> page.effectiveDate.getCurrentDateAsString());
+		validateActions.put("Expiration Date", (page) -> page.expirationDate.getCurrentDateAsString());
+		validateActions.put("Year", (page) -> page.year.getFirstSelectedOption().getText());
+		validateActions.put("Business Units", (page) -> page.businessUnitSelector.getSelectedItemsAsString());
+		validateActions.put("Original ID", (page) -> page.originalId.getAttribute("value"));
+		validateActions.put("Region", (page) -> page.regionSelector.getSelectedItemsAsString());
+		validateActions.put("Functional Area", (page) -> page.functionalAreaSelector.getFirstSelectedOption().getText());				
+		
 	}
 	
 	@FindBy(how = How.XPATH, using = "//div[contains(@class, 'contentBody')]//div[@class = 'needsAssessmentFormWrapper']")
@@ -44,7 +71,7 @@ public class NeedsAssessmentsEditorPage extends BasePage {
 	@FindBy(how = How.XPATH, using = ".//span[select[@id = 'needsAssessments-editor-regionField']]")
 	private MultiSelectCheckedDropBox regionSelector;
 	@FindBy(how = How.XPATH, using = ".//span[select[@id = 'needsAssessments-editor-businessUnitField']]")
-	private MultiSelectCheckedDropBox bussinessUnitSelector;
+	private MultiSelectCheckedDropBox businessUnitSelector;
 	@FindBy(how = How.XPATH, using = ".//button[contains(@class, 'em-saveButton')]")
 	private WebElement saveButton;
 	@FindBy(how = How.XPATH, using = ".//textarea[contains(@id, '-descriptionField')]")
@@ -64,7 +91,8 @@ public class NeedsAssessmentsEditorPage extends BasePage {
 	@FindBy(how = How.XPATH, using = ".//div[@class = 'reactBootstrapDatePickerFront' and .//input[contains(@id, '-expirationDateField')]]/parent::div")
 	private Calendar expirationDate;
 	@FindBy(how = How.XPATH, using = ".//select[@id='needsAssessments-editor-yearField']")
-	private Select year;
+	private Select year;	
+		
 	
 	public NeedsAssessmentsEditorPage(IDriverManager driverManager)
 	{
@@ -110,8 +138,8 @@ public class NeedsAssessmentsEditorPage extends BasePage {
 	
 	public NeedsAssessmentsEditorPage selectBusinessUnit(String bu)
 	{		
-		bussinessUnitSelector.clear();
-		bussinessUnitSelector.selectByText(bu);				
+		businessUnitSelector.clear();
+		businessUnitSelector.selectByText(bu);				
 		return this;
 	}
 	
@@ -128,8 +156,8 @@ public class NeedsAssessmentsEditorPage extends BasePage {
 
 	public NeedsAssessmentsEditorPage selectBusinessUnits(List<String> bus)
 	{
-		bussinessUnitSelector.clear();
-		bussinessUnitSelector.selectByText(bus);				
+		businessUnitSelector.clear();
+		businessUnitSelector.selectByText(bus);				
 		return this;
 	}
 
@@ -153,4 +181,64 @@ public class NeedsAssessmentsEditorPage extends BasePage {
 		}				
 	}
 
+	public NeedsAssessmentsEditorPage save()
+	{
+		saveButton.click();
+		return this;
+	}
+
+	public boolean checkData(Map<String, String> data)
+	{		
+		Map<String, Pair<String, String>> failures = new HashMap<>();
+		
+		for(String key : data.keySet())
+		{
+			String actual = validateActions.get(key).apply(this);
+			String expected = data.get(key);
+			
+			if(!actual.equals(expected))
+			{
+				failures.put(key, ImmutablePair.of(actual, expected));
+			};
+			
+		}
+		
+		logFailures(failures);
+		
+		return failures.isEmpty();
+	}
+
+	private void logFailures(Map<String, Pair<String, String>> failures)
+	{
+		failures
+			.keySet()
+			.forEach((key) -> logger.error(
+					String.format("Value comparison has failed for field [%s]: actual [%s], expected [%s] ",
+							key, failures.get(key).getKey(), failures.get(key).getValue())));
+		
+	}
+
+	public NeedsAssessmentsEditorPage addBusinessUnits(List<String> bus)
+	{
+		businessUnitSelector.selectByText(bus);
+		return this;
+	}
+
+	public Set<String> getCurrentBusinessUnits()
+	{				
+		return Arrays
+				.asList(businessUnitSelector.getSelectedItemsAsString().split(","))
+				.stream()
+				.map((bu) -> bu.trim())
+				.collect(Collectors.toSet());
+	}
+
+	@Override
+	public List<WebElement> getElementsToIgnore()
+	{
+		return Arrays.asList(id);
+	}
+	
+	
+	
 }

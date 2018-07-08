@@ -3,7 +3,6 @@ package com.cosmos.pageobject.em.pages.pagecomponents.commons;
 
 
 import java.util.List;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,7 +17,9 @@ public class MultiSelectCheckedDropBox 	extends HtmlElement
 	@FindBy(how = How.XPATH, using = ".//button")
 	private WebElement button;
 	@FindBy(how = How.XPATH, using = ".//ul[@class = 'multiselect-container dropdown-menu' and li]")
-	private CheckedDropList dropList;		
+	private CheckedDropList dropList;	
+	@FindBy(how = How.XPATH, using = ".//span[@class = 'multiselect-selected-text']")
+	private WebElement selectedItems;	
 	private WebDriver driver;
 	
 	
@@ -60,5 +61,10 @@ public class MultiSelectCheckedDropBox 	extends HtmlElement
 		itemValues.forEach((itemValue) -> dropList.checkItemWithText(itemValue));
 		clickDropList();
 	}
+
+	public String getSelectedItemsAsString()
+	{
+		return selectedItems.getText();
+	}	
 	
 }

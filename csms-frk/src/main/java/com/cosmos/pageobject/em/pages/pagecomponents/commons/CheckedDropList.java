@@ -1,6 +1,5 @@
 package com.cosmos.pageobject.em.pages.pagecomponents.commons;
 
-import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -8,8 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 import com.cosmos.pageobject.em.pages.pagecomponents.IWebDriverAware;
-import com.cosmos.util.WaitUtils;
-
 import ru.yandex.qatools.htmlelements.annotations.Timeout;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
@@ -36,16 +33,13 @@ public class CheckedDropList extends HtmlElement
 	}
 
 	public void uncheckAll()
-	{			
-		int i = 0;
+	{					
 		while (dropListItemsChecked.size() != 0)
 		{
 			CheckedListItem checkedListItem = dropListItemsChecked.iterator().next();
 			checkedListItem.uncheck();
-			//WaitUtils.waitUntilElementStaleness(checkedListItem, driver);
-			System.out.println(new Date().getTime() + " Iteration " + i++);
-		}
-		System.out.println(new Date().getTime() + " UNCHECKED ALL ");
+			//WaitUtils.waitUntilElementStaleness(checkedListItem, driver);			
+		}		
 	}
 
 	@Override

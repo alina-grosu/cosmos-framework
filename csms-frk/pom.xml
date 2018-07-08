@@ -16,7 +16,7 @@
 		<junit.version>4.12</junit.version>
 		<selenium.version>3.8.1</selenium.version>
 		<spring.version>4.3.13.RELEASE</spring.version>
-		<commons.version>3.0</commons.version>
+		<commons.version>3.2</commons.version>
 		<log4j.version>2.10.0</log4j.version>
 		<allure.version>2.0-BETA21</allure.version>
 		<slf4j.version>1.8.0-beta1</slf4j.version>
@@ -206,7 +206,7 @@
 				<!--  <surefire.parallel>classes</surefire.parallel> 
 				<surefire.parallel.thread.count>5</surefire.parallel.thread.count> -->			
 				<com.cosmos.driver.browser>chrome</com.cosmos.driver.browser>
-				<com.cosmos.video.record>false</com.cosmos.video.record>
+				<com.cosmos.video.record>true</com.cosmos.video.record>
 				<com.cosmos.aut.url>https://login.tst-us-east.medispend.com</com.cosmos.aut.url>
 			</properties>
 		</profile>

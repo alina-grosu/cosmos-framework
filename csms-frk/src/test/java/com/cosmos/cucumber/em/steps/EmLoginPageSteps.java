@@ -5,10 +5,7 @@ import static com.cosmos.util.ImageUtils.preserveUiComparisonResults;
 import static com.cosmos.util.ImageUtils.saveCurrentIfExpectedAbsent;
 import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;

@@ -115,7 +115,7 @@ public class AllureReportingHooks {
 			Allure
 				.addStreamAttachmentAsync(
 						"video", 
-						"video/mp4", 
+						"video/avi", 
 						() -> fileInputStream);
 			logger.info("Attached...");
 		}

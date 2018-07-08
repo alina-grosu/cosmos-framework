@@ -73,7 +73,7 @@ public class VideoHooks {
                 	new Format(MediaTypeKey, MediaType.VIDEO, 
                 		EncodingKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE,
                         CompressorNameKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE,
-                        DepthKey, (int)24, FrameRateKey, Rational.valueOf(15),
+                        DepthKey, (int)24, FrameRateKey, Rational.valueOf(20),
                         QualityKey, 1.0f,
                         KeyFrameIntervalKey, (int) (15 * 60)),
                 	new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey,"black",

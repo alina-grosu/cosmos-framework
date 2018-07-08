@@ -1,6 +1,7 @@
 Feature: Needs Assessments pof
   Just a few test cases for a framework demo
 
+	@tmsLink=EM-4612
   Scenario: EM-4612 NA - User can add new NA with multiple Business Unit values
     Given User logs as "admin@medispend.com" with password "password1"
     Then Dashboard page shows
@@ -11,17 +12,38 @@ Feature: Needs Assessments pof
     When user selects Engagement Manager
     Then Engagement Manager shows
     When User initiates new Needs Assessment
-    Then Needs Assessment shows
-    #And User picks Effective Date as "2018-08-01"
-    #And User picks Expiration Date as "2019-08-01"
-    And User add next data to Needs Assessent
+    Then Needs Assessment shows   
+    And User adds next data to Needs Assessent
       | Title           | AT title demo         |
       | Description     | AT Description Demo   |
       | Justification   | AT Justification demo |
       | Effective Date  | 2018-08-01            |
       | Expiration Date | 2019-08-01            |
-      | Year            | 2018                  |
-    And User selects next Bussiness Units
-      | Biologics   |
+      | Year            |                  2018 |
+    And User selects next Business Units
       | Bone Cement |
-    Then wait for "30000"
+      | Biologics   |
+    When User saves Needs Assessment
+    Then Needs Assessment shows
+    And Needs Assessment is filled with next data
+      | Title           | AT title demo          |
+      | Description     | AT Description Demo    |
+      | Justification   | AT Justification demo  |
+      | Effective Date  | 2018-08-01             |
+      | Expiration Date | 2019-08-01             |
+      | Year            |                   2018 |
+      | Business Units | Biologics, Bone Cement |
+      | Original ID     |                      0 |
+      | Region          | Americas               |
+      | Functional Area | Advisory Group         |
+    When User adds next Business Units
+      | Dental |
+      | Hip    |
+    And User saves Needs Assessment
+    Then Needs Assessment shows
+    And Business Units has next items selected
+      | Bone Cement |
+      | Biologics   |
+      | Dental      |
+      | Hip         |
+    And Needs Assessments Editor looks like "EM-4612_expected_na_editor_bad.png"
