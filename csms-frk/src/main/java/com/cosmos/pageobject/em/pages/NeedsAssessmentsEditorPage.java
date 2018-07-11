@@ -59,9 +59,7 @@ public class NeedsAssessmentsEditorPage extends BasePage
 	}
 	
 	@FindBy(how = How.XPATH, using = "//div[contains(@class, 'contentBody')]//div[@class = 'needsAssessmentFormWrapper']")
-	private WebElement thisPage;
-	@FindBy(how = How.XPATH, using = "//div[contains(@class,'globalOverlay ')]")
-	private WebElement overlay;		
+	private WebElement thisPage;	
 	@FindBy(how = How.XPATH, using = ".//input[contains(@id, '-titleField')]")
 	private WebElement title;	
 	@FindBy(how = How.XPATH, using = "//body[div[@id = 'root']/div[@data-reactroot]/span[not(@*) and not(*)]]")
@@ -145,7 +143,7 @@ public class NeedsAssessmentsEditorPage extends BasePage
 	
 	private void waitPageToLoad()
 	{
-		WaitUtils.waitUntilElementVisible(noOverlay, driverManager.getDriver());
+		WaitUtils.waitUntilElementVisible(noOverlay, driverManager.getDriver(), 10);
 	}
 
 	public NeedsAssessmentsEditorPage clear()

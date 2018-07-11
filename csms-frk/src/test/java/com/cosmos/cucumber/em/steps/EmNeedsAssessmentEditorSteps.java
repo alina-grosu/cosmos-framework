@@ -14,8 +14,6 @@ import com.cosmos.cucumber.context.ITestResourceContext;
 import com.cosmos.cucumber.context.ITestUiContext;
 import com.cosmos.pageobject.em.manager.PageObjectManager;
 import com.cosmos.resource.TestResourcesEnum;
-import com.cosmos.uicomparison.ashot.DownUpScrollingShootingStrategyDecorator;
-import com.cosmos.uicomparison.ashot.HorizontalScrollRemovingShootingStrategyDecorator;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
