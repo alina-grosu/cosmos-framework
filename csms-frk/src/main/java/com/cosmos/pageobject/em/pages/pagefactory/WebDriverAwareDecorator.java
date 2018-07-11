@@ -1,27 +1,17 @@
 package com.cosmos.pageobject.em.pages.pagefactory;
 
-import static ru.yandex.qatools.htmlelements.loader.decorator.ProxyFactory.createWebElementProxy;
 import static ru.yandex.qatools.htmlelements.utils.HtmlElementUtils.getElementName;
 import static ru.yandex.qatools.htmlelements.utils.HtmlElementUtils.newInstance;
-
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
-
 import com.cosmos.pageobject.em.pages.pagecomponents.IWebDriverAware;
-
-import ru.yandex.qatools.htmlelements.annotations.Name;
-import ru.yandex.qatools.htmlelements.annotations.Timeout;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 import ru.yandex.qatools.htmlelements.exceptions.HtmlElementsException;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
-import ru.yandex.qatools.htmlelements.loader.decorator.proxyhandlers.WebElementNamedProxyHandler;
 import ru.yandex.qatools.htmlelements.pagefactory.CustomElementLocatorFactory;
 
 public class WebDriverAwareDecorator extends HtmlElementDecorator {

@@ -14,21 +14,18 @@ public class EmUserGroupsPermissionsSteps {
 
 	private static final Logger logger = LogManager.getLogger();
 	private final ITestUiContext<PageObjectManager> uiContext;
-	private final ITestResourceContext resourceContext;	
+	
 	
 	public EmUserGroupsPermissionsSteps(
-			ITestUiContext<PageObjectManager> uiContext,
-			ITestResourceContext resourceContext			
+			ITestUiContext<PageObjectManager> uiContext				
 			)
 	{
-		this.uiContext = uiContext;		
-		this.resourceContext = resourceContext;				
+		this.uiContext = uiContext;				
 
 		logger.debug(String
-				.format("Instantiated [%s] using ui context [%s], resource context [%s]",
+				.format("Instantiated [%s] using ui context [%s]",
 						this.toString(),
-						uiContext.toString(),
-						resourceContext.toString()						
+						uiContext.toString()										
 						));
 	}
 	

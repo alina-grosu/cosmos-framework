@@ -8,8 +8,6 @@ import com.cosmos.pageobject.em.pages.pagecomponents.ToolsMenuComponent;
 import com.cosmos.util.WaitUtils;
 import com.cosmos.webdriver.manager.IDriverManager;
 
-import ru.yandex.qatools.htmlelements.annotations.Timeout;
-
 public class HomeDashboardPage 	extends CommonInternalPage {
 	
 	@FindBy(how = How.XPATH, using = "//div[@class = 'navbar-collapse collapse']")

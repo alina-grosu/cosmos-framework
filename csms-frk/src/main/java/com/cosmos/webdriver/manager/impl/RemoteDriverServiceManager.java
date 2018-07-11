@@ -2,11 +2,8 @@ package com.cosmos.webdriver.manager.impl;
 
 import java.io.IOException;
 import java.net.URL;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.cosmos.cucumber.config.IConfiguration;
 import com.cosmos.webdriver.manager.IDriverManagerConfiguration;
 import com.cosmos.webdriver.manager.IDriverServiceManager;
 

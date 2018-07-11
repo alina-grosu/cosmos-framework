@@ -1,15 +1,11 @@
 package com.cosmos.util;
 
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-
-import com.cosmos.pageobject.em.pages.pagecomponents.commons.CheckedListItem;
 
 public class WaitUtils {
 

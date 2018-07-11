@@ -12,9 +12,7 @@ public class EngagementManagerMainMenuPage extends BasePage {
 	@FindBy(how = How.XPATH, using = "//div[contains(@class, 'contentBody') and //div[@class = 'dashboard-item']]")
 	private WebElement thisPage;
 	@FindBy(how = How.XPATH, using = "//a[@class and @href = '/needs-assessments/editor']")
-	private WebElement newNeedsAssessmentsButton;
-	@FindBy(how = How.XPATH, using = "//div[contains(@class,'globalOverlay ')]")
-	private WebElement overlay;
+	private WebElement newNeedsAssessmentsButton;	
 	@FindBy(how = How.XPATH, using = "//body[div[@id = 'root']/div[@data-reactroot]/span[not(@*) and not(*)]]")
 	private WebElement noOverlay;
 	

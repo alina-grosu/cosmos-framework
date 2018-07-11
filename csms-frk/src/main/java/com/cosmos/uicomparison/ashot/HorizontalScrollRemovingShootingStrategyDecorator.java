@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import ru.yandex.qatools.ashot.coordinates.Coords;
-import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategy;
 
 public class HorizontalScrollRemovingShootingStrategyDecorator implements ShootingStrategy {

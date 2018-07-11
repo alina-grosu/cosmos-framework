@@ -4,17 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.internal.WrapsElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-import com.cosmos.pageobject.em.pages.pagecomponents.IWebDriverAware;
 import com.cosmos.util.WaitUtils;
 import com.cosmos.webdriver.manager.IDriverManager;
 
-import ru.yandex.qatools.htmlelements.annotations.Timeout;
 import ru.yandex.qatools.htmlelements.element.Select;
 import ru.yandex.qatools.htmlelements.element.Table;
 
@@ -47,11 +44,7 @@ public class UsersGroupsPermissionsPage extends BasePage {
 	@FindBy(how = How.XPATH, using = "//div[contains(@class, 'bootbox modal')]//div[@class = 'modal-content']//button[@class = 'btn btn-danger']")	
 	private WebElement cloakAsConfirm;
 	@FindBy(how = How.XPATH, using = "//div[contains(@class, 'bootbox modal')]//div[@class = 'modal-content']")	
-	private WebElement cloakAsConfirmPopup;
-	@FindBy(how = How.XPATH, using = "//span[@id = 'oneMomentPlease' and @class = 'blink']")	
-	private WebElement oneMomentPlease;
-	@FindBy(how = How.XPATH, using = "//div[@class = 'header-custom header-custom-cloak' and ./span[@id = 'oneMomentPlease' and @style = 'display: none;']]")	
-	private WebElement noOneMomentPlease;
+	private WebElement cloakAsConfirmPopup;	
 	
 								
 	private static final Map<String, String> roles = new HashMap<>();
