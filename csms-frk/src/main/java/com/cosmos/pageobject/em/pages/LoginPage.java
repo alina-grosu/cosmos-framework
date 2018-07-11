@@ -2,12 +2,9 @@ package com.cosmos.pageobject.em.pages;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-
 import com.cosmos.pageobject.em.pages.pagecomponents.LoginFormComponent;
 import com.cosmos.uicomparison.IUiComparisonIgnorableElementsAware;
 import com.cosmos.webdriver.manager.IDriverManager;

@@ -2,10 +2,7 @@ package com.cosmos.cucumber.em.steps;
 
 import static com.cosmos.util.AllureUtils.*;
 import static com.cosmos.util.ImageUtils.*;
-
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 

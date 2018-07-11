@@ -12,7 +12,6 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 public class CalendarDatePicker extends HtmlElement {
 
-	private static final String quotes = "\"";
 	private static final String space = " ";
 	
 	@FindBy(how = How.XPATH, using = ".//th[@class = 'prev']")
@@ -97,7 +96,5 @@ public class CalendarDatePicker extends HtmlElement {
 	{
 		return monthAndYearSwitch.getText().split(space);				
 	}	
-	
-	
-	
+			
 }

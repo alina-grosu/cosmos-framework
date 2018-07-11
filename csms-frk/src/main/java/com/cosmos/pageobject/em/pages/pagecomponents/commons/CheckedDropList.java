@@ -1,17 +1,12 @@
 package com.cosmos.pageobject.em.pages.pagecomponents.commons;
 
 import java.util.List;
-
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-
-import com.cosmos.pageobject.em.pages.pagecomponents.IWebDriverAware;
 import ru.yandex.qatools.htmlelements.annotations.Timeout;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
-public class CheckedDropList extends HtmlElement
-							implements IWebDriverAware {
+public class CheckedDropList extends HtmlElement{
 	
 	@FindBy(how = How.XPATH, using = ".//li")
 	private List<CheckedListItem> dropListItemsAll;	
@@ -19,8 +14,7 @@ public class CheckedDropList extends HtmlElement
 	@Timeout(0)
 	private List<CheckedListItem> dropListItemsChecked;
 	@FindBy(how = How.XPATH, using = ".//li[not(@class = 'active')]")
-	private List<CheckedListItem> dropListItemsUnchecked;
-	private WebDriver driver;
+	private List<CheckedListItem> dropListItemsUnchecked;	
 	
 	public void checkItemWithText(String text)
 	{
@@ -37,16 +31,8 @@ public class CheckedDropList extends HtmlElement
 		while (dropListItemsChecked.size() != 0)
 		{
 			CheckedListItem checkedListItem = dropListItemsChecked.iterator().next();
-			checkedListItem.uncheck();
-			//WaitUtils.waitUntilElementStaleness(checkedListItem, driver);			
+			checkedListItem.uncheck();		
 		}		
 	}
 
-	@Override
-	public void setWebDriver(WebDriver driver)
-	{
-		this.driver = driver;
-	}
-	
-	
 }

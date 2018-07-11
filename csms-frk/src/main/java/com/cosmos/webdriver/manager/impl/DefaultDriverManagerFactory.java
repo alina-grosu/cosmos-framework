@@ -4,7 +4,6 @@ import java.util.Optional;
 import com.cosmos.webdriver.manager.IDriverManager;
 import com.cosmos.webdriver.manager.IDriverManagerConfiguration;
 import com.cosmos.webdriver.manager.IDriverManagerFactory;
-import com.cosmos.webdriver.manager.IDriverServiceManager;
 
 
 public class DefaultDriverManagerFactory 

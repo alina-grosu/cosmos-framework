@@ -1,18 +1,13 @@
 package com.cosmos.pageobject.em.pages.pagecomponents;
 
 import static com.cosmos.util.WaitUtils.waitUntilElementVisible;
-
 import java.util.Arrays;
 import java.util.List;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-
 import com.cosmos.uicomparison.IUiComparisonIgnorableElementsAware;
-import com.cosmos.util.WaitUtils;
-
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
@@ -38,7 +33,7 @@ public class LoginFormComponent
 	
 	public void inputCredentials(String login, String password)
 	{
-		WaitUtils.waitUntilElementVisible(this.login, driver);
+		waitUntilElementVisible(this.login, driver);
 		this.login.sendKeys(login);
 		this.password.sendKeys(password);					
 	}

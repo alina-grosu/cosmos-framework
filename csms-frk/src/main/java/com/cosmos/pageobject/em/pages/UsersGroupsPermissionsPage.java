@@ -18,9 +18,7 @@ import ru.yandex.qatools.htmlelements.element.Table;
 public class UsersGroupsPermissionsPage extends BasePage {
 	
 	@FindBy(how = How.XPATH, using = "//body[@class = '']")
-	private WebElement thisPage;
-	@FindBy(how = How.XPATH, using = "//div[@class='modal in']")
-	private WebElement overlay;	
+	private WebElement thisPage;	
 	@FindBy(how = How.XPATH, using = "//body[//div[@class='modal' and contains(@style, 'display: none')]]")
 	private WebElement noOverlay;
 	@FindBy(how = How.XPATH, using = "//input[@type = 'emailAddress']")	
@@ -43,8 +41,8 @@ public class UsersGroupsPermissionsPage extends BasePage {
 	private WebElement cloakAs;
 	@FindBy(how = How.XPATH, using = "//div[contains(@class, 'bootbox modal')]//div[@class = 'modal-content']//button[@class = 'btn btn-danger']")	
 	private WebElement cloakAsConfirm;
-	@FindBy(how = How.XPATH, using = "//div[contains(@class, 'bootbox modal')]//div[@class = 'modal-content']")	
-	private WebElement cloakAsConfirmPopup;	
+//	@FindBy(how = How.XPATH, using = "//div[contains(@class, 'bootbox modal')]//div[@class = 'modal-content']")	
+//	private WebElement cloakAsConfirmPopup;	
 	
 								
 	private static final Map<String, String> roles = new HashMap<>();

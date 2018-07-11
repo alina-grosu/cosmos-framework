@@ -9,15 +9,9 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-
 import com.cosmos.pageobject.em.pages.pagecomponents.commons.Calendar;
 import com.cosmos.pageobject.em.pages.pagecomponents.commons.MultiSelectCheckedDropBox;
 import com.cosmos.uicomparison.IUiComparisonIgnorableElementsAware;
@@ -28,9 +22,7 @@ import ru.yandex.qatools.htmlelements.element.Select;
 
 public class NeedsAssessmentsEditorPage extends BasePage
 										implements IUiComparisonIgnorableElementsAware{
-	
-	private static final Logger logger = LogManager.getLogger();
-	
+			
 	private static final Map<String, BiConsumer<NeedsAssessmentsEditorPage, String>> inputActions = new HashMap<>();
 	static 
 	{
