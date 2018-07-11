@@ -8,10 +8,10 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions
 (
-		features="src/test/resources/com/cosmos/cucumber/em/features/EmPofNeedsAssesmentScreen/EmPofNeedsAssesmentScreen.feature"
+		features="src/test/resources/com/cosmos/cucumber/em/features/EmPocNeedsAssesmentScreen/EmPocNeedsAssesmentScreen.feature"
 		, 	glue="com/cosmos/cucumber/em/steps"
 		, 	plugin= {"io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm"}
 )
-public class EmPofNeedsAssessmentsRunner {
+public class EmPocNeedsAssessmentsRunner {
 
 }

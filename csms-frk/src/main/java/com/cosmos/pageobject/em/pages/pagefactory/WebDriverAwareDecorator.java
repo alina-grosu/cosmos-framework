@@ -1,23 +1,27 @@
 package com.cosmos.pageobject.em.pages.pagefactory;
 
-import static ru.yandex.qatools.htmlelements.loader.HtmlElementLoader.createHtmlElement;
+import static ru.yandex.qatools.htmlelements.loader.decorator.ProxyFactory.createWebElementProxy;
 import static ru.yandex.qatools.htmlelements.utils.HtmlElementUtils.getElementName;
 import static ru.yandex.qatools.htmlelements.utils.HtmlElementUtils.newInstance;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 
-import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 import com.cosmos.pageobject.em.pages.pagecomponents.IWebDriverAware;
 
+import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.annotations.Timeout;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 import ru.yandex.qatools.htmlelements.exceptions.HtmlElementsException;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
+import ru.yandex.qatools.htmlelements.loader.decorator.proxyhandlers.WebElementNamedProxyHandler;
 import ru.yandex.qatools.htmlelements.pagefactory.CustomElementLocatorFactory;
 
 public class WebDriverAwareDecorator extends HtmlElementDecorator {
@@ -61,6 +65,26 @@ public class WebDriverAwareDecorator extends HtmlElementDecorator {
     	{
     		throw new HtmlElementsException(e);
     	}
-    }       
+    }
 
+
+	/*@Override
+	protected WebElement decorateWebElement(ClassLoader loader, Field field)
+	{
+		 ElementLocator locator = factory.createLocator(field);
+	     InvocationHandler handler = new StaleTimeoutAwareNamedWebElementProxyHandler(locator, getElementName(field), getStalenessTimeout(field));
+	     
+	     return createWebElementProxy(loader, handler);
+	}*/
+
+
+	/*private long getStalenessTimeout(Field field)
+	{
+		if (field.isAnnotationPresent(Timeout.class)) {
+            return field.getAnnotation(Timeout.class).value();
+        }
+		return 5;
+	}  */     
+
+    
 }

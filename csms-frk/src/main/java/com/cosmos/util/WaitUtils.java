@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -33,7 +34,7 @@ public class WaitUtils {
 	}
 	
 	public static boolean waitUntilElementInvisible(WebElement target, WebDriver driver, long timeout)
-	{
+	{				
 				
 		return new FluentWait<WebDriver>(driver)
 				.pollingEvery(50, TimeUnit.MILLISECONDS)
@@ -48,13 +49,24 @@ public class WaitUtils {
 		return waitUntilElementStaleness(target, driver, 5);
 	}
 
-	private static boolean waitUntilElementStaleness(WebElement target, WebDriver driver, int timeout)
+	public static boolean waitUntilElementStaleness(WebElement target, WebDriver driver, int timeout)
 	{
 		return new FluentWait<WebDriver>(driver)
 				.pollingEvery(50, TimeUnit.MILLISECONDS)
 				.withTimeout(timeout, TimeUnit.SECONDS)
 				.ignoring(NoSuchElementException.class)
 				.until(ExpectedConditions.stalenessOf(target))
+				;
+	}
+	
+	public static WebElement waitUntilElementRefreshed(WebElement target, WebDriver driver, long timeout)
+	{				
+				
+		return new FluentWait<WebDriver>(driver)
+				.pollingEvery(50, TimeUnit.MILLISECONDS)
+				.withTimeout(timeout, TimeUnit.SECONDS)
+				.ignoring(NoSuchElementException.class)
+				.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(target)))
 				;
 	}
 	

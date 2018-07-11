@@ -6,6 +6,7 @@ import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.internal.WrapsElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -13,6 +14,7 @@ import com.cosmos.pageobject.em.pages.pagecomponents.IWebDriverAware;
 import com.cosmos.util.WaitUtils;
 import com.cosmos.webdriver.manager.IDriverManager;
 
+import ru.yandex.qatools.htmlelements.annotations.Timeout;
 import ru.yandex.qatools.htmlelements.element.Select;
 import ru.yandex.qatools.htmlelements.element.Table;
 
@@ -48,11 +50,10 @@ public class UsersGroupsPermissionsPage extends BasePage {
 	private WebElement cloakAsConfirmPopup;
 	@FindBy(how = How.XPATH, using = "//span[@id = 'oneMomentPlease' and @class = 'blink']")	
 	private WebElement oneMomentPlease;
+	@FindBy(how = How.XPATH, using = "//div[@class = 'header-custom header-custom-cloak' and ./span[@id = 'oneMomentPlease' and @style = 'display: none;']]")	
+	private WebElement noOneMomentPlease;
 	
-	
-	
-				
-	
+								
 	private static final Map<String, String> roles = new HashMap<>();
 	static 
 	{
@@ -89,26 +90,16 @@ public class UsersGroupsPermissionsPage extends BasePage {
 		email.sendKeys(roles.get(role));		
 		securityProfileName.click();
 		securityProfileName.selectByVisibleText(role);
+		WebElement currentSearchResults = ((WrapsElement)usersTable.getWrappedElement()).getWrappedElement();		
 		search.click();
-		WaitUtils.waitUntilElementInvisible(oneMomentPlease, driverManager.getDriver());		
-		
+		WaitUtils.waitUntilElementStaleness(currentSearchResults, driverManager.getDriver(), 10);		
 		usersTable.getCellAt(0, 0).findElement(By.xpath("//div[@id = 'myDropdown']/button")).click();
 		cloakAs.click();
-		WaitUtils.waitUntilElementVisible(cloakAsConfirmPopup, driverManager.getDriver());
 		cloakAsConfirm.click();
-	}
-	
-	public void waitDomainToLoad()
-	{
-		WaitUtils.waitUntilElementInvisible(domainPopup, driverManager.getDriver());
-		//WaitUtils.waitUntilElementVisible(overlay, driverManager.getDriver());
-		WaitUtils.waitUntilElementInvisible(WaitUtils.waitUntilElementVisible(overlay, driverManager.getDriver()), driverManager.getDriver(), 20);
-	}
+	}		
 	
 	private void waitPageToLoad()
 	{
-		WaitUtils.waitUntilElementVisible(noOverlay, driverManager.getDriver(), 30);
-	}
-	
-	
+		WaitUtils.waitUntilElementVisible(noOverlay, driverManager.getDriver(), 50);
+	}		
 }

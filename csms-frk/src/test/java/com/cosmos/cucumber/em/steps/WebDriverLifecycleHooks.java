@@ -21,7 +21,7 @@ public class WebDriverLifecycleHooks {
 		this.configurationContext = configurationContext;
 	}
 	
-	@After
+	@After(order = 7000)
 	public void restartBrowser()
 	{
 		if (configurationContext.getTestConfig().getWebDriverScope().equals(WebDriverLifecycleEnum.SCENARIO))
