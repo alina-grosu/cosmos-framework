@@ -83,8 +83,12 @@ public class EmNeedsAssessmentEditorSteps {
 	}
 	
 	@Then("^Needs Assessment is filled with next data$")
-	public void needs_Assessment_is_filled_with_next_data(Map<String, String> data) throws Exception {
-		assertTrue(uiContext.getPageObjectManager().getNeedsAssessmentsEditorPage().checkData(data));
+	public void needs_Assessment_is_filled_with_next_data(Map<String, String> expectedData) throws Exception {		
+		Map<String, String> actualData = uiContext
+											.getPageObjectManager()
+											.getNeedsAssessmentsEditorPage()
+											.getCurrentData(expectedData.keySet());
+		assertEquals(expectedData, actualData);
 	}
 	
 	@Then("^User adds next Business Units$")

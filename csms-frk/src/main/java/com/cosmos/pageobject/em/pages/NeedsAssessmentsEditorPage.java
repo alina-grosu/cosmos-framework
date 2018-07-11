@@ -42,19 +42,19 @@ public class NeedsAssessmentsEditorPage extends BasePage
 		inputActions.put("Year", (page, year) -> page.selectYear(year));
 	}
 	
-	private static final Map<String, Function<NeedsAssessmentsEditorPage, String>> validateActions = new HashMap<>();
+	private static final Map<String, Function<NeedsAssessmentsEditorPage, String>> outputActions = new HashMap<>();
 	static 
 	{
-		validateActions.put("Title", (page) -> page.title.getAttribute("value"));
-		validateActions.put("Description", (page) -> page.description.getText());
-		validateActions.put("Justification", (page) -> page.justification.getText());
-		validateActions.put("Effective Date", (page) -> page.effectiveDate.getCurrentDateAsString());
-		validateActions.put("Expiration Date", (page) -> page.expirationDate.getCurrentDateAsString());
-		validateActions.put("Year", (page) -> page.year.getFirstSelectedOption().getText());
-		validateActions.put("Business Units", (page) -> page.businessUnitSelector.getSelectedItemsAsString());
-		validateActions.put("Original ID", (page) -> page.originalId.getAttribute("value"));
-		validateActions.put("Region", (page) -> page.regionSelector.getSelectedItemsAsString());
-		validateActions.put("Functional Area", (page) -> page.functionalAreaSelector.getFirstSelectedOption().getText());				
+		outputActions.put("Title", (page) -> page.title.getAttribute("value"));
+		outputActions.put("Description", (page) -> page.description.getText());
+		outputActions.put("Justification", (page) -> page.justification.getText());
+		outputActions.put("Effective Date", (page) -> page.effectiveDate.getCurrentDateAsString());
+		outputActions.put("Expiration Date", (page) -> page.expirationDate.getCurrentDateAsString());
+		outputActions.put("Year", (page) -> page.year.getFirstSelectedOption().getText());
+		outputActions.put("Business Units", (page) -> page.businessUnitSelector.getSelectedItemsAsString());
+		outputActions.put("Original ID", (page) -> page.originalId.getAttribute("value"));
+		outputActions.put("Region", (page) -> page.regionSelector.getSelectedItemsAsString());
+		outputActions.put("Functional Area", (page) -> page.functionalAreaSelector.getFirstSelectedOption().getText());				
 		
 	}
 	
@@ -183,38 +183,7 @@ public class NeedsAssessmentsEditorPage extends BasePage
 	{
 		saveButton.click();
 		return this;
-	}
-
-	public boolean checkData(Map<String, String> data)
-	{		
-		Map<String, Pair<String, String>> failures = new HashMap<>();
-		
-		for(String key : data.keySet())
-		{
-			String actual = validateActions.get(key).apply(this);
-			String expected = data.get(key);
-			
-			if(!actual.equals(expected))
-			{
-				failures.put(key, ImmutablePair.of(actual, expected));
-			};
-			
-		}
-		
-		logFailures(failures);
-		
-		return failures.isEmpty();
-	}
-
-	private void logFailures(Map<String, Pair<String, String>> failures)
-	{
-		failures
-			.keySet()
-			.forEach((key) -> logger.error(
-					String.format("Value comparison has failed for field [%s]: actual [%s], expected [%s] ",
-							key, failures.get(key).getKey(), failures.get(key).getValue())));
-		
-	}
+	}	
 
 	public NeedsAssessmentsEditorPage addBusinessUnits(List<String> bus)
 	{
@@ -236,7 +205,12 @@ public class NeedsAssessmentsEditorPage extends BasePage
 	{
 		return Arrays.asList(id);
 	}
-	
-	
-	
+
+	public Map<String, String> getCurrentData(Set<String> keySet)
+	{
+		return keySet
+				.stream()
+				.collect(Collectors.toMap((key) -> key, (key) -> outputActions.get(key).apply(this)));
+		
+	}			
 }
